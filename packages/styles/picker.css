@@ -21,6 +21,7 @@
  *           span.ndp-day__label · span.ndp-day__sub · span.ndp-day__dot
  *       .ndp-options > button.ndp-option [data-state=default|selected|current] (month/year views)
  *     .ndp-panel__footer > .ndp-segment > button.ndp-segment__item[aria-pressed] · button.ndp-button
+ *   With presets: .ndp-panel > .ndp-panel__body > .ndp-presets > button.ndp-preset[aria-pressed] · .ndp-calendar
  */
 
 .ndp-field,
@@ -243,6 +244,79 @@
   margin-top: var(--ndp-space-8);
   padding-top: var(--ndp-space-8);
   border-top: 1px solid var(--ndp-border-default);
+}
+
+/* Presets (shortcuts) beside the calendar; stacked above it on narrow screens. */
+.ndp-panel__body {
+  display: flex;
+  gap: var(--ndp-space-12);
+}
+
+.ndp-panel__body > .ndp-calendar,
+.ndp-panel__body > .ndp-panel__calendar {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ndp-presets {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: 2px;
+  width: var(--ndp-presets-width, 152px);
+  padding-right: var(--ndp-space-12);
+  border-right: 1px solid var(--ndp-border-default);
+}
+
+.ndp-preset {
+  width: 100%;
+  min-height: 32px;
+  padding: 0 var(--ndp-space-12);
+  border: 0;
+  border-radius: var(--ndp-radius-md);
+  background: transparent;
+  color: var(--ndp-text-primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  text-align: start;
+  cursor: pointer;
+}
+
+.ndp-preset:hover {
+  background: var(--ndp-bg-hover);
+}
+
+.ndp-preset[aria-pressed='true'] {
+  background: var(--ndp-bg-accent-muted);
+  color: var(--ndp-text-accent);
+}
+
+.ndp-preset:disabled {
+  background: transparent;
+  color: var(--ndp-text-disabled);
+  cursor: default;
+}
+
+@media (max-width: 479px) {
+  .ndp-panel__body {
+    flex-direction: column;
+    gap: var(--ndp-space-8);
+  }
+
+  .ndp-presets {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    padding: 0 0 var(--ndp-space-8);
+    border-right: 0;
+    border-bottom: 1px solid var(--ndp-border-default);
+  }
+
+  .ndp-preset {
+    width: auto;
+  }
 }
 
 @keyframes ndp-panel-in {

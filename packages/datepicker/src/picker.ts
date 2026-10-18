@@ -1,4 +1,11 @@
-import { toCalendar, toIsoDate, type AdDate, type CalendarSystem } from '@nepdate/core';
+import {
+  getConfig,
+  toCalendar,
+  toIsoDate,
+  type AdDate,
+  type CalendarDate,
+  type CalendarSystem,
+} from '@nepdate/core';
 import { createCalendar } from '@nepdate/calendar';
 import {
   createEmitter,
@@ -10,6 +17,13 @@ import {
   todayOf,
 } from './base';
 import {
+  describePreset,
+  resolveSinglePreset,
+  type PresetContext,
+  type PresetState,
+} from './presets';
+import {
+  checkDate,
   detailOf,
   equivalentText,
   formatInput,
@@ -75,8 +89,50 @@ export function createDatePicker(initial: DatePickerOptions = {}): DatePickerSto
       error,
       equivalentText: error ? null : equivalentText(date, calendar, locale),
       placeholder: placeholderText(calendar, locale),
+      presets: presetStates(),
       calendarState: panel.getState(),
     });
+  }
+
+  function presetContext(): PresetContext {
+    return {
+      today: toCalendar(todayOf(options), 'AD'),
+      calendar,
+      weekStartsOn: options.weekStartsOn ?? getConfig().weekStartsOn,
+    };
+  }
+
+  /** Each shortcut's date, or null when it cannot be used now. */
+  function resolvedPresets(): { id: string; label: string; date: CalendarDate | null }[] {
+    const context = presetContext();
+    const limits = inputLimits(options, panel);
+
+    return (options.presets ?? []).map((preset) => {
+      const entry = describePreset(preset, options.locale, resolveSinglePreset);
+      const date = ((): CalendarDate | null => {
+        try {
+          const candidate = entry.resolve(context);
+          return checkDate(candidate, calendar, limits, localeOf(options))
+            ? null
+            : candidate;
+        } catch {
+          return null; // e.g. outside the BS table
+        }
+      })();
+
+      return { id: entry.id, label: entry.label, date };
+    });
+  }
+
+  function presetStates(): PresetState[] {
+    return resolvedPresets().map(({ id, label, date }) =>
+      Object.freeze({
+        id,
+        label,
+        isActive: date !== null && toIsoDate(date) === value,
+        isDisabled: date === null,
+      }),
+    );
   }
 
   function syncPanel(showDate: boolean): void {
@@ -204,6 +260,15 @@ export function createDatePicker(initial: DatePickerOptions = {}): DatePickerSto
         text = format(next);
         setDate(next, true);
       });
+    },
+    applyPreset(id) {
+      const preset = resolvedPresets().find((entry) => entry.id === id);
+      if (destroyed || !preset?.date) {
+        return false;
+      }
+      pick(preset.date);
+
+      return true;
     },
   };
 

@@ -1,7 +1,7 @@
 import '@nepdate/styles/index.css';
 import './playground.css';
 import { StrictMode, useState, type ReactElement, type SyntheticEvent } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, type Root } from 'react-dom/client';
 import type { CalendarSystem, LocaleCode } from '@nepdate/core';
 import { Calendar, DatePicker, DateRangePicker, DateText } from '@nepdate/react';
 import { runAxe } from './axe';
@@ -149,7 +149,7 @@ function App(): ReactElement {
 
         <section>
           <h2>Date range</h2>
-          <p>Two clicks; 1–15 days.</p>
+          <p>Two clicks or a shortcut; fiscal years run from 1 Shrawan.</p>
           <DateRangePicker
             value={range}
             onChange={setRange}
@@ -157,7 +157,15 @@ function App(): ReactElement {
             theme={theme}
             calendar={fixed}
             minDays={1}
-            maxDays={15}
+            maxDays={400}
+            presets={[
+              'last7Days',
+              'last30Days',
+              'thisMonth',
+              'lastMonth',
+              'thisFiscalYear',
+              'lastFiscalYear',
+            ]}
             startLabel="From"
             endLabel="To"
           />
@@ -193,7 +201,10 @@ function App(): ReactElement {
 
 const container = document.getElementById('root');
 if (container) {
-  createRoot(container).render(
+  // Reuse the root when Vite hot-reloads this module.
+  const holder = window as unknown as { __ndpRoot?: Root };
+  holder.__ndpRoot ??= createRoot(container);
+  holder.__ndpRoot.render(
     <StrictMode>
       <App />
     </StrictMode>,

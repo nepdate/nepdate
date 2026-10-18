@@ -8,12 +8,13 @@ import {
   type Weekday,
 } from '@nepdate/core';
 import type { EventMarker, HolidayInput, HolidayLookup } from '@nepdate/calendar';
-import type { DateDetail } from '@nepdate/datepicker';
+import type { DateDetail, SinglePreset } from '@nepdate/datepicker';
 import { restoreFocus } from '@nepdate/dom';
 import { CalendarBody } from './calendar-body';
 import { useDatePicker } from './hooks';
 import { Icon } from './icons';
 import { usePanel } from './panel';
+import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PanelBody } from './presets';
 
 export interface DatePickerProps {
   /** The AD date as "YYYY-MM-DD", or "": the same value a native date input uses. */
@@ -50,6 +51,8 @@ export interface DatePickerProps {
   showOtherCalendar?: boolean | undefined;
   displayFormat?: DateFormatPattern | undefined;
   closeOnSelect?: boolean | undefined;
+  /** Shortcuts beside the calendar: 'today', 'yesterday', 'tomorrow' or { id, label, resolve }. */
+  presets?: readonly SinglePreset[] | undefined;
   /** Remember the viewer's BS/AD choice in localStorage under this key. */
   persistCalendar?: string | undefined;
   /** Override "today" (tests, server rendering). */
@@ -108,6 +111,7 @@ export function DatePicker(props: DatePickerProps): ReactElement {
       store.actions.close();
     },
     calendar.focusGrid,
+    state.presets.length > 0 ? PANEL_WIDTH_WITH_PRESETS : PANEL_WIDTH,
   );
 
   // The viewer's last BS/AD choice, read after hydration so server and client render alike.
@@ -231,23 +235,33 @@ export function DatePicker(props: DatePickerProps): ReactElement {
               : labels.labels.chooseDate
           }
         >
-          <CalendarBody
-            bindings={{
-              ...calendar,
-              getDayProps: (cell) => ({
-                ...calendar.getDayProps(cell),
-                onClick: () => {
-                  if (
-                    !cell.isDisabled &&
-                    store.actions.select(cell.date) &&
-                    !store.getState().open
-                  ) {
-                    restoreFocus(input.current);
-                  }
-                },
-              }),
+          <PanelBody
+            presets={state.presets}
+            label={labels.labels.presets}
+            onPreset={(id) => {
+              if (store.actions.applyPreset(id) && !store.getState().open) {
+                restoreFocus(input.current);
+              }
             }}
-          />
+          >
+            <CalendarBody
+              bindings={{
+                ...calendar,
+                getDayProps: (cell) => ({
+                  ...calendar.getDayProps(cell),
+                  onClick: () => {
+                    if (
+                      !cell.isDisabled &&
+                      store.actions.select(cell.date) &&
+                      !store.getState().open
+                    ) {
+                      restoreFocus(input.current);
+                    }
+                  },
+                }),
+              }}
+            />
+          </PanelBody>
           <div className="ndp-panel__footer">
             {state.canSwitchCalendar ? (
               <div

@@ -312,6 +312,48 @@ describe('forms (VAN-001)', () => {
   });
 });
 
+describe('presets (PRE-007)', () => {
+  test('the presets attribute lists shortcuts; applying one sets the value', () => {
+    const element = picker('presets="today, yesterday, nonsense"');
+    element.open();
+    const buttons = [...element.querySelectorAll<HTMLButtonElement>('.ndp-preset')];
+    expect(buttons.map((button) => [button.textContent, button.disabled])).toEqual([
+      ['Today', false],
+      ['Yesterday', false],
+      ['nonsense', true],
+    ]);
+    expect(q(element, '.ndp-presets').getAttribute('aria-label')).toBe('Shortcuts');
+    buttons[1]?.click();
+    expect(element.value).toBe('2026-10-17');
+    expect(q<HTMLElement>(element, '.ndp-panel').hidden).toBe(true);
+  });
+
+  test('custom presets as a property; range presets', () => {
+    const element = picker();
+    element.presets = [
+      {
+        id: 'ny',
+        label: 'New year',
+        resolve: () => ({ calendar: 'BS', year: 2083, month: 1, day: 1 }),
+      },
+    ];
+    element.open();
+    q<HTMLButtonElement>(element, '.ndp-preset').click();
+    expect(element.value).toBe('2026-04-14');
+    expect(element.presets).toHaveLength(1);
+
+    const range = mount<NepDateRangePickerElement>(
+      '<nep-date-range-picker presets="last7Days"></nep-date-range-picker>',
+    );
+    range.view?.setOptions({ today: { calendar: 'AD', year: 2026, month: 10, day: 18 } });
+    range.view?.open();
+    q<HTMLButtonElement>(range, '.ndp-preset').click();
+    expect(range.value).toEqual({ start: '2026-10-12', end: '2026-10-18' });
+    range.presets = ['thisMonth'];
+    expect(range.presets).toEqual(['thisMonth']);
+  });
+});
+
 describe('<nep-calendar> (VAN-002)', () => {
   test('fires nep-select with the date and its AD value', () => {
     const element = mount<NepCalendarElement>(

@@ -39,6 +39,32 @@ picker.actions.switchCalendar('AD'); // the text becomes "2026-10-10"; the value
 
 `state.error` is `{ code, message }`, with `code` one of `'format'`, `'range'`, `'disabled'`, `'tooShort'` or `'tooLong'`. The message is already translated, e.g. "Choose 2083-06-15 or later." or "वि.सं. मिति YYYY-MM-DD ढाँचामा लेख्नुहोस्।".
 
+## Presets
+
+Shortcuts shown beside the calendar. Weeks, months and years count in the calendar on screen, so "This month" is the BS month in BS mode.
+
+```ts
+createDateRangePicker({
+  presets: ['last7Days', 'thisMonth', 'lastMonth', 'thisFiscalYear', 'lastFiscalYear'],
+});
+createDatePicker({
+  presets: [
+    'today',
+    'yesterday',
+    { id: 'admission', label: 'Admission day', resolve: () => bsDate(2083, 1, 15) },
+  ],
+});
+picker.getState().presets; // [{ id, label, isActive, isDisabled }]
+picker.actions.applyPreset('thisFiscalYear'); // 2083-04-01 → 2084-03-32 BS
+```
+
+| Picker | Built-in presets                                                                                                                                  |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Single | `today`, `yesterday`, `tomorrow`                                                                                                                  |
+| Range  | `today`, `yesterday`, `thisWeek`, `lastWeek`, `last7Days`, `last30Days`, `thisMonth`, `lastMonth`, `thisYear`, `thisFiscalYear`, `lastFiscalYear` |
+
+A preset is disabled when its range falls outside `min`/`max` or breaks `minDays`/`maxDays`.
+
 ## Range picker
 
 ```ts

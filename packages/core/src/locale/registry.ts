@@ -34,6 +34,24 @@ export interface LocaleData {
     readonly openCalendar: string;
     readonly chooseDate: string;
     readonly calendar: string;
+    /** Picker shortcuts (presets) and the name of their list. */
+    readonly presets: string;
+    readonly fiscalYear: string;
+  };
+  /** Names of the built-in picker presets. */
+  readonly presets: {
+    readonly today: string;
+    readonly yesterday: string;
+    readonly tomorrow: string;
+    readonly thisWeek: string;
+    readonly lastWeek: string;
+    readonly last7Days: string;
+    readonly last30Days: string;
+    readonly thisMonth: string;
+    readonly lastMonth: string;
+    readonly thisYear: string;
+    readonly thisFiscalYear: string;
+    readonly lastFiscalYear: string;
   };
   /** Messages may use {min} and {max} placeholders. */
   readonly messages: {

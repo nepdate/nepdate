@@ -14,6 +14,18 @@ export {
   type InputLimits,
   type ParseResult,
 } from './input';
+export {
+  resolveRangePreset,
+  resolveSinglePreset,
+  type CustomPreset,
+  type PresetContext,
+  type PresetRange,
+  type PresetState,
+  type RangePreset,
+  type RangePresetId,
+  type SinglePreset,
+  type SinglePresetId,
+} from './presets';
 export type {
   DateDetail,
   DateError,

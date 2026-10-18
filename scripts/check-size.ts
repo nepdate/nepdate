@@ -30,7 +30,8 @@ export const BUDGETS: Record<string, Budget[]> = {
     { file: 'dist/index.js', bundle: true, only: ['adToBs'], maxGzipBytes: 3 * KB },
   ],
   calendar: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 4 * KB }],
-  datepicker: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 3 * KB }],
+  // Single + range pickers and presets; 4 kB since A1 (docs/plan D-033).
+  datepicker: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 4 * KB }],
   dom: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 1.5 * KB }],
   react: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 8 * KB }],
   vanilla: [

@@ -6,6 +6,7 @@ import {
   type CalendarState,
   type CalendarStore,
 } from '@nepdate/calendar';
+import type { PresetState } from '@nepdate/datepicker';
 import {
   createDatePicker,
   createDateRangePicker,
@@ -75,6 +76,8 @@ export interface DatePickerBindings {
   getCalendarOptionProps(calendar: CalendarSystem): ButtonProps;
   getTodayProps(): ButtonProps;
   getPanelProps(): PanelProps;
+  /** A shortcut button (see state.presets). */
+  getPresetProps(preset: PresetState): ButtonProps;
 }
 
 /** A BS/AD date picker without markup: wire the getters to your own elements. */
@@ -180,6 +183,19 @@ export function useDatePicker(
       role: 'dialog',
       'aria-label': labels.labels.chooseDate,
     }),
+    getPresetProps: (preset) =>
+      presetProps(preset, (id) => store.actions.applyPreset(id)),
+  };
+}
+
+function presetProps(preset: PresetState, apply: (id: string) => boolean): ButtonProps {
+  return {
+    type: 'button',
+    'aria-pressed': preset.isActive,
+    disabled: preset.isDisabled,
+    onClick: () => {
+      apply(preset.id);
+    },
   };
 }
 
@@ -196,6 +212,7 @@ export interface DateRangePickerBindings {
   getToggleProps(): ButtonProps & { 'aria-expanded': boolean; 'aria-controls': string };
   getCalendarOptionProps(calendar: CalendarSystem): ButtonProps;
   getPanelProps(): PanelProps;
+  getPresetProps(preset: PresetState): ButtonProps;
 }
 
 /** A BS/AD date range picker without markup. */
@@ -290,5 +307,7 @@ export function useDateRangePicker(
       role: 'dialog',
       'aria-label': labels.labels.chooseDate,
     }),
+    getPresetProps: (preset) =>
+      presetProps(preset, (id) => store.actions.applyPreset(id)),
   };
 }

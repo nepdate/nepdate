@@ -17,6 +17,7 @@ export function usePanel(
   },
   close: () => void,
   focusGrid: () => void,
+  width = 320,
 ): void {
   const closeRef = useRef(close);
   closeRef.current = close;
@@ -27,7 +28,7 @@ export function usePanel(
     if (!open || !anchor || !panel) {
       return undefined;
     }
-    const stopTracking = trackPosition(anchor, panel);
+    const stopTracking = trackPosition(anchor, panel, { width });
     const stopOutside = onOutsidePointer(
       () => [refs.field.current, refs.panel.current],
       () => {
@@ -44,7 +45,7 @@ export function usePanel(
       stopOutside();
       stopEscape();
     };
-  }, [open]);
+  }, [open, width]);
 
   useEffect(() => {
     if (open) {

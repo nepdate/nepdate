@@ -9,6 +9,7 @@ import {
 import { onEscape, onOutsidePointer, restoreFocus, trackPosition } from '@nepdate/dom';
 import { CalendarView } from './calendar-view';
 import { el, icon, setAttrs, setText, uid } from './dom';
+import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PresetList } from './preset-list';
 
 export type Theme = 'light' | 'dark' | 'auto';
 
@@ -70,6 +71,7 @@ export class DatePickerView {
   private readonly todayButton: HTMLButtonElement;
   private readonly hidden: HTMLInputElement;
   private readonly calendarView: CalendarView;
+  private readonly presetList: PresetList;
   private readonly unsubscribe: () => void;
   private closePanel: (() => void) | null = null;
   private wasOpen = false;
@@ -139,7 +141,12 @@ export class DatePickerView {
       class: 'ndp-button',
       'data-action': 'today',
     });
-    const calendarRoot = el('div');
+    const calendarRoot = el('div', { class: 'ndp-panel__calendar' });
+    this.presetList = new PresetList((id) => {
+      if (this.store.actions.applyPreset(id) && !this.store.getState().open) {
+        restoreFocus(this.input);
+      }
+    });
     this.panel = el(
       'div',
       {
@@ -150,7 +157,7 @@ export class DatePickerView {
         hidden: true,
       },
       [
-        calendarRoot,
+        el('div', { class: 'ndp-panel__body' }, [this.presetList.element, calendarRoot]),
         el('div', { class: 'ndp-panel__footer' }, [this.segment, this.todayButton]),
       ],
     );
@@ -280,6 +287,7 @@ export class DatePickerView {
       });
     }
     setText(this.todayButton, locale.labels.today);
+    this.presetList.render(state.presets, locale.labels.presets);
 
     const name = this.options.hiddenInput === false ? undefined : this.options.name;
     setAttrs(this.hidden, { name: name ?? null, value: state.value });
@@ -297,7 +305,12 @@ export class DatePickerView {
     this.options.onOpenChange?.(open);
     if (open) {
       this.panel.hidden = false;
-      const stopTracking = trackPosition(this.box, this.panel);
+      const stopTracking = trackPosition(this.box, this.panel, {
+        width:
+          this.store.getState().presets.length > 0
+            ? PANEL_WIDTH_WITH_PRESETS
+            : PANEL_WIDTH,
+      });
       const stopOutside = onOutsidePointer([this.field, this.panel], () => {
         this.store.actions.close();
       });

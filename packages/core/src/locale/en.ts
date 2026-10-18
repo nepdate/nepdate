@@ -53,6 +53,22 @@ export const en: LocaleData = {
     openCalendar: 'Open calendar',
     chooseDate: 'Choose a date',
     calendar: 'Calendar',
+    presets: 'Shortcuts',
+    fiscalYear: 'Fiscal year',
+  },
+  presets: {
+    today: 'Today',
+    yesterday: 'Yesterday',
+    tomorrow: 'Tomorrow',
+    thisWeek: 'This week',
+    lastWeek: 'Last week',
+    last7Days: 'Last 7 days',
+    last30Days: 'Last 30 days',
+    thisMonth: 'This month',
+    lastMonth: 'Last month',
+    thisYear: 'This year',
+    thisFiscalYear: 'This fiscal year',
+    lastFiscalYear: 'Last fiscal year',
   },
   messages: {
     invalidFormat: {

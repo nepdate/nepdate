@@ -7,11 +7,13 @@ import {
   type Weekday,
 } from '@nepdate/core';
 import type { HolidayInput, HolidayLookup } from '@nepdate/calendar';
-import type { RangeDetail, RangeValue } from '@nepdate/datepicker';
+import type { RangeDetail, RangePreset, RangeValue } from '@nepdate/datepicker';
+import { restoreFocus } from '@nepdate/dom';
 import { CalendarBody } from './calendar-body';
 import { useDateRangePicker } from './hooks';
 import { Icon } from './icons';
 import { usePanel } from './panel';
+import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PanelBody } from './presets';
 
 export interface DateRangePickerProps {
   value?: RangeValue | undefined;
@@ -23,6 +25,8 @@ export interface DateRangePickerProps {
   max?: string | undefined;
   minDays?: number | undefined;
   maxDays?: number | undefined;
+  /** Shortcuts beside the calendar: 'last7Days', 'thisMonth', 'thisFiscalYear', … or { id, label, resolve }. */
+  presets?: readonly RangePreset[] | undefined;
   isDateDisabled?: ((date: CalendarDate) => boolean) | undefined;
   holidays?: readonly HolidayInput[] | HolidayLookup | undefined;
   locale?: LocaleCode | undefined;
@@ -66,6 +70,7 @@ export function DateRangePicker({
       store.actions.close();
     },
     calendar.focusGrid,
+    state.presets.length > 0 ? PANEL_WIDTH_WITH_PRESETS : PANEL_WIDTH,
   );
 
   const invalid = (which: 'start' | 'end'): boolean =>
@@ -141,7 +146,17 @@ export function DateRangePicker({
           data-ndp-theme={theme}
           {...picker.getPanelProps()}
         >
-          <CalendarBody bindings={calendar} />
+          <PanelBody
+            presets={state.presets}
+            label={labels.labels.presets}
+            onPreset={(id) => {
+              if (store.actions.applyPreset(id) && !store.getState().open) {
+                restoreFocus(start.current);
+              }
+            }}
+          >
+            <CalendarBody bindings={calendar} />
+          </PanelBody>
           {state.canSwitchCalendar && (
             <div className="ndp-panel__footer">
               <div

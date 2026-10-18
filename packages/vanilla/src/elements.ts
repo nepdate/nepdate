@@ -14,6 +14,7 @@ import {
   type HolidayInput,
   type HolidayLookup,
 } from '@nepdate/calendar';
+import type { RangePreset, SinglePreset } from '@nepdate/datepicker';
 import { CalendarView } from './calendar-view';
 import { DatePickerView, type DatePickerViewOptions, type Theme } from './picker-view';
 import { DateRangePickerView, type DateRangePickerViewOptions } from './range-view';
@@ -59,6 +60,17 @@ function int(element: Element, name: string): number | undefined {
 function theme(element: Element): Theme | undefined {
   const value = element.getAttribute('theme');
   return value === 'light' || value === 'dark' || value === 'auto' ? value : undefined;
+}
+
+/** presets="today, last7Days" → ['today', 'last7Days']; unknown ids show as disabled. */
+function presetIds(element: Element): readonly string[] | undefined {
+  const value = element.getAttribute('presets');
+  return value === null
+    ? undefined
+    : value
+        .split(',')
+        .map((id) => id.trim())
+        .filter(Boolean);
 }
 
 /** Stop the inner inputs' native change events: the element fires its own. */
@@ -109,6 +121,7 @@ export class NepDatePickerElement extends Base {
   view: DatePickerView | null = null;
   private readonly internals: ElementInternals | null;
   private rich: RichProps = {};
+  private customPresets: readonly SinglePreset[] | undefined;
   private unsubscribe: (() => void) | null = null;
 
   constructor() {
@@ -141,6 +154,14 @@ export class NepDatePickerElement extends Base {
   }
   set isDateDisabled(next: RichProps['isDateDisabled']) {
     this.setRich({ isDateDisabled: next });
+  }
+  /** Shortcuts, including custom { id, label, resolve } ones. Overrides the presets attribute. */
+  get presets(): readonly SinglePreset[] | undefined {
+    return this.customPresets ?? (presetIds(this) as readonly SinglePreset[] | undefined);
+  }
+  set presets(next: readonly SinglePreset[] | undefined) {
+    this.customPresets = next;
+    this.view?.setOptions({ presets: this.presets });
   }
   get form(): HTMLFormElement | null {
     return this.internals?.form ?? null;
@@ -265,6 +286,7 @@ export class NepDatePickerElement extends Base {
       displayFormat: str(this, 'display-format'),
       ariaLabel: str(this, 'label'),
       id: str(this, 'input-id'),
+      presets: this.presets,
     };
   }
 
@@ -428,6 +450,7 @@ export class NepDateRangePickerElement extends Base {
   view: DateRangePickerView | null = null;
   private readonly internals: ElementInternals | null;
   private rich: RichProps = {};
+  private customPresets: readonly RangePreset[] | undefined;
   private unsubscribe: (() => void) | null = null;
 
   constructor() {
@@ -450,6 +473,14 @@ export class NepDateRangePickerElement extends Base {
   set isDateDisabled(next: RichProps['isDateDisabled']) {
     this.rich = { ...this.rich, isDateDisabled: next };
     this.view?.setOptions({ isDateDisabled: next });
+  }
+  /** Shortcuts, including custom { id, label, resolve } ones. Overrides the presets attribute. */
+  get presets(): readonly RangePreset[] | undefined {
+    return this.customPresets ?? (presetIds(this) as readonly RangePreset[] | undefined);
+  }
+  set presets(next: readonly RangePreset[] | undefined) {
+    this.customPresets = next;
+    this.view?.setOptions({ presets: this.presets });
   }
 
   connectedCallback(): void {
@@ -525,6 +556,7 @@ export class NepDateRangePickerElement extends Base {
       theme: theme(this),
       startLabel: str(this, 'start-label'),
       endLabel: str(this, 'end-label'),
+      presets: this.presets,
     };
   }
 

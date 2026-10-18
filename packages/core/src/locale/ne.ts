@@ -53,6 +53,22 @@ export const ne: LocaleData = {
     openCalendar: 'पात्रो खोल्नुहोस्',
     chooseDate: 'मिति छान्नुहोस्',
     calendar: 'पात्रो',
+    presets: 'छिटो छनोट',
+    fiscalYear: 'आर्थिक वर्ष',
+  },
+  presets: {
+    today: 'आज',
+    yesterday: 'हिजो',
+    tomorrow: 'भोलि',
+    thisWeek: 'यो हप्ता',
+    lastWeek: 'गत हप्ता',
+    last7Days: 'पछिल्लो ७ दिन',
+    last30Days: 'पछिल्लो ३० दिन',
+    thisMonth: 'यो महिना',
+    lastMonth: 'गत महिना',
+    thisYear: 'यो वर्ष',
+    thisFiscalYear: 'यो आर्थिक वर्ष',
+    lastFiscalYear: 'गत आर्थिक वर्ष',
   },
   messages: {
     invalidFormat: {

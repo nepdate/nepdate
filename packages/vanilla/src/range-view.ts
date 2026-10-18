@@ -9,6 +9,7 @@ import {
 import { onEscape, onOutsidePointer, restoreFocus, trackPosition } from '@nepdate/dom';
 import { CalendarView } from './calendar-view';
 import { el, icon, setAttrs, setText, uid } from './dom';
+import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PresetList } from './preset-list';
 import type { Theme } from './picker-view';
 
 export interface DateRangePickerViewOptions extends DateRangePickerOptions {
@@ -51,6 +52,7 @@ export class DateRangePickerView {
   private readonly segment: HTMLDivElement;
   private readonly hidden: Record<RangeField, HTMLInputElement>;
   private readonly calendarView: CalendarView;
+  private readonly presetList: PresetList;
   private readonly unsubscribe: () => void;
   private closePanel: (() => void) | null = null;
   private wasOpen = false;
@@ -120,7 +122,12 @@ export class DateRangePickerView {
       el('button', { type: 'button', class: 'ndp-segment__item', 'data-calendar': 'BS' }),
       el('button', { type: 'button', class: 'ndp-segment__item', 'data-calendar': 'AD' }),
     ]);
-    const calendarRoot = el('div');
+    const calendarRoot = el('div', { class: 'ndp-panel__calendar' });
+    this.presetList = new PresetList((id) => {
+      if (this.store.actions.applyPreset(id) && !this.store.getState().open) {
+        restoreFocus(this.inputs.start);
+      }
+    });
     this.panel = el(
       'div',
       {
@@ -130,7 +137,10 @@ export class DateRangePickerView {
         popover: 'manual',
         hidden: true,
       },
-      [calendarRoot, el('div', { class: 'ndp-panel__footer' }, [this.segment])],
+      [
+        el('div', { class: 'ndp-panel__body' }, [this.presetList.element, calendarRoot]),
+        el('div', { class: 'ndp-panel__footer' }, [this.segment]),
+      ],
     );
     const row = el('div', { class: 'ndp-range' }, [
       this.boxes.start,
@@ -258,6 +268,7 @@ export class DateRangePickerView {
         'aria-pressed': calendar === state.calendar ? 'true' : 'false',
       });
     }
+    this.presetList.render(state.presets, locale.labels.presets);
     this.syncPanel(state.open);
   }
 
@@ -270,7 +281,12 @@ export class DateRangePickerView {
     if (open) {
       this.panel.hidden = false;
       const anchor = this.field.querySelector('.ndp-range') ?? this.field;
-      const stopTracking = trackPosition(anchor, this.panel);
+      const stopTracking = trackPosition(anchor, this.panel, {
+        width:
+          this.store.getState().presets.length > 0
+            ? PANEL_WIDTH_WITH_PRESETS
+            : PANEL_WIDTH,
+      });
       const stopOutside = onOutsidePointer([this.field], () => {
         this.store.actions.close();
       });

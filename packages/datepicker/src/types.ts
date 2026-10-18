@@ -7,6 +7,7 @@ import type {
   LocaleCode,
   Weekday,
 } from '@nepdate/core';
+import type { PresetState, RangePreset, SinglePreset } from './presets';
 import type {
   CalendarState,
   CalendarStore,
@@ -62,6 +63,8 @@ export interface DatePickerOptions extends PickerBaseOptions {
   /** The starting value when the picker keeps its own state. */
   readonly defaultValue?: string | undefined;
   readonly onChange?: ((value: string, detail: DateDetail | null) => void) | undefined;
+  /** Shortcuts shown in the panel: 'today', 'yesterday', 'tomorrow' or your own. */
+  readonly presets?: readonly SinglePreset[] | undefined;
 }
 
 export interface DatePickerState {
@@ -79,6 +82,7 @@ export interface DatePickerState {
   readonly equivalentText: string | null;
   /** "YYYY-MM-DD (BS)" */
   readonly placeholder: string;
+  readonly presets: readonly PresetState[];
   readonly calendarState: CalendarState;
 }
 
@@ -101,6 +105,8 @@ export interface DatePickerActions {
   selectToday(): boolean;
   /** Back to defaultValue (form reset). */
   reset(): void;
+  /** Apply a shortcut by id. Returns false when it is disabled or unknown. */
+  applyPreset(id: string): boolean;
 }
 
 export interface DatePickerStore {
@@ -130,6 +136,8 @@ export interface DateRangePickerOptions extends PickerBaseOptions {
   /** Shortest and longest allowed range, in days, counting both ends. */
   readonly minDays?: number | undefined;
   readonly maxDays?: number | undefined;
+  /** Shortcuts: 'last7Days', 'thisMonth', 'thisFiscalYear', … or your own. */
+  readonly presets?: readonly RangePreset[] | undefined;
 }
 
 export type RangeField = 'start' | 'end';
@@ -146,6 +154,7 @@ export interface DateRangePickerState {
   readonly error: (DateError & { readonly field: RangeField | 'range' }) | null;
   readonly equivalentText: { readonly start: string | null; readonly end: string | null };
   readonly placeholder: string;
+  readonly presets: readonly PresetState[];
   readonly calendarState: CalendarState;
 }
 
@@ -161,6 +170,8 @@ export interface DateRangePickerActions {
   /** A click in the panel: first sets the start, second the end. */
   select(date: CalendarDate): boolean;
   reset(): void;
+  /** Apply a shortcut by id. Returns false when it is disabled or unknown. */
+  applyPreset(id: string): boolean;
 }
 
 export interface DateRangePickerStore {

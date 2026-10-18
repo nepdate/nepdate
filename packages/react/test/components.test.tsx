@@ -315,6 +315,50 @@ describe('<DateRangePicker> (REACT-012)', () => {
   });
 });
 
+describe('presets (PRE-006)', () => {
+  test('DatePicker shows shortcuts beside the calendar and applies them', () => {
+    const onChange = vi.fn();
+    render(
+      <DatePicker
+        today={TODAY}
+        presets={['today', 'yesterday']}
+        onChange={onChange}
+        aria-label="When"
+      />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    const group = screen.getByRole('group', { name: 'Shortcuts' });
+    fireEvent.click(within(group).getByRole('button', { name: 'Yesterday' }));
+    expect(onChange).toHaveBeenCalledWith('2026-10-17', expect.anything());
+    expect(screen.queryByRole('dialog')).toBeNull();
+    expect(document.activeElement).toBe(field());
+  });
+
+  test('DateRangePicker presets mark the active one and disable unusable ones', () => {
+    render(
+      <DateRangePicker
+        today={TODAY}
+        max="2026-10-20"
+        presets={['last7Days', 'thisWeek']}
+        startLabel="From"
+        endLabel="To"
+      />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    expect(
+      screen.getByRole('button', { name: 'This week' }).hasAttribute('disabled'),
+    ).toBe(true);
+    fireEvent.click(screen.getByRole('button', { name: 'Last 7 days' }));
+    expect(screen.getByRole<HTMLInputElement>('combobox', { name: 'From' }).value).toBe(
+      '2083-06-26',
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    expect(
+      screen.getByRole('button', { name: 'Last 7 days' }).getAttribute('aria-pressed'),
+    ).toBe('true');
+  });
+});
+
 describe('dates as text (REACT-013, REACT-014)', () => {
   test('DateText, ShortDate, shortDate and bothDates', () => {
     render(

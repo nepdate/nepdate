@@ -40,6 +40,7 @@ export function Form() {
 - **Value:** `value`, `defaultValue`, `onChange(value, { ad, bs })`, `name` (submits with plain forms; form reset is supported).
 - **Calendar:** `calendar` (fixed BS or AD), `defaultCalendar`, `onCalendarChange`, `persistCalendar` (localStorage key).
 - **Limits:** `min`, `max`, `isDateDisabled`, `holidays`, `events`.
+- **Shortcuts:** `presets={['today', 'yesterday']}` (or custom `{ id, label, resolve }`) beside the calendar.
 - **Display:** `locale` (defaults to `ne` when `<html lang="ne">`), `displayFormat`, `showEquivalent`, `clearable`, `weekStartsOn`, `weekendDays`, `theme`.
 - **Field:** `required`, `disabled`, `placeholder`, `id`, `aria-*`.
 - **Testing and server rendering:** `today`.

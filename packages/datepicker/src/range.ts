@@ -2,6 +2,7 @@ import {
   compareDates,
   differenceInDays,
   formatMessage,
+  getConfig,
   getLocale,
   toCalendar,
   toIsoDate,
@@ -19,6 +20,13 @@ import {
   panelOptions,
   todayOf,
 } from './base';
+import {
+  describePreset,
+  resolveRangePreset,
+  type PresetContext,
+  type PresetRange,
+  type PresetState,
+} from './presets';
 import {
   checkDate,
   detailOf,
@@ -99,8 +107,59 @@ export function createDateRangePicker(
         end: error?.field === 'end' ? null : equivalentText(end, calendar, locale),
       }),
       placeholder: placeholderText(calendar, locale),
+      presets: presetStates(),
       calendarState: panel.getState(),
     });
+  }
+
+  function presetContext(): PresetContext {
+    return {
+      today: toCalendar(todayOf(options), 'AD'),
+      calendar,
+      weekStartsOn: options.weekStartsOn ?? getConfig().weekStartsOn,
+    };
+  }
+
+  /** Each shortcut's range, or null when it cannot be used now. */
+  function resolvedPresets(): { id: string; label: string; range: PresetRange | null }[] {
+    const context = presetContext();
+    const limits = inputLimits(options, panel);
+    const locale = localeOf(options);
+
+    return (options.presets ?? []).map((preset) => {
+      const entry = describePreset(preset, options.locale, resolveRangePreset);
+      const range = ((): PresetRange | null => {
+        try {
+          const candidate = entry.resolve(context);
+          const from = toCalendar(candidate.start, 'AD');
+          const to = toCalendar(candidate.end, 'AD');
+          const allowed =
+            compareDates(from, to) <= 0 &&
+            !checkDate(from, calendar, limits, locale) &&
+            !checkDate(to, calendar, limits, locale) &&
+            lengthError(from, to) === null;
+          return allowed ? candidate : null;
+        } catch {
+          return null; // e.g. outside the BS table
+        }
+      })();
+
+      return { id: entry.id, label: entry.label, range };
+    });
+  }
+
+  function presetStates(): PresetState[] {
+    return resolvedPresets().map(({ id, label, range }) =>
+      Object.freeze({
+        id,
+        label,
+        isActive:
+          range !== null &&
+          toIsoDate(range.start) === value.start &&
+          toIsoDate(range.end) === value.end,
+        isDisabled: range === null,
+      }),
+    );
   }
 
   function syncPanel(): void {
@@ -278,6 +337,15 @@ export function createDateRangePicker(
       }
 
       return picked;
+    },
+    applyPreset(id) {
+      const preset = resolvedPresets().find((entry) => entry.id === id);
+      if (destroyed || !preset?.range) {
+        return false;
+      }
+      pick(preset.range.start, preset.range.end);
+
+      return true;
     },
     reset() {
       emitter.act(() => {
