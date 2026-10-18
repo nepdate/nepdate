@@ -1,0 +1,28 @@
+name: BS calendar correction
+description: A BS year's month lengths are wrong or need verifying
+labels: [data]
+body:
+  - type: input
+    id: year
+    attributes:
+      label: BS year
+    validations:
+      required: true
+  - type: input
+    id: months
+    attributes:
+      label: Month lengths, Baisakh to Chaitra
+      placeholder: 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Link to the published calendar
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: A date that converts wrongly today
+      description: e.g. "BS 2090-01-01 should be AD 2033-04-14 but the library says …"

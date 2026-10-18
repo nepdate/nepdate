@@ -17,14 +17,15 @@
     "check:packages": "pnpm -r --workspace-concurrency=1 --filter \"./packages/*\" check:package",
     "gen:data": "node scripts/gen-data.ts",
     "dev": "pnpm --filter @nepdate/playground dev",
-    "verify": "pnpm format:check && pnpm lint && pnpm check:boundaries && pnpm check:data && pnpm typecheck && pnpm test:coverage && pnpm build && pnpm check:packages && pnpm smoke && pnpm check:size",
+    "verify": "pnpm format:check && pnpm lint && pnpm check:boundaries && pnpm check:data && pnpm typecheck && pnpm test:coverage && pnpm build && pnpm check:packages && pnpm smoke && pnpm check:holidays && pnpm check:size",
     "changeset": "changeset",
     "release": "pnpm verify && changeset publish",
     "check:size": "node scripts/check-size.ts",
     "check:data": "node scripts/gen-data.ts --check",
     "test:coverage": "vitest run --coverage",
     "smoke": "node scripts/smoke.ts",
-    "bench": "node scripts/bench.ts"
+    "bench": "node scripts/bench.ts",
+    "check:holidays": "node scripts/check-holidays.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",

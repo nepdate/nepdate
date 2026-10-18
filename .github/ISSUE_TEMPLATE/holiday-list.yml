@@ -1,0 +1,25 @@
+name: Holiday list for a year
+description: Add or correct a year's official public holiday list
+labels: [data, holidays]
+body:
+  - type: input
+    id: year
+    attributes:
+      label: BS year
+      placeholder: '2083'
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Link to the published notice
+      description: Lists without a published source can't be accepted.
+    validations:
+      required: true
+  - type: textarea
+    id: holidays
+    attributes:
+      label: Holidays
+      description: One per line, as `YYYY-MM-DD (BS) | English name | नेपाली नाम | type`
+    validations:
+      required: true

@@ -286,6 +286,12 @@ importers:
 
   packages/dom: {}
 
+  packages/holidays:
+    dependencies:
+      '@nepdate/core':
+        specifier: workspace:^
+        version: link:../core
+
   packages/react:
     dependencies:
       '@nepdate/calendar':

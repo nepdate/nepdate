@@ -1,0 +1,23 @@
+name: Bug report
+description: Something converts, renders or behaves wrongly
+labels: [bug]
+body:
+  - type: input
+    id: packages
+    attributes:
+      label: Package(s) and version(s)
+      placeholder: '@nepdate/react 0.1.0'
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+      description: Include the BS and AD dates involved, and your locale/calendar settings.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: Chrome 140 / Node 22 / React 19 / Vite

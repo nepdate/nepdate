@@ -7,10 +7,22 @@
       "mayUseDate": true,
       "noNodeBuiltinsInMain": true
     },
-    "calendar": { "internal": ["core"], "external": [] },
-    "datepicker": { "internal": ["core", "calendar"], "external": [] },
-    "dom": { "internal": [], "external": [] },
-    "styles": { "internal": [], "external": [] },
+    "calendar": {
+      "internal": ["core"],
+      "external": []
+    },
+    "datepicker": {
+      "internal": ["core", "calendar"],
+      "external": []
+    },
+    "dom": {
+      "internal": [],
+      "external": []
+    },
+    "styles": {
+      "internal": [],
+      "external": []
+    },
     "vanilla": {
       "internal": ["core", "calendar", "datepicker", "dom", "styles"],
       "external": []
@@ -18,6 +30,10 @@
     "react": {
       "internal": ["core", "calendar", "datepicker", "dom", "styles"],
       "external": ["react", "react-dom"]
+    },
+    "holidays": {
+      "internal": ["core"],
+      "external": []
     }
   },
   "noPackageDependencies": ["core", "dom", "styles"]

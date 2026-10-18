@@ -34,6 +34,7 @@ export const BUDGETS: Record<string, Budget[]> = {
   // Single + range pickers and presets; 4 kB since A1 (docs/plan D-033).
   datepicker: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 4 * KB }],
   dom: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 1.5 * KB }],
+  holidays: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 2 * KB }],
   react: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 8 * KB }],
   vanilla: [
     { file: 'dist/index.js', bundle: true, maxGzipBytes: 8 * KB },
