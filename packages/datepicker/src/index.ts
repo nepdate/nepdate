@@ -1,5 +1,33 @@
-import type {} from '@nepdate/core';
-import type {} from '@nepdate/calendar';
-
-/** Package name, kept until the real API lands (see docs/plan TRACKER). */
-export const PACKAGE_NAME = '@nepdate/datepicker' as const;
+/**
+ * @nepdate/datepicker: BS/AD date picker behaviour, and nothing else. Typed
+ * text ⇄ value, validation messages, the BS/AD switch, open/close, single and
+ * range values. Renders nothing; adapters do (docs/plan packages/datepicker).
+ */
+export { createDatePicker } from './picker';
+export { createDateRangePicker } from './range';
+export {
+  checkDate,
+  equivalentText,
+  formatInput,
+  parseInput,
+  placeholderText,
+  type InputLimits,
+  type ParseResult,
+} from './input';
+export type {
+  DateDetail,
+  DateError,
+  DateErrorCode,
+  DatePickerActions,
+  DatePickerOptions,
+  DatePickerState,
+  DatePickerStore,
+  DateRangePickerActions,
+  DateRangePickerOptions,
+  DateRangePickerState,
+  DateRangePickerStore,
+  PickerBaseOptions,
+  RangeDetail,
+  RangeField,
+  RangeValue,
+} from './types';

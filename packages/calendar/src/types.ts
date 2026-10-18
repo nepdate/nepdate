@@ -117,35 +117,35 @@ export interface PickerCell {
 
 export interface CalendarOptions {
   /** Which calendar the grid shows. Default 'BS'. */
-  readonly calendar?: CalendarSystem;
+  readonly calendar?: CalendarSystem | undefined;
   /** Names and digits. Default: core's configured default locale. */
-  readonly locale?: LocaleCode;
-  readonly selectionMode?: SelectionMode;
+  readonly locale?: LocaleCode | undefined;
+  readonly selectionMode?: SelectionMode | undefined;
   /** A date in single mode, a range in range mode. */
-  readonly selected?: CalendarDate | DateRange | null;
+  readonly selected?: CalendarDate | DateRange | null | undefined;
   /** The month shown first (any day in it). Default: selected ?? today. */
-  readonly defaultVisibleMonth?: CalendarDate;
+  readonly defaultVisibleMonth?: CalendarDate | undefined;
   /** Show this month; pass again through setOptions to move it (controlled). */
-  readonly visibleMonth?: CalendarDate;
+  readonly visibleMonth?: CalendarDate | undefined;
   /** Earliest and latest selectable days, in either calendar. */
-  readonly min?: CalendarDate | null;
-  readonly max?: CalendarDate | null;
-  readonly isDateDisabled?: (date: CalendarDate) => boolean;
-  readonly holidays?: readonly HolidayInput[] | HolidayLookup;
-  readonly events?: (date: CalendarDate) => readonly EventMarker[];
+  readonly min?: CalendarDate | null | undefined;
+  readonly max?: CalendarDate | null | undefined;
+  readonly isDateDisabled?: ((date: CalendarDate) => boolean) | undefined;
+  readonly holidays?: readonly HolidayInput[] | HolidayLookup | undefined;
+  readonly events?: ((date: CalendarDate) => readonly EventMarker[]) | undefined;
   /** Show the other calendar's day number under each day. Default true. */
-  readonly showOtherCalendar?: boolean;
+  readonly showOtherCalendar?: boolean | undefined;
   /** Fill leading/trailing cells with days of the next/previous months. Default true. */
-  readonly showOutsideDays?: boolean;
+  readonly showOutsideDays?: boolean | undefined;
   /** Always six rows. Default false. */
-  readonly fixedWeeks?: boolean;
-  readonly weekStartsOn?: Weekday;
-  readonly weekendDays?: readonly Weekday[];
+  readonly fixedWeeks?: boolean | undefined;
+  readonly weekStartsOn?: Weekday | undefined;
+  readonly weekendDays?: readonly Weekday[] | undefined;
   /** Override "today" (tests, server rendering). Default: core's today() in the configured zone. */
-  readonly today?: CalendarDate;
-  readonly onSelect?: (selection: CalendarDate | DateRange) => void;
-  readonly onVisibleMonthChange?: (month: CalendarDate) => void;
-  readonly onViewChange?: (view: CalendarView) => void;
+  readonly today?: CalendarDate | undefined;
+  readonly onSelect?: ((selection: CalendarDate | DateRange) => void) | undefined;
+  readonly onVisibleMonthChange?: ((month: CalendarDate) => void) | undefined;
+  readonly onViewChange?: ((view: CalendarView) => void) | undefined;
 }
 
 export interface CalendarState {

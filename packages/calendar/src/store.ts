@@ -52,7 +52,7 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
   let mode: SelectionMode = options.selectionMode ?? 'single';
   let todayDate: CalendarDate = toCalendar(options.today ?? coreToday('AD'), 'AD');
   let limits: Limits = computeLimits(calendar, options.min, options.max);
-  let selection = normalizeSelection(options.selected ?? null, mode);
+  let selection = normalizeSelection(options.selected ?? null, mode, calendar);
   let view: CalendarView = 'day';
   let rangeHover: CalendarDate | null = null;
   let holiday = makeHolidayResolver(options.holidays);
@@ -358,11 +358,13 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
       todayDate = toCalendar(options.today ?? coreToday('AD'), 'AD');
       limits = computeLimits(calendar, options.min, options.max);
       holiday = makeHolidayResolver(options.holidays);
-      if ('selected' in changes || 'selectionMode' in changes) {
-        selection = normalizeSelection(
-          'selected' in changes ? (changes.selected ?? null) : selection,
-          mode,
-        );
+      const reselect = 'selected' in changes || 'selectionMode' in changes;
+      selection = normalizeSelection(
+        'selected' in changes ? (changes.selected ?? null) : selection,
+        mode,
+        calendar,
+      );
+      if (reselect) {
         rangeHover = null;
       }
       visibleMonth = clampMonth(changes.visibleMonth ?? visibleMonth);
@@ -377,18 +379,34 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
   };
 }
 
+/** The selection in the shape the mode needs, with its dates in the calendar on screen. */
 function normalizeSelection(
   selected: CalendarDate | DateRange | null,
   mode: SelectionMode,
+  calendar: CalendarSystem,
 ): CalendarDate | DateRange | null {
+  const inCalendar = (date: CalendarDate | null): CalendarDate | null => {
+    if (date === null) {
+      return null;
+    }
+    try {
+      return toCalendar(date, calendar);
+    } catch {
+      return date; // outside the BS table: keep it as given
+    }
+  };
   if (selected === null) {
     return mode === 'range' ? Object.freeze({ start: null, end: null }) : null;
   }
   if ('calendar' in selected) {
-    return mode === 'range' ? Object.freeze({ start: selected, end: null }) : selected;
+    return mode === 'range'
+      ? Object.freeze({ start: inCalendar(selected), end: null })
+      : inCalendar(selected);
   }
 
-  return mode === 'range' ? Object.freeze({ ...selected }) : selected.start;
+  return mode === 'range'
+    ? Object.freeze({ start: inCalendar(selected.start), end: inCalendar(selected.end) })
+    : inCalendar(selected.start);
 }
 
 /** The day the selection points at: the date, or the range start. */

@@ -63,5 +63,7 @@ export const ne: LocaleData = {
     onOrAfter: '{min} वा त्यसपछिको मिति छान्नुहोस्।',
     onOrBefore: '{max} वा त्यसअघिको मिति छान्नुहोस्।',
     unavailable: 'यो मिति उपलब्ध छैन।',
+    rangeTooShort: 'कम्तीमा {min} दिन छान्नुहोस्।',
+    rangeTooLong: 'बढीमा {max} दिन छान्नुहोस्।',
   },
 };

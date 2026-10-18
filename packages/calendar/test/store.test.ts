@@ -435,6 +435,24 @@ describe('store behaviour (TEST-025, CAL-017)', () => {
     expect(store.getState().selected).toEqual({ start: ad('2026-12-25'), end: null });
   });
 
+  test('the selection is reported in the calendar on screen', () => {
+    const store = createCalendar({ today: TODAY, selected: ad('2026-10-10') });
+    expect(store.getState().selected).toEqual(bs('2083-06-24'));
+    store.setOptions({ calendar: 'AD' });
+    expect(store.getState().selected).toEqual(ad('2026-10-10'));
+    const range = createCalendar({
+      today: TODAY,
+      selectionMode: 'range',
+      selected: { start: ad('2026-10-10'), end: ad('2026-10-12') },
+    });
+    expect(range.getState().selected).toEqual({
+      start: bs('2083-06-24'),
+      end: bs('2083-06-26'),
+    });
+    const outside = createCalendar({ today: TODAY, selected: ad('1800-01-01') });
+    expect(outside.getState().selected).toEqual(ad('1800-01-01'));
+  });
+
   test('setOptions with new limits clamps the view and focus', () => {
     const store = createCalendar({ today: TODAY });
     store.setOptions({ min: bs('2084-01-01') });

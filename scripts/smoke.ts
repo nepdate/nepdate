@@ -86,6 +86,44 @@ checkCalendar(
   calendarSandbox.NepDateCalendar,
 );
 
+interface DatePickerLike {
+  createDatePicker(options: Record<string, unknown>): {
+    actions: { type(text: string): void };
+    getState(): { value: string };
+  };
+}
+const pickerDist = resolve(root, 'packages/datepicker/dist');
+function checkPicker(name: string, api: DatePickerLike | undefined): void {
+  let value = 'missing';
+  if (api) {
+    const picker = api.createDatePicker({ today: calendarOptions.today });
+    picker.actions.type('२०८३-०७-०१');
+    value = picker.getState().value;
+  }
+  if (value === expected) {
+    console.log(`✔ datepicker via ${name}`);
+  } else {
+    failures.push(`datepicker via ${name}: got ${value}`);
+  }
+}
+checkPicker(
+  'ESM import',
+  (await import(pathToFileURL(resolve(pickerDist, 'index.js')).href)) as DatePickerLike,
+);
+checkPicker(
+  'CJS require',
+  createRequire(import.meta.url)(resolve(pickerDist, 'index.cjs')) as DatePickerLike,
+);
+const pickerSandbox: { NepDatePicker?: DatePickerLike } = {};
+runInContext(
+  readFileSync(resolve(pickerDist, 'nepdate-datepicker.global.js'), 'utf8'),
+  createContext(pickerSandbox),
+);
+checkPicker(
+  'IIFE window.NepDatePicker (core + calendar bundled in)',
+  pickerSandbox.NepDatePicker,
+);
+
 if (failures.length > 0) {
   for (const failure of failures) {
     console.error(`✖ ${failure}`);

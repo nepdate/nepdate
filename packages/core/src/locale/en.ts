@@ -63,5 +63,7 @@ export const en: LocaleData = {
     onOrAfter: 'Choose {min} or later.',
     onOrBefore: 'Choose {max} or earlier.',
     unavailable: 'This date is not available.',
+    rangeTooShort: 'Choose at least {min} days.',
+    rangeTooLong: 'Choose at most {max} days.',
   },
 };

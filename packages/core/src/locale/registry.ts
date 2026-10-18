@@ -35,13 +35,16 @@ export interface LocaleData {
     readonly chooseDate: string;
     readonly calendar: string;
   };
-  /** Messages may use {min}, {max} and {calendar} placeholders. */
+  /** Messages may use {min} and {max} placeholders. */
   readonly messages: {
     readonly invalidFormat: { readonly AD: string; readonly BS: string };
     readonly outOfRange: string;
     readonly onOrAfter: string;
     readonly onOrBefore: string;
     readonly unavailable: string;
+    /** Range pickers: {min} / {max} are day counts. */
+    readonly rangeTooShort: string;
+    readonly rangeTooLong: string;
   };
 }
 
