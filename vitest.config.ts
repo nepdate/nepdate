@@ -27,6 +27,12 @@ export default defineConfig({
           functions: 100,
           branches: 90,
         },
+        'packages/dom/src/**': {
+          statements: 100,
+          lines: 100,
+          functions: 100,
+          branches: 100,
+        },
         'packages/datepicker/src/**': {
           statements: 99,
           lines: 99,

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nepdate Styles</title>
+    <link rel="stylesheet" href="../../packages/styles/index.css" />
+    <style>
+      body {
+        margin: 0;
+        background: #f8fafc;
+        font-family: var(--ndp-font);
+        color: #0f172a;
+      }
+      .sheet {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        gap: 24px;
+        padding: 24px 16px;
+      }
+      .theme {
+        padding: 20px;
+        border-radius: 16px;
+        background: var(--ndp-bg-surface);
+        color: var(--ndp-text-primary);
+      }
+      .theme[data-ndp-theme='dark'] {
+        background: #020617;
+      }
+      h2 {
+        margin: 0 0 4px;
+        font-size: 13px;
+        color: var(--ndp-text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      section {
+        margin-bottom: 20px;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        align-items: center;
+      }
+      .row .ndp-day {
+        width: 44px;
+        margin: 0;
+      }
+      .row .ndp-option {
+        width: 96px;
+      }
+      .stack {
+        display: grid;
+        gap: 10px;
+        max-width: 300px;
+      }
+      .panel-demo {
+        position: static;
+        width: 320px;
+        animation: none;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="sheet" id="sheet"></main>
+    <template id="states">
+      <section>
+        <h2>Day cell</h2>
+        <div class="row">
+          <button class="ndp-day" data-state="default">
+            <span class="ndp-day__label">24</span><span class="ndp-day__sub">10</span>
+          </button>
+          <button class="ndp-day" data-state="today">
+            <span class="ndp-day__label">24</span><span class="ndp-day__sub">10</span>
+          </button>
+          <button class="ndp-day" data-state="selected">
+            <span class="ndp-day__label">24</span><span class="ndp-day__sub">10</span
+            ><span class="ndp-day__dot"></span>
+          </button>
+          <button class="ndp-day" data-state="range-start">
+            <span class="ndp-day__label">24</span><span class="ndp-day__sub">10</span>
+          </button>
+          <button class="ndp-day" data-state="range-middle">
+            <span class="ndp-day__label">24</span><span class="ndp-day__sub">10</span>
+          </button>
+          <button class="ndp-day" data-state="range-end">
+            <span class="ndp-day__label">24</span><span class="ndp-day__sub">10</span>
+          </button>
+          <button class="ndp-day" data-state="disabled" disabled>
+            <span class="ndp-day__label">24</span><span class="ndp-day__sub">10</span>
+          </button>
+          <button class="ndp-day" data-state="outside">
+            <span class="ndp-day__label">24</span><span class="ndp-day__sub">10</span>
+          </button>
+          <button class="ndp-day" data-state="holiday">
+            <span class="ndp-day__label">24</span><span class="ndp-day__sub">10</span>
+          </button>
+          <button class="ndp-day" data-state="default" data-weekend>
+            <span class="ndp-day__label">24</span><span class="ndp-day__sub">10</span
+            ><span class="ndp-day__dot" style="--ndp-dot-color: #16a34a"></span>
+          </button>
+        </div>
+      </section>
+      <section>
+        <h2>Month / year option</h2>
+        <div class="row">
+          <button class="ndp-option" data-state="default">
+            <span>Asoj</span><span class="ndp-option__sub">Sep / Oct</span>
+          </button>
+          <button class="ndp-option" data-state="selected">
+            <span>Asoj</span><span class="ndp-option__sub">Sep / Oct</span>
+          </button>
+          <button class="ndp-option" data-state="current">
+            <span>Asoj</span><span class="ndp-option__sub">Sep / Oct</span>
+          </button>
+          <button class="ndp-option" data-state="default" disabled>
+            <span>Asoj</span><span class="ndp-option__sub">Sep / Oct</span>
+          </button>
+        </div>
+      </section>
+      <section>
+        <h2>Date input</h2>
+        <div class="stack">
+          <div class="ndp-field">
+            <div class="ndp-input">
+              <input class="ndp-input__control" placeholder="YYYY-MM-DD (BS)" /><span
+                class="ndp-input__actions"
+                ><button class="ndp-input__switch">BS</button
+                ><button class="ndp-icon-button" aria-label="Open calendar">
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                  >
+                    <rect x="2" y="3" width="12" height="11" rx="2" />
+                    <path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" />
+                  </svg></button
+              ></span>
+            </div>
+          </div>
+          <div class="ndp-field">
+            <div class="ndp-input">
+              <input class="ndp-input__control" value="2083-06-24" /><span
+                class="ndp-input__actions"
+                ><button class="ndp-icon-button" aria-label="Clear date">
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                  >
+                    <path d="M4 4l8 8M12 4l-8 8" />
+                  </svg></button
+                ><button class="ndp-input__switch">BS</button
+                ><button class="ndp-icon-button" aria-label="Open calendar">
+                  <svg
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.4"
+                  >
+                    <rect x="2" y="3" width="12" height="11" rx="2" />
+                    <path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3" />
+                  </svg></button
+              ></span>
+            </div>
+            <p class="ndp-hint">10 October 2026 AD</p>
+          </div>
+          <div class="ndp-field">
+            <div class="ndp-input" data-invalid>
+              <input class="ndp-input__control" value="2083-13-01" />
+            </div>
+            <p class="ndp-hint" data-error>Enter a BS date as YYYY-MM-DD.</p>
+          </div>
+          <div class="ndp-field">
+            <div class="ndp-input" data-disabled>
+              <input class="ndp-input__control" value="2083-06-24" disabled />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Panel</h2>
+        <div class="ndp-panel panel-demo">
+          <div class="ndp-calendar">
+            <div class="ndp-calendar__header">
+              <button class="ndp-icon-button" aria-label="Previous month">
+                <svg
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+                  <path d="M10 3.5L5.5 8l4.5 4.5" />
+                </svg>
+              </button>
+              <div class="ndp-calendar__title">
+                <button class="ndp-calendar__title-button">Kartik</button
+                ><button class="ndp-calendar__title-button">2083</button>
+              </div>
+              <button class="ndp-icon-button" aria-label="Next month">
+                <svg
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                >
+                  <path d="M6 3.5L10.5 8 6 12.5" />
+                </svg>
+              </button>
+            </div>
+            <table class="ndp-grid">
+              <thead>
+                <tr>
+                  <th class="ndp-weekday">Sun</th>
+                  <th class="ndp-weekday">Mon</th>
+                  <th class="ndp-weekday">Tue</th>
+                  <th class="ndp-weekday">Wed</th>
+                  <th class="ndp-weekday">Thu</th>
+                  <th class="ndp-weekday">Fri</th>
+                  <th class="ndp-weekday" data-weekend>Sat</th>
+                </tr>
+              </thead>
+              <tbody id="days"></tbody>
+            </table>
+          </div>
+          <div class="ndp-panel__footer">
+            <div class="ndp-segment">
+              <button class="ndp-segment__item" aria-pressed="true">BS</button
+              ><button class="ndp-segment__item" aria-pressed="false">AD</button>
+            </div>
+            <button class="ndp-button">Today</button>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>Buttons and tags</h2>
+        <div class="row">
+          <button class="ndp-button" data-variant="primary">Select</button>
+          <button class="ndp-button" data-variant="secondary">Cancel</button>
+          <button class="ndp-button">Today</button>
+          <button class="ndp-icon-button" data-variant="outlined" aria-label="Next">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M6 3.5L10.5 8 6 12.5" />
+            </svg>
+          </button>
+          <span class="ndp-holiday-tag">Holiday</span>
+        </div>
+      </section>
+    </template>
+    <script>
+      // Static preview only: Kartik 2083 starts on Sunday and has 30 days; AD 18 Oct = day 1.
+      const sheet = document.getElementById('sheet');
+      for (const theme of ['light', 'dark']) {
+        const box = document.createElement('div');
+        box.className = 'theme';
+        box.dataset.ndpTheme = theme;
+        box.append(document.getElementById('states').content.cloneNode(true));
+        const rows = box.querySelector('#days');
+        rows.removeAttribute('id');
+        let html = '';
+        for (let week = 0; week < 5; week++) {
+          html += '<tr>';
+          for (let col = 0; col < 7; col++) {
+            const day = week * 7 + col + 1;
+            if (day > 30) {
+              html += `<td><button class="ndp-day" data-state="outside"><span class="ndp-day__label">${day - 30}</span><span class="ndp-day__sub">${day - 14}</span></button></td>`;
+              continue;
+            }
+            const ad = ((day + 16) % 31) + 1;
+            const state =
+              day === 1
+                ? 'today'
+                : day === 10
+                  ? 'range-start'
+                  : day > 10 && day < 14
+                    ? 'range-middle'
+                    : day === 14
+                      ? 'range-end'
+                      : day === 20
+                        ? 'holiday'
+                        : day > 27
+                          ? 'disabled'
+                          : 'default';
+            const weekend = col === 6 ? ' data-weekend' : '';
+            const dot = day === 5 ? '<span class="ndp-day__dot"></span>' : '';
+            html += `<td><button class="ndp-day" data-state="${state}"${weekend}${state === 'disabled' ? ' disabled' : ''}><span class="ndp-day__label">${day}</span><span class="ndp-day__sub">${ad}</span>${dot}</button></td>`;
+          }
+          html += '</tr>';
+        }
+        rows.innerHTML = html;
+        sheet.append(box);
+      }
+    </script>
+  </body>
+</html>

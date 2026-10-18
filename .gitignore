@@ -7,3 +7,6 @@ coverage
 
 # Private planning docs (never committed)
 docs/plan/
+
+# Local Claude Code settings
+.claude/

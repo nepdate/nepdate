@@ -1,3 +1,119 @@
-/* --ndp-* design tokens from the Figma UI kit. Filled in by STY-001. */
-:root {
+/*
+ * @nepdate/styles: design tokens (--ndp-*), from the Figma UI kit
+ * "Nepali Date Picker & Calendar" (Components page). Override any of them to
+ * theme the picker; nothing else needs to change.
+ *
+ * Themes: light by default, dark when the system asks for it, or force one with
+ * data-ndp-theme="light" | "dark" on <html> or on any wrapper element.
+ * The dark set and the panel shadow are provisional until the Figma dark mode
+ * and Date Picker screens are final (docs/plan STY-002, STY-017).
+ */
+:root,
+[data-ndp-theme='light'] {
+  --ndp-bg-surface: #ffffff;
+  --ndp-bg-muted: #f1f5f9;
+  --ndp-bg-hover: #f1f5f9;
+  --ndp-bg-accent: #2563eb;
+  --ndp-bg-accent-muted: #dbeafe;
+  --ndp-bg-holiday-muted: #fee2e2;
+
+  --ndp-border-default: #e2e8f0;
+  --ndp-border-strong: #cbd5e1;
+  --ndp-border-hover: #94a3b8;
+  --ndp-border-accent: #2563eb;
+  --ndp-border-danger: #ef4444;
+
+  --ndp-text-primary: #0f172a;
+  --ndp-text-secondary: #475569;
+  --ndp-text-muted: #94a3b8;
+  --ndp-text-disabled: #cbd5e1;
+  --ndp-text-accent: #2563eb;
+  --ndp-text-on-accent: #ffffff;
+  --ndp-text-holiday: #dc2626;
+  --ndp-text-danger: #dc2626;
+
+  --ndp-focus-ring: rgb(37 99 235 / 0.5);
+  --ndp-shadow-panel:
+    0 10px 30px -12px rgb(15 23 42 / 0.25), 0 2px 6px rgb(15 23 42 / 0.08);
+  --ndp-shadow-segment: 0 1px 1px rgb(15 23 41 / 0.1);
+
+  --ndp-radius-sm: 6px;
+  --ndp-radius-md: 8px;
+  --ndp-radius-lg: 12px;
+  --ndp-space-4: 4px;
+  --ndp-space-8: 8px;
+  --ndp-space-12: 12px;
+
+  --ndp-font: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ndp-day-size: 44px;
+  --ndp-input-height: 40px;
+  --ndp-icon-button-size: 32px;
+  --ndp-option-height: 48px;
+  --ndp-panel-padding: 12px;
+  --ndp-z-index: 50;
+
+  color-scheme: light;
+}
+
+[data-ndp-theme='dark'] {
+  --ndp-bg-surface: #0f172a;
+  --ndp-bg-muted: #1e293b;
+  --ndp-bg-hover: #1e293b;
+  --ndp-bg-accent: #3b82f6;
+  --ndp-bg-accent-muted: #1e3a5f;
+  --ndp-bg-holiday-muted: #451a1a;
+
+  --ndp-border-default: #334155;
+  --ndp-border-strong: #475569;
+  --ndp-border-hover: #64748b;
+  --ndp-border-accent: #60a5fa;
+  --ndp-border-danger: #f87171;
+
+  --ndp-text-primary: #f1f5f9;
+  --ndp-text-secondary: #cbd5e1;
+  --ndp-text-muted: #94a3b8;
+  --ndp-text-disabled: #475569;
+  --ndp-text-accent: #60a5fa;
+  --ndp-text-on-accent: #ffffff;
+  --ndp-text-holiday: #f87171;
+  --ndp-text-danger: #f87171;
+
+  --ndp-focus-ring: rgb(96 165 250 / 0.6);
+  --ndp-shadow-panel: 0 12px 32px -12px rgb(0 0 0 / 0.6), 0 2px 6px rgb(0 0 0 / 0.4);
+  --ndp-shadow-segment: 0 1px 1px rgb(0 0 0 / 0.4);
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-ndp-theme='light']),
+  [data-ndp-theme='auto'] {
+    --ndp-bg-surface: #0f172a;
+    --ndp-bg-muted: #1e293b;
+    --ndp-bg-hover: #1e293b;
+    --ndp-bg-accent: #3b82f6;
+    --ndp-bg-accent-muted: #1e3a5f;
+    --ndp-bg-holiday-muted: #451a1a;
+
+    --ndp-border-default: #334155;
+    --ndp-border-strong: #475569;
+    --ndp-border-hover: #64748b;
+    --ndp-border-accent: #60a5fa;
+    --ndp-border-danger: #f87171;
+
+    --ndp-text-primary: #f1f5f9;
+    --ndp-text-secondary: #cbd5e1;
+    --ndp-text-muted: #94a3b8;
+    --ndp-text-disabled: #475569;
+    --ndp-text-accent: #60a5fa;
+    --ndp-text-on-accent: #ffffff;
+    --ndp-text-holiday: #f87171;
+    --ndp-text-danger: #f87171;
+
+    --ndp-focus-ring: rgb(96 165 250 / 0.6);
+    --ndp-shadow-panel: 0 12px 32px -12px rgb(0 0 0 / 0.6), 0 2px 6px rgb(0 0 0 / 0.4);
+    --ndp-shadow-segment: 0 1px 1px rgb(0 0 0 / 0.4);
+
+    color-scheme: dark;
+  }
 }
