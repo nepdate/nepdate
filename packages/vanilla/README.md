@@ -62,6 +62,22 @@ A form-associated element: the form receives the AD `"YYYY-MM-DD"` value under `
 - **`nep-calendar`:** fires `nep-select` with `{ date, value }`, or `{ range: { start, end } }` when it has the `range` attribute.
 - **`nep-date-range-picker`:** add `fiscal-years` for a "Fiscal year" button that picks a whole fiscal year. It submits `leave-start` and `leave-end` (or set `start-name` / `end-name`), and fires `change` with `{ value: { start, end } }`.
 
+## `<nep-date-time-picker>`
+
+```html
+<nep-date-time-picker
+  name="starts-at"
+  minute-step="15"
+  default-time="09:00"
+  hour12
+></nep-date-time-picker>
+```
+
+Submits one instant, e.g. `2026-10-18T14:30:00+05:45`.
+
+- **Attributes:** `time-zone`, `time-label`, `presets`, plus the date attributes above.
+- **Events:** `change` with `{ value, ad, bs, time }`.
+
 ## Without custom elements
 
 ```js

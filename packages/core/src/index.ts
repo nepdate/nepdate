@@ -63,7 +63,7 @@ export {
   toIsoDate,
 } from './convert';
 export { isProjected } from './projected';
-export { today } from './clock';
+export { now, today } from './clock';
 
 export {
   addDays,
@@ -114,3 +114,13 @@ export {
 } from './format';
 export { parseDate, parseDateStrict, parseFiscalYear } from './parse';
 export { fiscalYear, fiscalYearRange, formatFiscalYear, isInFiscalYear } from './fiscal';
+export {
+  compareTimes,
+  formatTime,
+  fromIsoDateTime,
+  isValidTime,
+  parseTime,
+  timeOfDay,
+  toIsoDateTime,
+  type TimeOfDay,
+} from './time';

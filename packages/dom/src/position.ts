@@ -30,7 +30,8 @@ export interface Position {
  * Where to put a panel next to an anchor, in viewport (position: fixed)
  * coordinates. Pure, so it can be tested without a browser. Rules from the
  * institute-SaaS picker: prefer the requested side, flip when the panel does
- * not fit but does fit on the other side, and keep `gap` px from every edge.
+ * not fit but does fit on the other side, and keep `gap` px from every edge
+ * (the panel may overlap the anchor rather than leave the screen).
  */
 export function computePosition(
   anchor: Rect,
@@ -55,7 +56,8 @@ export function computePosition(
   const rawLeft = placement.endsWith('end') ? anchor.right - width : anchor.left;
 
   return {
-    top: Math.max(gap, rawTop),
+    // Keep the whole panel on screen; when it is taller than the room, its top edge wins.
+    top: Math.max(gap, Math.min(rawTop, viewport.height - gap - panelHeight)),
     left: Math.max(gap, Math.min(rawLeft, viewport.width - width - gap)),
     width,
     side,

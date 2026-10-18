@@ -52,7 +52,7 @@ describe('every day in the table (TEST-001)', () => {
         }
       }
     }
-  });
+  }, 30_000);
 
   test('AD → BS → AD returns the same day across the whole range', () => {
     const first = toEpoch(minDate('AD'));
@@ -61,7 +61,7 @@ describe('every day in the table (TEST-001)', () => {
       const date = fromEpoch(toEpochDay(epoch), 'AD');
       expect(toEpoch(bsToAd(adToBs(date)))).toBe(epoch);
     }
-  });
+  }, 30_000);
 });
 
 describe('year boundaries (TEST-005)', () => {

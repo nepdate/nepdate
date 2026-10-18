@@ -6,6 +6,15 @@
 export { createDatePicker } from './picker';
 export { createDateRangePicker } from './range';
 export {
+  createDateTimePicker,
+  type DateTimeDetail,
+  type DateTimePickerActions,
+  type DateTimePickerOptions,
+  type DateTimePickerState,
+  type DateTimePickerStore,
+  type TimeCell,
+} from './datetime';
+export {
   checkDate,
   equivalentText,
   formatInput,

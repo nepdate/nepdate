@@ -55,7 +55,13 @@ export const en: LocaleData = {
     calendar: 'Calendar',
     presets: 'Shortcuts',
     fiscalYear: 'Fiscal year',
+    time: 'Time',
+    hour: 'Hour',
+    minute: 'Minute',
+    now: 'Now',
+    done: 'Done',
   },
+  time: { am: 'AM', pm: 'PM' },
   presets: {
     today: 'Today',
     yesterday: 'Yesterday',
@@ -81,5 +87,6 @@ export const en: LocaleData = {
     unavailable: 'This date is not available.',
     rangeTooShort: 'Choose at least {min} days.',
     rangeTooLong: 'Choose at most {max} days.',
+    invalidTime: 'Enter a time as HH:MM.',
   },
 };

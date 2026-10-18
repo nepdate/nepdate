@@ -6,6 +6,7 @@ import { bsDate, type CalendarDate } from '@nepdate/core';
 import {
   bothDates,
   Calendar,
+  DateTimePicker,
   DatePicker,
   DateRangePicker,
   DateText,
@@ -381,6 +382,69 @@ describe('fiscal-year view (FY-001)', () => {
     expect(value.start).toBe('2026-07-17');
     expect(value.end).toMatch(/^2027-07-1\d$/);
     expect(screen.queryByRole('dialog')).toBeNull();
+  });
+});
+
+describe('<DateTimePicker> (TIME-003)', () => {
+  test('type a date and time, or pick from the calendar and the time columns', () => {
+    const onChange = vi.fn();
+    const { container } = render(
+      <DateTimePicker
+        today={TODAY}
+        name="starts"
+        onChange={onChange}
+        aria-label="Starts"
+        timeLabel="Start time"
+        minuteStep={15}
+      />,
+    );
+    fireEvent.change(screen.getByRole('combobox', { name: 'Starts' }), {
+      target: { value: '2083-06-24' },
+    });
+    fireEvent.change(screen.getByRole('textbox', { name: 'Start time' }), {
+      target: { value: '9:30' },
+    });
+    expect(onChange).toHaveBeenLastCalledWith(
+      '2026-10-10T09:30:00+05:45',
+      expect.anything(),
+    );
+    expect(container.querySelector<HTMLInputElement>('input[type="hidden"]')?.value).toBe(
+      '2026-10-10T09:30:00+05:45',
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    const hours = screen.getByRole('group', { name: 'Hour' });
+    fireEvent.click(within(hours).getByRole('button', { name: '17' }));
+    fireEvent.click(
+      within(screen.getByRole('group', { name: 'Minute' })).getByRole('button', {
+        name: '45',
+      }),
+    );
+    fireEvent.click(screen.getByRole('button', { name: /^Sunday, 25 Ashwin/ }));
+    expect(onChange).toHaveBeenLastCalledWith(
+      '2026-10-11T17:45:00+05:45',
+      expect.anything(),
+    );
+    expect(screen.getByRole('dialog')).toBeDefined(); // stays open to adjust the time
+    fireEvent.click(screen.getByRole('button', { name: 'Done' }));
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  test('invalid times are shown on the time field', () => {
+    render(
+      <DateTimePicker
+        today={TODAY}
+        defaultValue="2026-10-10T09:00:00+05:45"
+        aria-label="Starts"
+      />,
+    );
+    fireEvent.change(screen.getByRole('textbox', { name: 'Time' }), {
+      target: { value: '99' },
+    });
+    expect(screen.getByText('Enter a time as HH:MM.')).toBeDefined();
+    expect(
+      screen.getByRole('textbox', { name: 'Time' }).getAttribute('aria-invalid'),
+    ).toBe('true');
   });
 });
 

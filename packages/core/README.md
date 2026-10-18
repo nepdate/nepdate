@@ -88,6 +88,16 @@ parseFiscalYear('२०८३/८४'); // FiscalYear | null
 isInFiscalYear(date, fiscalYearRange(2083));
 ```
 
+## Time
+
+```ts
+parseTime('2:30 pm'); // { hour: 14, minute: 30 }; also "14:30", "1430", "२:३० अपराह्न"
+formatTime(timeOfDay(14, 30), { hour12: true, locale: 'ne' }); // "२:३० अपराह्न"
+toIsoDateTime(bsDate(2083, 7, 1), timeOfDay(14, 30)); // "2026-10-18T14:30:00+05:45" (Nepal by default)
+fromIsoDateTime('2026-10-18T09:00:00Z'); // { date: 2026-10-18 AD, time: 14:45 } in Nepal time
+now(); // { date, time } in the configured zone
+```
+
 ## Locales and config
 
 ```ts

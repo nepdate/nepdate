@@ -91,6 +91,7 @@ export default tseslint.config(
         { allowNumber: true },
       ],
       eqeqeq: ['error', 'always', { null: 'ignore' }],
+      '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
       'no-console': 'error',
     },
   },

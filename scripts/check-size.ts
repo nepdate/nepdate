@@ -24,21 +24,22 @@ interface Budget {
 const KB = 1000;
 
 export const BUDGETS: Record<string, Budget[]> = {
-  // The whole API with en + ne names; 7 kB since M1 (docs/plan D-019).
+  // The whole API with en + ne names, incl. time (A3); 8 kB since D-035.
   core: [
-    { file: 'dist/index.js', bundle: true, maxGzipBytes: 7 * KB },
+    { file: 'dist/index.js', bundle: true, maxGzipBytes: 8 * KB },
     { file: 'dist/index.js', bundle: true, only: ['adToBs'], maxGzipBytes: 3 * KB },
   ],
   // Day, month, year and fiscal-year views; 4.5 kB since FY-001 (docs/plan D-034).
   calendar: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 4.5 * KB }],
-  // Single + range pickers and presets; 4 kB since A1 (docs/plan D-033).
-  datepicker: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 4 * KB }],
+  // Single, range and date-time pickers and presets; 5 kB since D-035.
+  datepicker: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 5 * KB }],
   dom: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 1.5 * KB }],
   holidays: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 2 * KB }],
   react: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 8 * KB }],
   vanilla: [
-    { file: 'dist/index.js', bundle: true, maxGzipBytes: 8 * KB },
-    { file: 'dist/nepdate-picker.global.js', bundle: false, maxGzipBytes: 22 * KB },
+    // Four elements incl. <nep-date-time-picker>; 10 kB / 26 kB since D-035.
+    { file: 'dist/index.js', bundle: true, maxGzipBytes: 10 * KB },
+    { file: 'dist/nepdate-picker.global.js', bundle: false, maxGzipBytes: 26 * KB },
   ],
 };
 

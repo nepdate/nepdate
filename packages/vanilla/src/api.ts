@@ -7,6 +7,7 @@ import type { DatePickerState } from '@nepdate/datepicker';
 import { CalendarView } from './calendar-view';
 import { DatePickerView, type DatePickerViewOptions } from './picker-view';
 import { DateRangePickerView, type DateRangePickerViewOptions } from './range-view';
+import { DateTimePickerView, type DateTimePickerViewOptions } from './datetime-view';
 
 export interface DatePickerHandle {
   readonly view: DatePickerView;
@@ -120,4 +121,12 @@ export function createDateRangePicker(
   options: DateRangePickerViewOptions = {},
 ): DateRangePickerView {
   return new DateRangePickerView(container, options);
+}
+
+/** Mount a date + time picker into a container. */
+export function createDateTimePicker(
+  container: HTMLElement,
+  options: DateTimePickerViewOptions = {},
+): DateTimePickerView {
+  return new DateTimePickerView(container, options);
 }

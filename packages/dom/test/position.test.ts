@@ -58,6 +58,13 @@ describe('computePosition (DOM-001)', () => {
     });
   });
 
+  test('the panel never runs off the bottom of the screen', () => {
+    expect(computePosition(rect(1040, 6), 500, { width: 375, height: 812 }).top).toBe(
+      306,
+    );
+    expect(computePosition(rect(100, 6), 900, { width: 375, height: 812 }).top).toBe(6);
+  });
+
   test('the panel shrinks to fit a phone screen', () => {
     expect(
       computePosition(rect(100, 0), 300, { width: 320, height: 640 }, { gap: 8 }).width,

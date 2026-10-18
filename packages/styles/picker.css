@@ -22,6 +22,8 @@
  *       .ndp-options > button.ndp-option [data-state=default|selected|current] (month/year views)
  *     .ndp-panel__footer > .ndp-segment > button.ndp-segment__item[aria-pressed] · button.ndp-button
  *   With presets: .ndp-panel > .ndp-panel__body > .ndp-presets > button.ndp-preset[aria-pressed] · .ndp-calendar
+ *   Date + time: .ndp-field > .ndp-datetime > .ndp-input (date) · .ndp-input.ndp-input--time
+ *                panel body … · .ndp-time > .ndp-time__column[aria-label] > button.ndp-time-item[aria-pressed]
  */
 
 .ndp-field,
@@ -175,6 +177,23 @@
   font-size: 14px;
 }
 
+/* ---------------------------------------------------------- Date + time */
+
+.ndp-datetime {
+  display: flex;
+  align-items: center;
+  gap: var(--ndp-space-8);
+}
+
+.ndp-datetime > .ndp-input {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.ndp-datetime > .ndp-input--time {
+  flex: 0 0 var(--ndp-time-input-width, 120px);
+}
+
 /* ---------------------------------------------------------- Icon button */
 
 .ndp-icon-button {
@@ -217,6 +236,11 @@
 .ndp-panel {
   z-index: var(--ndp-z-index);
   max-width: calc(100vw - 12px);
+  /* Never taller than the screen: a fixed panel can't be scrolled into view, so it scrolls itself. */
+  max-height: calc(100vh - 12px);
+  max-height: calc(100dvh - 12px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: var(--ndp-panel-padding);
   border: 1px solid var(--ndp-border-default);
   border-radius: var(--ndp-radius-lg);
@@ -229,7 +253,6 @@
 .ndp-panel[popover] {
   margin: 0;
   inset: auto;
-  overflow: visible;
 }
 
 .ndp-panel[data-side='top'] {
@@ -297,6 +320,72 @@
   background: transparent;
   color: var(--ndp-text-disabled);
   cursor: default;
+}
+
+/* Hour and minute columns beside the calendar (Figma "Time Item"). */
+.ndp-time {
+  display: flex;
+  flex: none;
+  gap: var(--ndp-space-4);
+  padding-left: var(--ndp-space-12);
+  border-left: 1px solid var(--ndp-border-default);
+}
+
+.ndp-time__column {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: calc(var(--ndp-day-size) * 7 + 40px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+
+.ndp-time-item {
+  flex: none;
+  width: 52px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ndp-radius-md);
+  background: transparent;
+  color: var(--ndp-text-primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+
+.ndp-time-item:hover {
+  background: var(--ndp-bg-hover);
+}
+
+.ndp-time-item[aria-pressed='true'] {
+  background: var(--ndp-bg-accent);
+  color: var(--ndp-text-on-accent);
+}
+
+.ndp-time-item:disabled {
+  background: transparent;
+  color: var(--ndp-text-disabled);
+  cursor: default;
+}
+
+@media (max-width: 479px) {
+  .ndp-time {
+    flex-direction: column;
+    padding: var(--ndp-space-8) 0 0;
+    border-top: 1px solid var(--ndp-border-default);
+    border-left: 0;
+  }
+
+  .ndp-time__column {
+    flex-direction: row;
+    max-height: none;
+    overflow-x: auto;
+  }
 }
 
 @media (max-width: 479px) {

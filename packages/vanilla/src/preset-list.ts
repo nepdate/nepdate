@@ -4,6 +4,7 @@ import { el, setAttrs, setText } from './dom';
 /** Panel width with and without the presets column. */
 export const PANEL_WIDTH = 320;
 export const PANEL_WIDTH_WITH_PRESETS = 492;
+export const TIME_COLUMNS_WIDTH = 136;
 
 /** The shortcut buttons beside the calendar. Hidden when there are none. */
 export class PresetList {

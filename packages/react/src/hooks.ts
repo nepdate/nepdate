@@ -10,6 +10,10 @@ import type { PresetState } from '@nepdate/datepicker';
 import {
   createDatePicker,
   createDateRangePicker,
+  createDateTimePicker,
+  type DateTimePickerOptions,
+  type DateTimePickerState,
+  type DateTimePickerStore,
   type DatePickerOptions,
   type DatePickerState,
   type DatePickerStore,
@@ -309,5 +313,50 @@ export function useDateRangePicker(
     }),
     getPresetProps: (preset) =>
       presetProps(preset, (id) => store.actions.applyPreset(id)),
+  };
+}
+
+export interface DateTimePickerBindings {
+  readonly state: DateTimePickerState;
+  readonly actions: DateTimePickerStore['actions'];
+  readonly store: DateTimePickerStore;
+  readonly calendar: CalendarBindings;
+  readonly ids: { date: string; time: string; panel: string; hint: string };
+}
+
+/** A BS/AD date + time picker without markup. The value is a zoned ISO timestamp. */
+export function useDateTimePicker(
+  options: DateTimePickerOptions & { id?: string | undefined } = {},
+): DateTimePickerBindings {
+  const { id: givenId, ...storeOptions } = options;
+  const { store, state } = useStore<
+    DateTimePickerOptions,
+    DateTimePickerState,
+    DateTimePickerStore
+  >(createDateTimePicker, storeOptions);
+  const base = givenId ?? `ndp${useId().replace(/:/g, '')}`;
+  const calendar = useCalendarBindings(
+    state.calendarState,
+    store.calendar.actions,
+    options.locale,
+    {
+      getSnapshot: () => store.calendar.getState(),
+      onDayActivate: (date) => {
+        store.actions.selectDate(date);
+      },
+    },
+  );
+
+  return {
+    state,
+    actions: store.actions,
+    store,
+    calendar,
+    ids: {
+      date: base,
+      time: `${base}-time`,
+      panel: `${base}-panel`,
+      hint: `${base}-hint`,
+    },
   };
 }

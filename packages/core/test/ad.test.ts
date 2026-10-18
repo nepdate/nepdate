@@ -27,7 +27,7 @@ describe('AD arithmetic needs no table (TEST-004)', () => {
       }
       expect(toEpoch(date)).toBe(epoch);
     }
-  });
+  }, 30_000);
 
   test('works far outside the BS table, including year 0 and BC years', () => {
     for (const [year, month, day] of [

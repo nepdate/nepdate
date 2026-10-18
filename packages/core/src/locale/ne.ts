@@ -55,7 +55,13 @@ export const ne: LocaleData = {
     calendar: 'पात्रो',
     presets: 'छिटो छनोट',
     fiscalYear: 'आर्थिक वर्ष',
+    time: 'समय',
+    hour: 'घण्टा',
+    minute: 'मिनेट',
+    now: 'अहिले',
+    done: 'भयो',
   },
+  time: { am: 'पूर्वाह्न', pm: 'अपराह्न' },
   presets: {
     today: 'आज',
     yesterday: 'हिजो',
@@ -81,5 +87,6 @@ export const ne: LocaleData = {
     unavailable: 'यो मिति उपलब्ध छैन।',
     rangeTooShort: 'कम्तीमा {min} दिन छान्नुहोस्।',
     rangeTooLong: 'बढीमा {max} दिन छान्नुहोस्।',
+    invalidTime: 'समय HH:MM ढाँचामा लेख्नुहोस्।',
   },
 };

@@ -387,6 +387,52 @@ describe('fiscal-year view (FY-001)', () => {
   });
 });
 
+describe('<nep-date-time-picker> (TIME-003)', () => {
+  test('typing and the time columns set one zoned instant that the form submits', () => {
+    const element = mount<
+      HTMLElement & {
+        value: string;
+        view: { setOptions(o: object): void; open(): void } | null;
+      }
+    >(
+      '<form><nep-date-time-picker data-test name="starts" minute-step="30" label="Starts"></nep-date-time-picker></form>',
+    );
+    element.view?.setOptions({
+      today: { calendar: 'AD', year: 2026, month: 10, day: 18 },
+    });
+    const onChange = vi.fn<(event: CustomEvent) => void>();
+    element.addEventListener('change', onChange as unknown as EventListener);
+    const [date, time] = element.querySelectorAll<HTMLInputElement>(
+      'input.ndp-input__control',
+    );
+    if (!date || !time) {
+      throw new Error('inputs missing');
+    }
+    typeInto(date, '2083-06-24');
+    typeInto(time, '2:30 pm');
+    expect(element.value).toBe('2026-10-10T14:30:00+05:45');
+    expect(onChange.mock.lastCall?.[0].detail).toMatchObject({
+      time: { hour: 14, minute: 30 },
+    });
+    const form = element.closest('form');
+    expect(form && new FormData(form).get('starts')).toBe('2026-10-10T14:30:00+05:45');
+
+    element.view?.open();
+    q<HTMLButtonElement>(element, '[data-unit="hour"] [data-value="8"]').click();
+    q<HTMLButtonElement>(element, '[data-unit="minute"] [data-value="30"]').click();
+    expect(element.value).toBe('2026-10-10T08:30:00+05:45');
+    expect(element.querySelectorAll('[data-unit="minute"] .ndp-time-item')).toHaveLength(
+      2,
+    );
+    q<HTMLButtonElement>(element, '[data-action="done"]').click();
+    expect(q<HTMLElement>(element, '.ndp-panel').hidden).toBe(true);
+
+    typeInto(time, 'later');
+    expect(q(element, '.ndp-hint').textContent).toBe('Enter a time as HH:MM.');
+    expect(time.getAttribute('aria-invalid')).toBe('true');
+  });
+});
+
 describe('<nep-calendar> (VAN-002)', () => {
   test('fires nep-select with the date and its AD value', () => {
     const element = mount<NepCalendarElement>(

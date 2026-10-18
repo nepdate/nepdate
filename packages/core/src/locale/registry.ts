@@ -37,7 +37,14 @@ export interface LocaleData {
     /** Picker shortcuts (presets) and the name of their list. */
     readonly presets: string;
     readonly fiscalYear: string;
+    readonly time: string;
+    readonly hour: string;
+    readonly minute: string;
+    readonly now: string;
+    readonly done: string;
   };
+  /** Words for 12-hour times. */
+  readonly time: { readonly am: string; readonly pm: string };
   /** Names of the built-in picker presets. */
   readonly presets: {
     readonly today: string;
@@ -63,6 +70,7 @@ export interface LocaleData {
     /** Range pickers: {min} / {max} are day counts. */
     readonly rangeTooShort: string;
     readonly rangeTooLong: string;
+    readonly invalidTime: string;
   };
 }
 

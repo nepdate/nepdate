@@ -76,6 +76,24 @@ range.actions.select(end);
 range.getState().value; // { start: '2026-10-22', end: '2026-10-25' }
 ```
 
-Both stores expose the panel's calendar store as `.calendar` (see `@nepdate/calendar`). The pure helpers `parseInput`, `checkDate`, `formatInput` and `equivalentText` are exported too.
+## Date and time
+
+```ts
+import { createDateTimePicker } from '@nepdate/datepicker';
+
+const picker = createDateTimePicker({
+  minuteStep: 15,
+  defaultTime: '09:00',
+  hour12: true,
+});
+picker.actions.typeDate('2083-06-24');
+picker.actions.typeTime('2:30 pm');
+picker.getState().value; // "2026-10-10T14:30:00+05:45": one instant, with Nepal's offset
+picker.getState().hours; // hour cells for the time column; minutes likewise
+```
+
+Use `timeZone` to show and store another zone. Values without an offset are taken as wall times in that zone.
+
+All three stores expose the panel's calendar store as `.calendar` (see `@nepdate/calendar`). The pure helpers `parseInput`, `checkDate`, `formatInput` and `equivalentText` are exported too.
 
 MIT © Shishir Rai

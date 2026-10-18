@@ -3,7 +3,13 @@ import './playground.css';
 import { StrictMode, useState, type ReactElement, type SyntheticEvent } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import type { CalendarSystem, LocaleCode } from '@nepdate/core';
-import { Calendar, DatePicker, DateRangePicker, DateText } from '@nepdate/react';
+import {
+  Calendar,
+  DatePicker,
+  DateRangePicker,
+  DateText,
+  DateTimePicker,
+} from '@nepdate/react';
 import { runAxe } from './axe';
 
 type Theme = 'light' | 'dark';
@@ -20,6 +26,7 @@ function App(): ReactElement {
   const [controlled, setControlled] = useState('2026-10-10');
   const [submitted, setSubmitted] = useState('');
   const [range, setRange] = useState({ start: '', end: '' });
+  const [startsAt, setStartsAt] = useState('');
   const [axe, setAxe] = useState<{ ok: boolean; text: string } | null>(null);
   const fixed = calendar === 'switch' ? undefined : calendar;
 
@@ -172,6 +179,22 @@ function App(): ReactElement {
             endLabel="To"
           />
           <div className="value">value: {JSON.stringify(range)}</div>
+        </section>
+
+        <section>
+          <h2>Date and time</h2>
+          <p>The value is one instant, with Nepal's +05:45 offset.</p>
+          <DateTimePicker
+            locale={locale}
+            theme={theme}
+            calendar={fixed}
+            minuteStep={15}
+            defaultTime="10:00"
+            presets={['today', 'tomorrow']}
+            onChange={setStartsAt}
+            aria-label="Starts at"
+          />
+          <div className="value">value: {startsAt || '""'}</div>
         </section>
 
         <section>
