@@ -55,6 +55,37 @@ if (data.BS_DATA?.firstYear === 1970) {
   failures.push('core/data: BS_DATA missing');
 }
 
+interface CalendarLike {
+  createCalendar(options: Record<string, unknown>): { getState(): { title: string } };
+}
+const calendarDist = resolve(root, 'packages/calendar/dist');
+const calendarOptions = { today: { calendar: 'AD', year: 2026, month: 10, day: 18 } };
+function checkCalendar(name: string, api: CalendarLike | undefined): void {
+  const title = api ? api.createCalendar(calendarOptions).getState().title : 'missing';
+  if (title === 'Kartik 2083') {
+    console.log(`✔ calendar via ${name}`);
+  } else {
+    failures.push(`calendar via ${name}: got ${title}`);
+  }
+}
+checkCalendar(
+  'ESM import',
+  (await import(pathToFileURL(resolve(calendarDist, 'index.js')).href)) as CalendarLike,
+);
+checkCalendar(
+  'CJS require',
+  createRequire(import.meta.url)(resolve(calendarDist, 'index.cjs')) as CalendarLike,
+);
+const calendarSandbox: { NepDateCalendar?: CalendarLike } = {};
+runInContext(
+  readFileSync(resolve(calendarDist, 'nepdate-calendar.global.js'), 'utf8'),
+  createContext(calendarSandbox),
+);
+checkCalendar(
+  'IIFE window.NepDateCalendar (core bundled in)',
+  calendarSandbox.NepDateCalendar,
+);
+
 if (failures.length > 0) {
   for (const failure of failures) {
     console.error(`✖ ${failure}`);

@@ -23,7 +23,8 @@
     "check:size": "node scripts/check-size.ts",
     "check:data": "node scripts/gen-data.ts --check",
     "test:coverage": "vitest run --coverage",
-    "smoke": "node scripts/smoke.ts"
+    "smoke": "node scripts/smoke.ts",
+    "bench": "node scripts/bench.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
