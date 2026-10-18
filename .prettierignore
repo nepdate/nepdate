@@ -1,0 +1,6 @@
+dist
+coverage
+pnpm-lock.yaml
+packages/core/src/bs/data/years.ts
+.changeset/*.md
+docs/plan

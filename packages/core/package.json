@@ -1,0 +1,54 @@
+{
+  "name": "@nepdate/core",
+  "version": "0.0.0",
+  "description": "Bikram Sambat (BS) ⇄ AD date engine: conversion, formatting, parsing, fiscal year. Zero dependencies.",
+  "keywords": [
+    "nepali",
+    "bikram-sambat",
+    "bs",
+    "nepali-date",
+    "date",
+    "calendar",
+    "datepicker",
+    "nepal"
+  ],
+  "license": "MIT",
+  "author": "Shishir Rai",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "@nepdate/source": "./src/index.ts",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
+  "unpkg": "./dist/nepdate.global.js",
+  "jsdelivr": "./dist/nepdate.global.js",
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.test.ts"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc -p tsconfig.json",
+    "check:package": "publint --strict && attw --pack"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

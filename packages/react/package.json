@@ -1,0 +1,62 @@
+{
+  "name": "@nepdate/react",
+  "version": "0.0.0",
+  "description": "Nepali BS/AD date picker and calendar for React: headless hooks and styled components.",
+  "keywords": [
+    "nepali",
+    "bikram-sambat",
+    "bs",
+    "nepali-date",
+    "date",
+    "calendar",
+    "datepicker",
+    "nepal"
+  ],
+  "license": "MIT",
+  "author": "Shishir Rai",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "@nepdate/source": "./src/index.ts",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.cts",
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.test.ts"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc -p tsconfig.json",
+    "check:package": "publint --strict && attw --pack"
+  },
+  "dependencies": {
+    "@nepdate/core": "workspace:^",
+    "@nepdate/calendar": "workspace:^",
+    "@nepdate/datepicker": "workspace:^",
+    "@nepdate/dom": "workspace:^",
+    "@nepdate/styles": "workspace:^"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

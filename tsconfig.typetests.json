@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "types": [],
+    "isolatedDeclarations": false
+  },
+  "include": ["packages/*/test/**/*.test-d.ts"]
+}

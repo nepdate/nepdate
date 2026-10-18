@@ -1,0 +1,24 @@
+{
+  "$comment": "Which @nepdate packages each package may import, and which other packages it may use. Read by eslint.config.js and scripts/check-boundaries.ts. See docs/plan/01-architecture.md.",
+  "packages": {
+    "core": {
+      "internal": [],
+      "external": [],
+      "mayUseDate": true,
+      "noNodeBuiltinsInMain": true
+    },
+    "calendar": { "internal": ["core"], "external": [] },
+    "datepicker": { "internal": ["core", "calendar"], "external": [] },
+    "dom": { "internal": [], "external": [] },
+    "styles": { "internal": [], "external": [] },
+    "vanilla": {
+      "internal": ["core", "calendar", "datepicker", "dom", "styles"],
+      "external": []
+    },
+    "react": {
+      "internal": ["core", "calendar", "datepicker", "dom", "styles"],
+      "external": ["react", "react-dom"]
+    }
+  },
+  "noPackageDependencies": ["core", "dom", "styles"]
+}

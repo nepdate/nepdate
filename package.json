@@ -1,0 +1,44 @@
+{
+  "name": "nepdate-monorepo",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.11.2",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "pnpm -r --workspace-concurrency=1 --filter \"./packages/*\" build",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json && pnpm -r --filter \"./packages/*\" typecheck",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check:boundaries": "node scripts/check-boundaries.ts",
+    "check:packages": "pnpm -r --workspace-concurrency=1 --filter \"./packages/*\" check:package",
+    "gen:data": "node scripts/gen-data.ts",
+    "dev": "pnpm --filter @nepdate/playground dev",
+    "verify": "pnpm format:check && pnpm lint && pnpm check:boundaries && pnpm check:data && pnpm typecheck && pnpm test && pnpm build && pnpm check:packages && pnpm check:size",
+    "changeset": "changeset",
+    "release": "pnpm verify && changeset publish",
+    "check:size": "node scripts/check-size.ts",
+    "check:data": "node scripts/gen-data.ts --check"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@changesets/cli": "^3.0.3",
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.5",
+    "@vitest/coverage-v8": "^5.0.5",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0",
+    "happy-dom": "^21.0.3",
+    "prettier": "^3.9.10",
+    "publint": "^0.3.25",
+    "rolldown": "1.2.14",
+    "tsdown": "^0.23.1",
+    "typescript": "~6.0.3",
+    "typescript-eslint": "^8.71.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5"
+  }
+}

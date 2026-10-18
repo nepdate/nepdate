@@ -1,0 +1,37 @@
+{
+  "name": "@nepdate/styles",
+  "version": "0.0.0",
+  "description": "CSS variables and classes for the @nepdate calendar and date picker. No JavaScript.",
+  "keywords": [
+    "nepali",
+    "bikram-sambat",
+    "datepicker",
+    "css",
+    "theme"
+  ],
+  "license": "MIT",
+  "author": "Shishir Rai",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": "./index.css",
+    "./index.css": "./index.css",
+    "./tokens.css": "./tokens.css",
+    "./picker.css": "./picker.css",
+    "./package.json": "./package.json"
+  },
+  "style": "./index.css",
+  "unpkg": "./index.css",
+  "jsdelivr": "./index.css",
+  "files": [
+    "*.css"
+  ],
+  "scripts": {
+    "check:package": "publint --strict"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
