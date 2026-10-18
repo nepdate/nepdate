@@ -87,17 +87,54 @@ export default tseslint.config(
         'error',
         { allowNumber: true },
       ],
-      eqeqeq: ['error', 'always'],
+      eqeqeq: ['error', 'always', { null: 'ignore' }],
       'no-console': 'error',
     },
   },
   ...packageRules,
+  // D-001: inside core, AD code never reads BS code and BS code never reads AD code.
+  {
+    files: ['packages/core/src/ad/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['../bs/*', '**/bs/**'],
+              message: 'AD code may not import BS code (D-001).',
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ['packages/core/src/bs/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['../ad/*', '**/ad/**'],
+              message: 'BS code may not import AD code (D-001).',
+            },
+          ],
+        },
+      ],
+    },
+  },
   {
     files: ['**/*.js'],
     ...tseslint.configs.disableTypeChecked,
   },
   {
     files: ['scripts/**', '**/test/**', '**/*.config.ts'],
-    rules: { 'no-console': 'off', 'no-restricted-syntax': 'off' },
+    rules: {
+      'no-console': 'off',
+      'no-restricted-syntax': 'off',
+      '@typescript-eslint/no-confusing-void-expression': 'off',
+    },
   },
 );

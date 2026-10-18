@@ -16,13 +16,19 @@ interface Budget {
   file: string;
   /** Bundle it (true) or measure the file as it is, e.g. an already-minified IIFE. */
   bundle: boolean;
+  /** Measure only these exports, to check tree-shaking (TEST-034). */
+  only?: string[];
   maxGzipBytes: number;
 }
 
 const KB = 1000;
 
 export const BUDGETS: Record<string, Budget[]> = {
-  core: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 6 * KB }],
+  // The whole API with en + ne names; 7 kB since M1 (docs/plan D-019).
+  core: [
+    { file: 'dist/index.js', bundle: true, maxGzipBytes: 7 * KB },
+    { file: 'dist/index.js', bundle: true, only: ['adToBs'], maxGzipBytes: 3 * KB },
+  ],
   calendar: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 4 * KB }],
   datepicker: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 3 * KB }],
   dom: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 1.5 * KB }],
@@ -35,14 +41,32 @@ export const BUDGETS: Record<string, Budget[]> = {
 
 const EXTERNAL = [/^@nepdate\//, /^react(?:-dom)?(?:\/|$)/];
 
-export async function measure(path: string, bundle: boolean): Promise<number> {
+const VIRTUAL_ENTRY = '\0nepdate-size-entry';
+
+export async function measure(
+  path: string,
+  bundle: boolean,
+  only?: string[],
+): Promise<number> {
   if (!bundle) {
     return gzipSync(readFileSync(path)).length;
   }
   const result = await build({
-    input: path,
+    input: only ? VIRTUAL_ENTRY : path,
     write: false,
     external: EXTERNAL,
+    plugins: only
+      ? [
+          {
+            name: 'size-entry',
+            resolveId: (id) => (id === VIRTUAL_ENTRY ? id : null),
+            load: (id) =>
+              id === VIRTUAL_ENTRY
+                ? `export { ${only.join(', ')} } from ${JSON.stringify(path)};`
+                : null,
+          },
+        ]
+      : [],
     output: { format: 'esm', minify: true },
   });
   const code = result.output.map((chunk) => ('code' in chunk ? chunk.code : '')).join('');
@@ -64,11 +88,11 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
         failed = true;
         continue;
       }
-      const bytes = await measure(path, budget.bundle);
+      const bytes = await measure(path, budget.bundle, budget.only);
       const ok = bytes <= budget.maxGzipBytes;
       failed ||= !ok;
       console.log(
-        `${ok ? '✔' : '✖'} @nepdate/${pkg} ${budget.file}: ${(bytes / KB).toFixed(2)} kB gzip (budget ${(budget.maxGzipBytes / KB).toFixed(1)} kB)`,
+        `${ok ? '✔' : '✖'} @nepdate/${pkg} ${budget.only ? `{ ${budget.only.join(', ')} }` : budget.file}: ${(bytes / KB).toFixed(2)} kB gzip (budget ${(budget.maxGzipBytes / KB).toFixed(1)} kB)`,
       );
     }
   }

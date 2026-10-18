@@ -28,11 +28,29 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./data": {
+      "@nepdate/source": "./src/data.ts",
+      "import": {
+        "types": "./dist/data.d.ts",
+        "default": "./dist/data.js"
+      },
+      "require": {
+        "types": "./dist/data.d.cts",
+        "default": "./dist/data.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.cts",
+  "typesVersions": {
+    "*": {
+      "data": [
+        "./dist/data.d.cts"
+      ]
+    }
+  },
   "unpkg": "./dist/nepdate.global.js",
   "jsdelivr": "./dist/nepdate.global.js",
   "files": [

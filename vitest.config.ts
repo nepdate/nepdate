@@ -19,6 +19,15 @@ export default defineConfig({
       provider: 'v8',
       include: ['packages/*/src/**'],
       exclude: ['packages/core/src/bs/data/years.ts'],
+      thresholds: {
+        // Branches below 100% are the `?? 0` fallbacks noUncheckedIndexedAccess requires.
+        'packages/core/src/**': {
+          statements: 100,
+          lines: 100,
+          functions: 100,
+          branches: 90,
+        },
+      },
     },
   },
 });
