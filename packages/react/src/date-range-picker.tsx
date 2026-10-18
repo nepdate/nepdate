@@ -39,6 +39,8 @@ export interface DateRangePickerProps {
   endName?: string | undefined;
   startLabel?: string | undefined;
   endLabel?: string | undefined;
+  /** Show a "Fiscal year" button that switches the panel to fiscal-year tiles. */
+  fiscalYearView?: boolean | undefined;
   disabled?: boolean | undefined;
   theme?: 'light' | 'dark' | 'auto' | undefined;
   className?: string | undefined;
@@ -50,6 +52,7 @@ export function DateRangePicker({
   endName,
   startLabel,
   endLabel,
+  fiscalYearView = false,
   disabled = false,
   theme,
   className,
@@ -157,23 +160,42 @@ export function DateRangePicker({
           >
             <CalendarBody bindings={calendar} />
           </PanelBody>
-          {state.canSwitchCalendar && (
+          {(state.canSwitchCalendar || fiscalYearView) && (
             <div className="ndp-panel__footer">
-              <div
-                className="ndp-segment"
-                role="group"
-                aria-label={labels.labels.calendar}
-              >
-                {(['BS', 'AD'] as const).map((option) => (
-                  <button
-                    key={option}
-                    className="ndp-segment__item"
-                    {...picker.getCalendarOptionProps(option)}
-                  >
-                    {labels.calendarNames[option]}
-                  </button>
-                ))}
-              </div>
+              {state.canSwitchCalendar ? (
+                <div
+                  className="ndp-segment"
+                  role="group"
+                  aria-label={labels.labels.calendar}
+                >
+                  {(['BS', 'AD'] as const).map((option) => (
+                    <button
+                      key={option}
+                      className="ndp-segment__item"
+                      {...picker.getCalendarOptionProps(option)}
+                    >
+                      {labels.calendarNames[option]}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <span />
+              )}
+              {fiscalYearView && (
+                <button
+                  type="button"
+                  className="ndp-button"
+                  aria-pressed={state.calendarState.view === 'fiscal'}
+                  onClick={() => {
+                    store.calendar.actions.setView(
+                      state.calendarState.view === 'fiscal' ? 'day' : 'fiscal',
+                    );
+                    calendar.focusGrid();
+                  }}
+                >
+                  {labels.labels.fiscalYear}
+                </button>
+              )}
             </div>
           )}
         </div>

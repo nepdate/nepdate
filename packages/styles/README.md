@@ -33,7 +33,7 @@ Everything uses `--ndp-*` CSS variables, so override them to match your design:
 
 The class names, `data-*` attributes and markup are a public, documented contract (see the comment at the top of `picker.css`), so you can style the components or build your own markup that matches:
 
-`ndp-field`, `ndp-input`, `ndp-input__control`, `ndp-hint`, `ndp-range`, `ndp-panel`, `ndp-calendar`, `ndp-grid`, `ndp-weekday`, `ndp-day` (with `data-state="today|selected|range-start|range-middle|range-end|disabled|outside|holiday"`), `ndp-option`, `ndp-segment`, `ndp-button`, `ndp-icon-button`, `ndp-holiday-tag`.
+`ndp-field`, `ndp-input`, `ndp-input__control`, `ndp-hint`, `ndp-range`, `ndp-panel`, `ndp-calendar`, `ndp-grid`, `ndp-weekday`, `ndp-day` (with `data-state="today|selected|range-start|range-middle|range-end|disabled|outside|holiday"`), `ndp-option`, `ndp-presets`, `ndp-preset`, `ndp-segment`, `ndp-button`, `ndp-icon-button`, `ndp-holiday-tag`.
 
 Muted text is darker than the original UI kit value, so every text colour meets WCAG AA contrast.
 

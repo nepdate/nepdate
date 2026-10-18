@@ -60,7 +60,7 @@ A form-associated element: the form receives the AD `"YYYY-MM-DD"` value under `
 ```
 
 - **`nep-calendar`:** fires `nep-select` with `{ date, value }`, or `{ range: { start, end } }` when it has the `range` attribute.
-- **`nep-date-range-picker`:** submits `leave-start` and `leave-end` (or set `start-name` / `end-name`), and fires `change` with `{ value: { start, end } }`.
+- **`nep-date-range-picker`:** add `fiscal-years` for a "Fiscal year" button that picks a whole fiscal year. It submits `leave-start` and `leave-end` (or set `start-name` / `end-name`), and fires `change` with `{ value: { start, end } }`.
 
 ## Without custom elements
 

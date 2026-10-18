@@ -22,6 +22,8 @@ export interface DateRangePickerViewOptions extends DateRangePickerOptions {
   readonly theme?: Theme | undefined;
   readonly startLabel?: string | undefined;
   readonly endLabel?: string | undefined;
+  /** Show a "Fiscal year" button that switches the panel to fiscal-year tiles. */
+  readonly fiscalYearView?: boolean | undefined;
   readonly onOpenChange?: ((open: boolean) => void) | undefined;
 }
 
@@ -34,6 +36,7 @@ const VIEW_KEYS = new Set([
   'theme',
   'startLabel',
   'endLabel',
+  'fiscalYearView',
   'onOpenChange',
   'onChange',
   'onCalendarChange',
@@ -50,6 +53,8 @@ export class DateRangePickerView {
   private readonly hint: HTMLParagraphElement;
   private readonly panel: HTMLDivElement;
   private readonly segment: HTMLDivElement;
+  private readonly fiscalButton: HTMLButtonElement;
+  private readonly footer: HTMLDivElement;
   private readonly hidden: Record<RangeField, HTMLInputElement>;
   private readonly calendarView: CalendarView;
   private readonly presetList: PresetList;
@@ -122,6 +127,15 @@ export class DateRangePickerView {
       el('button', { type: 'button', class: 'ndp-segment__item', 'data-calendar': 'BS' }),
       el('button', { type: 'button', class: 'ndp-segment__item', 'data-calendar': 'AD' }),
     ]);
+    this.fiscalButton = el('button', {
+      type: 'button',
+      class: 'ndp-button',
+      'data-action': 'fiscal',
+    });
+    this.footer = el('div', { class: 'ndp-panel__footer' }, [
+      this.segment,
+      this.fiscalButton,
+    ]);
     const calendarRoot = el('div', { class: 'ndp-panel__calendar' });
     this.presetList = new PresetList((id) => {
       if (this.store.actions.applyPreset(id) && !this.store.getState().open) {
@@ -139,7 +153,7 @@ export class DateRangePickerView {
       },
       [
         el('div', { class: 'ndp-panel__body' }, [this.presetList.element, calendarRoot]),
-        el('div', { class: 'ndp-panel__footer' }, [this.segment]),
+        this.footer,
       ],
     );
     const row = el('div', { class: 'ndp-range' }, [
@@ -269,6 +283,13 @@ export class DateRangePickerView {
       });
     }
     this.presetList.render(state.presets, locale.labels.presets);
+    const fiscal = this.options.fiscalYearView ?? false;
+    this.fiscalButton.hidden = !fiscal;
+    setText(this.fiscalButton, locale.labels.fiscalYear);
+    setAttrs(this.fiscalButton, {
+      'aria-pressed': state.calendarState.view === 'fiscal' ? 'true' : 'false',
+    });
+    this.footer.hidden = !fiscal && !state.canSwitchCalendar;
     this.syncPanel(state.open);
   }
 
@@ -315,6 +336,12 @@ export class DateRangePickerView {
     const calendar = target.closest<HTMLElement>('[data-calendar]')?.dataset['calendar'];
     if (calendar === 'BS' || calendar === 'AD') {
       this.store.actions.switchCalendar(calendar);
+      return;
+    }
+    if (target.closest('[data-action="fiscal"]')) {
+      const calendar = this.store.calendar;
+      calendar.actions.setView(calendar.getState().view === 'fiscal' ? 'day' : 'fiscal');
+      this.calendarView.focusGrid();
       return;
     }
     if (target.closest('[data-action="toggle"]')) {

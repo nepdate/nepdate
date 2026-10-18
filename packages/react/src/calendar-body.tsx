@@ -13,7 +13,12 @@ export function CalendarBody({
   theme?: string | undefined;
 }): ReactElement {
   const { state } = bindings;
-  const tiles = state.view === 'month' ? state.months : state.years;
+  const tiles =
+    state.view === 'month'
+      ? state.months
+      : state.view === 'year'
+        ? state.years
+        : state.fiscalYears;
 
   return (
     <div
@@ -108,9 +113,16 @@ export function CalendarBody({
               className="ndp-option"
               {...bindings.getOptionProps(tile, index, tiles)}
             >
-              <span className="ndp-option__label">{tile.label}</span>
+              <span className="ndp-sr-only">
+                {tile.subLabel ? `${tile.label} (${tile.subLabel})` : tile.label}
+              </span>
+              <span className="ndp-option__label" aria-hidden="true">
+                {tile.label}
+              </span>
               {tile.subLabel !== null && (
-                <span className="ndp-option__sub">{tile.subLabel}</span>
+                <span className="ndp-option__sub" aria-hidden="true">
+                  {tile.subLabel}
+                </span>
               )}
             </button>
           ))}

@@ -386,6 +386,71 @@ describe('month and year views (TEST-024, CAL-018)', () => {
   });
 });
 
+describe('fiscal-year view (FY-001)', () => {
+  test('tiles list fiscal years with their AD span; choosing one selects the whole year in range mode', () => {
+    const onSelect = vi.fn();
+    const store = createCalendar({ today: TODAY, selectionMode: 'range', onSelect });
+    store.actions.setView('fiscal');
+    const state = store.getState();
+    expect(state.title).toBe('Fiscal year 2076/77–2087/88');
+    expect(state.fiscalYears).toHaveLength(12);
+    expect(state.fiscalYears[7]).toEqual({
+      value: 2083,
+      label: '2083/84',
+      subLabel: '2026/27',
+      isSelected: false,
+      isCurrent: true,
+      isDisabled: false,
+    });
+
+    expect(store.actions.chooseFiscalYear(2083)).toBe(true);
+    const range = store.getState().selected as DateRange;
+    expect(range.start && ymd(range.start)).toBe('2083-04-01');
+    expect(range.end).toMatchObject({ year: 2084, month: 3 });
+    expect(store.getState().view).toBe('day');
+    expect(store.getState().title).toBe('Shrawan 2083');
+    expect(onSelect).toHaveBeenCalledWith(range);
+    store.actions.setView('fiscal');
+    expect(store.getState().fiscalYears[7]?.isSelected).toBe(true);
+  });
+
+  test('single mode shows the first month; limits disable years; pages stop at the table', () => {
+    const single = createCalendar({ today: TODAY });
+    expect(single.actions.chooseFiscalYear(2080)).toBe(true);
+    expect(ymd(single.getState().visibleMonth)).toBe('2080-04-01');
+    expect(single.getState().selected).toBeNull();
+
+    const limited = createCalendar({
+      today: TODAY,
+      selectionMode: 'range',
+      min: bs('2083-05-01'),
+    });
+    limited.actions.setView('fiscal');
+    expect(limited.getState().fiscalYears.find((t) => t.value === 2083)?.isDisabled).toBe(
+      true,
+    );
+    expect(limited.actions.chooseFiscalYear(2083)).toBe(false);
+    expect(limited.actions.chooseFiscalYear(2300)).toBe(false);
+
+    const store = createCalendar({ today: TODAY, selectionMode: 'range' });
+    store.actions.setView('fiscal');
+    store.actions.next();
+    expect(store.getState().title).toBe('Fiscal year 2088/89–2099/00');
+    expect(store.getState().canNext).toBe(false);
+    expect(store.getState().fiscalYears.at(-1)).toMatchObject({
+      value: 2099,
+      isDisabled: true,
+      subLabel: null,
+    });
+    store.actions.prev();
+    store.actions.prev();
+    expect(store.getState().canPrev).toBe(true);
+    const ne = createCalendar({ today: TODAY, locale: 'ne' });
+    ne.actions.setView('fiscal');
+    expect(ne.getState().fiscalYears[7]?.label).toBe('२०८३/८४');
+  });
+});
+
 describe('store behaviour (TEST-025, CAL-017)', () => {
   test('the snapshot is the same object until something changes', () => {
     const store = createCalendar({ today: TODAY });

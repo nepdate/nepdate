@@ -359,6 +359,31 @@ describe('presets (PRE-006)', () => {
   });
 });
 
+describe('fiscal-year view (FY-001)', () => {
+  test('the Fiscal year button shows fiscal-year tiles; one click picks the whole year', () => {
+    const onChange = vi.fn();
+    render(
+      <DateRangePicker
+        today={TODAY}
+        fiscalYearView
+        onChange={onChange}
+        startLabel="From"
+        endLabel="To"
+      />,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Fiscal year' }));
+    expect(
+      screen.getByRole('button', { name: 'Fiscal year', pressed: true }),
+    ).toBeDefined();
+    fireEvent.click(screen.getByRole('button', { name: '2083/84 (2026/27)' }));
+    const [value] = onChange.mock.lastCall as [{ start: string; end: string }];
+    expect(value.start).toBe('2026-07-17');
+    expect(value.end).toMatch(/^2027-07-1\d$/);
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+});
+
 describe('dates as text (REACT-013, REACT-014)', () => {
   test('DateText, ShortDate, shortDate and bothDates', () => {
     render(

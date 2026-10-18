@@ -1,5 +1,9 @@
 import {
+  compareDates,
   createDate,
+  fiscalYear,
+  fiscalYearRange,
+  formatFiscalYear,
   endOfMonth,
   endOfYear,
   formatNumber,
@@ -113,4 +117,73 @@ function safeConvert(date: CalendarDate, calendar: CalendarSystem): CalendarDate
   } catch {
     return null;
   }
+}
+
+/** The fiscal year that starts in BS `startYear`, or null outside the BS table. */
+export function safeFiscalYear(
+  startYear: number,
+): ReturnType<typeof fiscalYearRange> | null {
+  try {
+    return fiscalYearRange(startYear);
+  } catch {
+    return null;
+  }
+}
+
+/** Whether a whole fiscal year lies inside the limits. */
+export function isFiscalYearAllowed(startYear: number, limits: Limits): boolean {
+  const fy = safeFiscalYear(startYear);
+
+  return (
+    fy !== null &&
+    !limits.empty &&
+    compareDates(fy.firstDay, limits.lowDay) >= 0 &&
+    compareDates(fy.lastDay, limits.highDay) <= 0
+  );
+}
+
+/** Twelve fiscal-year tiles: "2083/84" with the AD years "2026/27" under it. */
+export function buildFiscalYearTiles(
+  input: TileInput & {
+    readonly selectedRange: {
+      start: CalendarDate | null;
+      end: CalendarDate | null;
+    } | null;
+  },
+): PickerCell[] {
+  const { limits, locale } = input;
+  const anchor = safeConvert(input.today, 'BS');
+  const pageStart = yearPageStart(input.year);
+  const currentStart = anchor ? fiscalYear(anchor).startYear : null;
+  const range = input.selectedRange;
+
+  return Array.from({ length: 12 }, (_, index) => {
+    const startYear = pageStart + index;
+    const fy = safeFiscalYear(startYear);
+    const from = fy ? safeConvert(fy.firstDay, 'AD') : null;
+    const to = fy ? safeConvert(fy.lastDay, 'AD') : null;
+    const isSelected =
+      fy !== null &&
+      range?.start != null &&
+      range.end != null &&
+      compareDates(range.start, fy.firstDay) === 0 &&
+      compareDates(range.end, fy.lastDay) === 0;
+
+    return Object.freeze({
+      value: startYear,
+      label: fy
+        ? formatFiscalYear(fy, 'label', locale)
+        : formatNumber(
+            `${startYear}/${String((startYear + 1) % 100).padStart(2, '0')}`,
+            locale,
+          ),
+      subLabel:
+        from && to
+          ? formatNumber(`${from.year}/${String(to.year % 100).padStart(2, '0')}`, locale)
+          : null,
+      isSelected,
+      isCurrent: currentStart === startYear,
+      isDisabled: !isFiscalYearAllowed(startYear, limits),
+    });
+  });
 }

@@ -7,7 +7,8 @@ import type {
   Weekday,
 } from '@nepdate/core';
 
-export type CalendarView = 'day' | 'month' | 'year';
+/** 'fiscal' shows Nepal's fiscal years (1 Shrawan – end of Asar) as tiles. */
+export type CalendarView = 'day' | 'month' | 'year' | 'fiscal';
 export type SelectionMode = 'single' | 'range';
 
 /** A range being chosen or chosen. `end` is null after the first click. */
@@ -162,6 +163,8 @@ export interface CalendarState {
   readonly weeks: readonly (readonly (DayCell | null)[])[];
   readonly months: readonly PickerCell[];
   readonly years: readonly PickerCell[];
+  /** Fiscal-year tiles ("2083/84"), a page of twelve; value = the start year (BS). */
+  readonly fiscalYears: readonly PickerCell[];
   readonly canPrev: boolean;
   readonly canNext: boolean;
   readonly selectionMode: SelectionMode;
@@ -181,6 +184,12 @@ export interface CalendarActions {
   setView(view: CalendarView): void;
   chooseMonth(month: MonthNumber): void;
   chooseYear(year: number): void;
+  /**
+   * Pick a fiscal year by its start year (BS). Range mode selects the whole
+   * year and fires onSelect; single mode shows its first month. False when
+   * the year is outside the limits.
+   */
+  chooseFiscalYear(startYear: number): boolean;
   focus(date: CalendarDate): void;
   moveFocus(key: FocusKey, modifiers?: { readonly shift?: boolean }): void;
   /** Select a day. Returns false (and does nothing) when the day is disabled. */

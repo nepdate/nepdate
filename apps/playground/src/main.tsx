@@ -113,6 +113,7 @@ function App(): ReactElement {
               calendar={fixed}
               max="2026-12-31"
               persistCalendar="playground-calendar"
+              presets={['today', 'yesterday']}
             />
             <div className="row">
               <button className="page-button" type="submit">
@@ -166,6 +167,7 @@ function App(): ReactElement {
               'thisFiscalYear',
               'lastFiscalYear',
             ]}
+            fiscalYearView
             startLabel="From"
             endLabel="To"
           />

@@ -73,6 +73,17 @@ function day(
   return found;
 }
 
+/** A month/year/fiscal tile by the start of its accessible name. */
+function option(root: ParentNode, text: string): HTMLButtonElement {
+  const found = [...root.querySelectorAll<HTMLButtonElement>('.ndp-option')].find(
+    (button) => nameOf(button).startsWith(text),
+  );
+  if (!found) {
+    throw new Error(`No tile named ${text}`);
+  }
+  return found;
+}
+
 function nameOf(element: Element | null): string {
   return (
     element?.querySelector('.ndp-sr-only')?.textContent ??
@@ -230,8 +241,8 @@ describe('panel and keyboard (VAN-006, VAN-010)', () => {
     element.open();
     q<HTMLButtonElement>(element, '[data-action="view-year"]').click();
     expect(element.querySelectorAll('.ndp-option')).toHaveLength(12);
-    q<HTMLButtonElement>(element, '.ndp-option[aria-label^="2080"]').click();
-    q<HTMLButtonElement>(element, '.ndp-option[aria-label^="Baisakh"]').click();
+    option(element, '2080').click();
+    option(element, 'Baisakh').click();
     expect(q(element, '.ndp-calendar__title').textContent).toBe('Baisakh2080');
     q<HTMLButtonElement>(element, '[data-action="next"]').click();
     expect(q(element, '.ndp-calendar__title').textContent).toBe('Jestha2080');
@@ -351,6 +362,28 @@ describe('presets (PRE-007)', () => {
     expect(range.value).toEqual({ start: '2026-10-12', end: '2026-10-18' });
     range.presets = ['thisMonth'];
     expect(range.presets).toEqual(['thisMonth']);
+  });
+});
+
+describe('fiscal-year view (FY-001)', () => {
+  test('fiscal-years shows the button; a tile picks the whole year', () => {
+    const element = mount<NepDateRangePickerElement>(
+      '<nep-date-range-picker fiscal-years></nep-date-range-picker>',
+    );
+    element.view?.setOptions({
+      today: { calendar: 'AD', year: 2026, month: 10, day: 18 },
+    });
+    element.view?.open();
+    const button = q<HTMLButtonElement>(element, '[data-action="fiscal"]');
+    expect(button.textContent).toBe('Fiscal year');
+    button.click();
+    expect(button.getAttribute('aria-pressed')).toBe('true');
+    expect(q(element, '.ndp-calendar__title').textContent).toBe(
+      'Fiscal year 2076/77–2087/88',
+    );
+    option(element, '2083/84 (2026/27)').click();
+    expect(element.value.start).toBe('2026-07-17');
+    expect(q<HTMLElement>(element, '.ndp-panel').hidden).toBe(true);
   });
 });
 

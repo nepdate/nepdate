@@ -208,7 +208,10 @@ export function useCalendarBindings(
               label: state.title,
               props: {
                 type: 'button',
-                'aria-label': `${labels.year}: ${state.title}`,
+                'aria-label':
+                  state.view === 'fiscal'
+                    ? state.title
+                    : `${labels.year}: ${state.title}`,
                 onClick: () => {
                   requestFocus();
                   actions.setView(state.view === 'month' ? 'year' : 'day');
@@ -221,14 +224,15 @@ export function useCalendarBindings(
       tabIndex: index === focusIndex(tiles) ? 0 : -1,
       disabled: tile.isDisabled,
       'aria-pressed': tile.isSelected,
-      'aria-label': tile.subLabel ? `${tile.label} (${tile.subLabel})` : tile.label,
       'data-state': tile.isSelected ? 'selected' : tile.isCurrent ? 'current' : 'default',
       onClick: () => {
         requestFocus();
         if (state.view === 'month') {
           actions.chooseMonth(tile.value as 1);
-        } else {
+        } else if (state.view === 'year') {
           actions.chooseYear(tile.value);
+        } else {
+          actions.chooseFiscalYear(tile.value);
         }
       },
     }),

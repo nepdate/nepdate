@@ -290,7 +290,7 @@
 
 .ndp-preset[aria-pressed='true'] {
   background: var(--ndp-bg-accent-muted);
-  color: var(--ndp-text-accent);
+  color: var(--ndp-text-on-accent-muted);
 }
 
 .ndp-preset:disabled {
@@ -636,6 +636,11 @@
 
 .ndp-button:hover {
   background: var(--ndp-bg-hover);
+}
+
+.ndp-button[aria-pressed='true'] {
+  background: var(--ndp-bg-accent-muted);
+  color: var(--ndp-text-on-accent-muted);
 }
 
 .ndp-button[data-variant='primary'] {

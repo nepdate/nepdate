@@ -113,7 +113,13 @@ export class CalendarView {
     if (state.view === 'day') {
       this.patchGrid(state);
     } else {
-      this.patchOptions(state.view === 'month' ? state.months : state.years);
+      this.patchOptions(
+        state.view === 'month'
+          ? state.months
+          : state.view === 'year'
+            ? state.years
+            : state.fiscalYears,
+      );
     }
     this.flushFocus();
   }
@@ -143,7 +149,8 @@ export class CalendarView {
             {
               action: state.view === 'month' ? 'view-year' : 'view-day',
               text: state.title,
-              label: `${yearLabel}: ${state.title}`,
+              label:
+                state.view === 'fiscal' ? state.title : `${yearLabel}: ${state.title}`,
             },
           ];
     const buttons = [...this.title.children] as HTMLButtonElement[];
@@ -213,8 +220,9 @@ export class CalendarView {
   private buildOptions(): HTMLDivElement {
     const buttons = Array.from({ length: 12 }, () =>
       el('button', { type: 'button', class: 'ndp-option' }, [
-        el('span', { class: 'ndp-option__label' }),
-        el('span', { class: 'ndp-option__sub' }),
+        el('span', { class: 'ndp-sr-only' }),
+        el('span', { class: 'ndp-option__label', 'aria-hidden': 'true' }),
+        el('span', { class: 'ndp-option__sub', 'aria-hidden': 'true' }),
       ]),
     );
 
@@ -242,12 +250,12 @@ export class CalendarView {
             ? 'current'
             : 'default',
         'aria-pressed': tile.isSelected ? 'true' : 'false',
-        'aria-label': tile.subLabel ? `${tile.label} (${tile.subLabel})` : tile.label,
         tabindex: index === focusIndex ? 0 : -1,
         disabled: tile.isDisabled,
       });
-      const [label, sub] = button.children;
-      if (label && sub) {
+      const [name, label, sub] = button.children;
+      if (name && label && sub) {
+        setText(name, tile.subLabel ? `${tile.label} (${tile.subLabel})` : tile.label);
         setText(label, tile.label);
         setText(sub, tile.subLabel ?? '');
       }
@@ -298,10 +306,13 @@ export class CalendarView {
       const tile = this.tiles[index];
       if (tile && !tile.isDisabled) {
         this.focusAfterRender = true;
-        if (this.store.getState().view === 'month') {
+        const view = this.store.getState().view;
+        if (view === 'month') {
           actions.chooseMonth(tile.value as 1);
-        } else {
+        } else if (view === 'year') {
           actions.chooseYear(tile.value);
+        } else {
+          actions.chooseFiscalYear(tile.value);
         }
         this.render();
       }

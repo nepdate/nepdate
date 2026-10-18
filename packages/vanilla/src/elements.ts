@@ -556,6 +556,7 @@ export class NepDateRangePickerElement extends Base {
       theme: theme(this),
       startLabel: str(this, 'start-label'),
       endLabel: str(this, 'end-label'),
+      fiscalYearView: bool(this, 'fiscal-years'),
       presets: this.presets,
     };
   }

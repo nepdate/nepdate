@@ -5,8 +5,10 @@ import {
   createDate,
   daysInMonth,
   formatDate,
+  fiscalYear,
   formatNumber,
   getConfig,
+  getLocale,
   isAfter,
   isBefore,
   isSameDay,
@@ -23,7 +25,14 @@ import {
 import { nextFocus } from './focus';
 import { buildMonthGrid, buildWeekdays, type HolidayResolver } from './grid';
 import { computeLimits, isInLimits, type Limits } from './limits';
-import { buildMonthTiles, buildYearTiles, yearPageStart } from './tiles';
+import {
+  buildFiscalYearTiles,
+  buildMonthTiles,
+  buildYearTiles,
+  isFiscalYearAllowed,
+  safeFiscalYear,
+  yearPageStart,
+} from './tiles';
 import type {
   CalendarActions,
   CalendarOptions,
@@ -123,6 +132,10 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
     const selectedDay = anchorOf(selection);
     const year = visibleMonth.year;
     const pageStart = yearPageStart(year);
+    const fiscalStart = fiscalStartOf(visibleMonth);
+    const fiscalPage = yearPageStart(fiscalStart);
+    const labels = getLocale(loc).labels;
+    const range = selection && !('calendar' in selection) ? selection : null;
     const tileInput = {
       calendar,
       year,
@@ -142,7 +155,9 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
           ? formatDate(visibleMonth, 'F Y', loc)
           : view === 'month'
             ? formatNumber(year, loc)
-            : `${formatNumber(pageStart, loc)}–${formatNumber(pageStart + 11, loc)}`,
+            : view === 'year'
+              ? `${formatNumber(pageStart, loc)}–${formatNumber(pageStart + 11, loc)}`
+              : `${labels.fiscalYear} ${formatNumber(`${fiscalPage}/${String((fiscalPage + 1) % 100).padStart(2, '0')}–${fiscalPage + 11}/${String((fiscalPage + 12) % 100).padStart(2, '0')}`, loc)}`,
       weekdays: buildWeekdays(loc, weekStartsOn(), weekendDays()),
       weeks: buildMonthGrid({
         calendar,
@@ -165,18 +180,27 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
       }),
       months: buildMonthTiles(tileInput),
       years: buildYearTiles(tileInput),
+      fiscalYears: buildFiscalYearTiles({
+        ...tileInput,
+        year: fiscalStart,
+        selectedRange: range,
+      }),
       canPrev:
         view === 'day'
           ? isAfter(visibleMonth, limits.lowMonth)
           : view === 'month'
             ? year > limits.lowMonth.year
-            : pageStart > limits.lowMonth.year,
+            : view === 'year'
+              ? pageStart > limits.lowMonth.year
+              : fiscalPage > fiscalStartOf(limits.lowDay),
       canNext:
         view === 'day'
           ? isBefore(visibleMonth, limits.highMonth)
           : view === 'month'
             ? year < limits.highMonth.year
-            : pageStart + 11 < limits.highMonth.year,
+            : view === 'year'
+              ? pageStart + 11 < limits.highMonth.year
+              : fiscalPage + 11 < fiscalStartOf(limits.highDay),
       selectionMode: mode,
       selected: selection,
       rangeHover,
@@ -268,6 +292,30 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
         focused = focusTarget();
         view = 'day';
       });
+    },
+    chooseFiscalYear(startYear) {
+      const fy = safeFiscalYear(startYear);
+      if (destroyed || !fy || !isFiscalYearAllowed(startYear, limits)) {
+        return false;
+      }
+      const first = toCalendar(fy.firstDay, calendar);
+      const last = toCalendar(fy.lastDay, calendar);
+      const range: DateRange | null =
+        mode === 'range' ? Object.freeze({ start: first, end: last }) : null;
+      update(() => {
+        visibleMonth = clampMonth(first);
+        focused = first;
+        view = 'day';
+        if (range) {
+          selection = range;
+          rangeHover = null;
+        }
+      });
+      if (range) {
+        options.onSelect?.(range);
+      }
+
+      return true;
     },
     chooseYear(year) {
       update(() => {
@@ -380,6 +428,15 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
 }
 
 /** The selection in the shape the mode needs, with its dates in the calendar on screen. */
+/** The BS start year of the fiscal year a date falls in (or the nearest one at the table edges). */
+function fiscalStartOf(date: CalendarDate): number {
+  try {
+    return fiscalYear(date).startYear;
+  } catch {
+    return date.year;
+  }
+}
+
 function normalizeSelection(
   selected: CalendarDate | DateRange | null,
   mode: SelectionMode,

@@ -122,6 +122,15 @@ describe('range picker (DP-012, TEST-029)', () => {
     expect(onChange).toHaveBeenCalledTimes(3);
   });
 
+  test('choosing a fiscal year in the panel sets the whole year (FY-001)', () => {
+    const picker = make();
+    picker.actions.open();
+    expect(picker.calendar.actions.chooseFiscalYear(2083)).toBe(true);
+    expect(picker.getState().value.start).toBe('2026-07-17');
+    expect(picker.getState().startText).toBe('2083-04-01');
+    expect(picker.getState().open).toBe(false);
+  });
+
   test('opening shows the start month; toggle; fixed calendar; destroy', () => {
     const picker = make({
       calendar: 'AD',
