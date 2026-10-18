@@ -1,0 +1,130 @@
+:root {
+  color-scheme: light;
+  --page-bg: #f8fafc;
+  --page-card: #ffffff;
+  --page-text: #0f172a;
+  --page-muted: #64748b;
+  --page-border: #e2e8f0;
+}
+[data-page-theme='dark'] {
+  color-scheme: dark;
+  --page-bg: #020617;
+  --page-card: #0f172a;
+  --page-text: #f1f5f9;
+  --page-muted: #94a3b8;
+  --page-border: #1e293b;
+}
+[data-page-theme] {
+  color: var(--page-text);
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--page-text);
+  font:
+    14px/1.5 Inter,
+    ui-sans-serif,
+    system-ui,
+    sans-serif;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--page-border);
+  background: var(--page-card);
+}
+header h1 {
+  margin: 0;
+  font-size: 16px;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+}
+nav a {
+  color: inherit;
+}
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.controls label {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  color: var(--page-muted);
+}
+select,
+.page-button {
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--page-border);
+  border-radius: 8px;
+  background: var(--page-card);
+  color: var(--page-text);
+  font: inherit;
+}
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px;
+}
+section {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--page-border);
+  border-radius: 12px;
+  background: var(--page-card);
+}
+section h2 {
+  margin: 0 0 4px;
+  font-size: 14px;
+}
+section p {
+  margin: 0 0 12px;
+  color: var(--page-muted);
+  font-size: 13px;
+}
+.label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+.value {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: var(--page-bg);
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.a11y[data-ok='true'] {
+  color: #16a34a;
+}
+.a11y[data-ok='false'] {
+  color: #dc2626;
+}

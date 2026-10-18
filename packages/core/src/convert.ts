@@ -140,6 +140,32 @@ export function fromJsDate(
   );
 }
 
+/**
+ * The calendar day and time of an ISO timestamp *with a zone* ("…Z",
+ * "…+05:45"), read in `timeZone` (Nepal by default). Null for anything else,
+ * including plain dates, which have no instant.
+ */
+export function fromIsoTimestamp(
+  value: string | null | undefined,
+  timeZone: string = getConfig().timeZone,
+): { readonly date: AdDate; readonly time: string } | null {
+  if (!value || !/T.*(?:Z|[+-]\d{2}:?\d{2})$/.test(value)) {
+    return null;
+  }
+  const instant = new Date(value);
+  if (Number.isNaN(instant.getTime())) {
+    return null;
+  }
+  const time = new Intl.DateTimeFormat('en-GB', {
+    timeZone,
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
+  }).format(instant);
+
+  return { date: fromJsDate(instant, timeZone), time };
+}
+
 function assertConvertible(epoch: number): void {
   const { first, last } = bsEpochRange();
   if (epoch < first || epoch > last) {

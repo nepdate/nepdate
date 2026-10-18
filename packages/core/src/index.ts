@@ -53,6 +53,7 @@ export {
   bsToAd,
   fromEpoch,
   fromIsoDate,
+  fromIsoTimestamp,
   fromJsDate,
   isConvertible,
   maxDate,

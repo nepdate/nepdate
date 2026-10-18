@@ -25,7 +25,8 @@
 
   --ndp-text-primary: #0f172a;
   --ndp-text-secondary: #475569;
-  --ndp-text-muted: #94a3b8;
+  /* Figma uses #94a3b8 (2.6:1 on white); #64748b meets WCAG AA 4.5:1 (docs/plan D-030). */
+  --ndp-text-muted: #64748b;
   --ndp-text-disabled: #cbd5e1;
   --ndp-text-accent: #2563eb;
   --ndp-text-on-accent: #ffffff;

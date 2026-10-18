@@ -2,7 +2,7 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig([
   {
-    entry: ['src/index.ts'],
+    entry: ['src/index.ts', 'src/auto-define.ts'],
     format: ['esm', 'cjs'],
     platform: 'browser',
     target: 'es2020',
@@ -11,7 +11,7 @@ export default defineConfig([
     clean: true,
   },
   {
-    entry: { 'nepdate-picker': 'src/index.ts' },
+    entry: { 'nepdate-picker': 'src/global.ts' },
     format: ['iife'],
     platform: 'browser',
     target: 'es2020',

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" data-ndp-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nepdate Web Components</title>
+  </head>
+  <body>
+    <header>
+      <h1>Web Components</h1>
+      <nav>
+        <a href="/index.html">React</a>
+        <a href="/script.html">&lt;script&gt; build</a>
+        <button type="button" class="page-button" id="axe">Check accessibility</button>
+        <span class="a11y" id="axe-result" role="status"></span>
+      </nav>
+    </header>
+    <main>
+      <section>
+        <h2>&lt;nep-date-picker&gt; in a form</h2>
+        <form id="form">
+          <label class="label" for="dob-input">Date of birth</label>
+          <nep-date-picker
+            name="dob"
+            input-id="dob-input"
+            required
+            max="2026-12-31"
+          ></nep-date-picker>
+          <div class="row">
+            <button class="page-button">Submit</button>
+            <button class="page-button" type="reset">Reset</button>
+          </div>
+        </form>
+        <div class="value" id="out">form data: —</div>
+      </section>
+      <section data-page-theme="dark" style="background: var(--page-card)">
+        <h2>Nepali, dark</h2>
+        <nep-date-picker
+          locale="ne"
+          theme="dark"
+          value="2026-10-10"
+          label="मिति"
+        ></nep-date-picker>
+      </section>
+      <section>
+        <h2>&lt;nep-date-range-picker&gt;</h2>
+        <nep-date-range-picker
+          name="leave"
+          max-days="15"
+          start-label="From"
+          end-label="To"
+        ></nep-date-range-picker>
+        <div class="value" id="range-out">—</div>
+      </section>
+      <section>
+        <h2>&lt;nep-calendar&gt;</h2>
+        <nep-calendar id="cal"></nep-calendar>
+        <div class="value" id="cal-out">—</div>
+      </section>
+    </main>
+    <script type="module" src="/src/vanilla.ts"></script>
+  </body>
+</html>

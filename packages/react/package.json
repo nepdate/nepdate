@@ -28,6 +28,28 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./headless": {
+      "@nepdate/source": "./src/headless.ts",
+      "import": {
+        "types": "./dist/headless.d.ts",
+        "default": "./dist/headless.js"
+      },
+      "require": {
+        "types": "./dist/headless.d.cts",
+        "default": "./dist/headless.cjs"
+      }
+    },
+    "./server": {
+      "@nepdate/source": "./src/server.ts",
+      "import": {
+        "types": "./dist/server.d.ts",
+        "default": "./dist/server.js"
+      },
+      "require": {
+        "types": "./dist/server.d.cts",
+        "default": "./dist/server.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
@@ -47,16 +69,34 @@
     "check:package": "publint --strict && attw --pack"
   },
   "dependencies": {
-    "@nepdate/core": "workspace:^",
     "@nepdate/calendar": "workspace:^",
+    "@nepdate/core": "workspace:^",
     "@nepdate/datepicker": "workspace:^",
     "@nepdate/dom": "workspace:^",
     "@nepdate/styles": "workspace:^"
   },
   "peerDependencies": {
-    "react": ">=18"
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "typesVersions": {
+    "*": {
+      "headless": [
+        "./dist/headless.d.cts"
+      ],
+      "server": [
+        "./dist/server.d.cts"
+      ]
+    }
   }
 }

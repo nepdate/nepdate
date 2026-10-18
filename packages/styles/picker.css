@@ -11,6 +11,7 @@
  *       .ndp-input__actions
  *         button.ndp-icon-button (clear) · button.ndp-input__switch (BS/AD) · button.ndp-icon-button (calendar)
  *     p.ndp-hint [data-error]
+ *   Range: .ndp-field > .ndp-range > .ndp-input (start) · span.ndp-range__separator · .ndp-input (end)
  *   .ndp-panel [data-side=top|bottom]
  *     .ndp-calendar
  *       .ndp-calendar__header
@@ -33,6 +34,14 @@
 .ndp-panel *,
 .ndp-calendar * {
   box-sizing: border-box;
+}
+
+/* Our display rules must not undo the hidden attribute the adapters set. */
+.ndp-field [hidden],
+.ndp-panel[hidden],
+.ndp-panel [hidden],
+.ndp-calendar [hidden] {
+  display: none !important;
 }
 
 /* ---------------------------------------------------------------- Field */
@@ -144,6 +153,25 @@
 
 .ndp-hint[data-error] {
   color: var(--ndp-text-danger);
+}
+
+/* ---------------------------------------------------------------- Range */
+
+.ndp-range {
+  display: flex;
+  align-items: center;
+  gap: var(--ndp-space-8);
+}
+
+.ndp-range > .ndp-input {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.ndp-range__separator {
+  flex: none;
+  color: var(--ndp-text-muted);
+  font-size: 14px;
 }
 
 /* ---------------------------------------------------------- Icon button */
@@ -363,7 +391,7 @@
 }
 
 .ndp-day[data-state='outside'] .ndp-day__sub {
-  color: var(--ndp-text-disabled);
+  color: var(--ndp-text-muted);
 }
 
 .ndp-day[data-preview],
@@ -387,7 +415,6 @@
 .ndp-day[data-state='range-start'] .ndp-day__sub,
 .ndp-day[data-state='range-end'] .ndp-day__sub {
   color: var(--ndp-text-on-accent);
-  opacity: 0.85;
 }
 
 .ndp-day[data-state='selected'] .ndp-day__dot,
@@ -466,7 +493,6 @@
 
 .ndp-option[data-state='selected'] .ndp-option__sub {
   color: var(--ndp-text-on-accent);
-  opacity: 0.85;
 }
 
 .ndp-option:disabled {

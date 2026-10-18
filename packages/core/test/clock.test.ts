@@ -1,5 +1,12 @@
 import { afterEach, describe, expect, test, vi } from 'vitest';
-import { configure, fiscalYear, fromJsDate, resetConfig, today } from '@nepdate/core';
+import {
+  configure,
+  fiscalYear,
+  fromIsoTimestamp,
+  fromJsDate,
+  resetConfig,
+  today,
+} from '@nepdate/core';
 import { ymd } from './helpers';
 
 afterEach(() => {
@@ -33,6 +40,22 @@ describe('a moment converts by its calendar day in a time zone (TEST-007)', () =
   test('rejects an invalid Date and an unknown time zone', () => {
     expect(() => fromJsDate(new Date('nope'))).toThrow(/invalid/);
     expect(() => fromJsDate(lateUtc, 'Mars/Olympus')).toThrow(/not a time zone/);
+  });
+});
+
+describe('fromIsoTimestamp (CORE-046)', () => {
+  test('reads zoned timestamps in the configured zone', () => {
+    const result = fromIsoTimestamp('2026-04-13T20:00:00Z');
+    expect(result && ymd(result.date)).toBe('2026-04-14');
+    expect(result?.time).toBe('01:45');
+    expect(fromIsoTimestamp('2026-04-13T20:00:00+00:00', 'UTC')?.time).toBe('20:00');
+  });
+
+  test('plain dates, local times and junk are not instants', () => {
+    expect(fromIsoTimestamp('2026-04-13')).toBeNull();
+    expect(fromIsoTimestamp('2026-04-13T20:00:00')).toBeNull();
+    expect(fromIsoTimestamp('2026-99-99T20:00:00Z')).toBeNull();
+    expect(fromIsoTimestamp(null)).toBeNull();
   });
 });
 

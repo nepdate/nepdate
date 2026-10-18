@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" data-ndp-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nepdate Script Build</title>
+    <!-- No bundler: the CSS and the all-in-one IIFE, as from a CDN. Run `pnpm build` first. -->
+    <link rel="stylesheet" href="/node_modules/@nepdate/styles/index.css" />
+    <script src="/node_modules/@nepdate/vanilla/dist/nepdate-picker.global.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 24px 16px;
+        font:
+          14px/1.5 Inter,
+          system-ui,
+          sans-serif;
+      }
+      .box {
+        max-width: 360px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>&lt;script&gt; build</h1>
+      <p>Loaded from <code>nepdate-picker.global.js</code>; no modules, no bundler.</p>
+      <div class="box">
+        <label for="plain">Date</label>
+        <nep-date-picker input-id="plain" value="2026-10-10"></nep-date-picker>
+        <p id="out"></p>
+      </div>
+    </main>
+    <script>
+      document
+        .querySelector('nep-date-picker')
+        .addEventListener('change', function (event) {
+          document.getElementById('out').textContent = 'value: ' + event.detail.value;
+        });
+      document.getElementById('out').textContent =
+        'window.NepDateElements loaded: ' + (typeof window.NepDateElements === 'object');
+    </script>
+  </body>
+</html>

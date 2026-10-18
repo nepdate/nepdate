@@ -15,7 +15,12 @@
   "license": "MIT",
   "author": "Shishir Rai",
   "type": "module",
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/auto-define.*",
+    "./dist/*.global.js",
+    "./src/auto-define.ts",
+    "./src/global.ts"
+  ],
   "exports": {
     ".": {
       "@nepdate/source": "./src/index.ts",
@@ -26,6 +31,17 @@
       "require": {
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
+      }
+    },
+    "./define": {
+      "@nepdate/source": "./src/auto-define.ts",
+      "import": {
+        "types": "./dist/auto-define.d.ts",
+        "default": "./dist/auto-define.js"
+      },
+      "require": {
+        "types": "./dist/auto-define.d.cts",
+        "default": "./dist/auto-define.cjs"
       }
     },
     "./package.json": "./package.json"
@@ -57,5 +73,12 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "typesVersions": {
+    "*": {
+      "define": [
+        "./dist/auto-define.d.cts"
+      ]
+    }
   }
 }

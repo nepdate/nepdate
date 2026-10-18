@@ -33,6 +33,18 @@ export default defineConfig({
           functions: 100,
           branches: 100,
         },
+        'packages/vanilla/src/**': {
+          statements: 85,
+          lines: 85,
+          functions: 80,
+          branches: 70,
+        },
+        'packages/react/src/**': {
+          statements: 85,
+          lines: 85,
+          functions: 80,
+          branches: 70,
+        },
         'packages/datepicker/src/**': {
           statements: 99,
           lines: 99,

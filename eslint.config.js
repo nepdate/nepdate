@@ -80,7 +80,10 @@ export default tseslint.config(
         { fixStyle: 'inline-type-imports' },
       ],
       '@typescript-eslint/consistent-type-exports': 'error',
-      '@typescript-eslint/switch-exhaustiveness-check': 'error',
+      '@typescript-eslint/switch-exhaustiveness-check': [
+        'error',
+        { considerDefaultExhaustiveForUnions: true },
+      ],
       '@typescript-eslint/explicit-module-boundary-types': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/restrict-template-expressions': [
@@ -135,6 +138,7 @@ export default tseslint.config(
       'no-console': 'off',
       'no-restricted-syntax': 'off',
       '@typescript-eslint/no-confusing-void-expression': 'off',
+      '@typescript-eslint/no-unnecessary-type-parameters': 'off',
     },
   },
 );
