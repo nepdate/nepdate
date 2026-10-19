@@ -14,6 +14,15 @@
   ],
   "license": "MIT",
   "author": "Shishir Rai",
+  "homepage": "https://github.com/nepdate/nepdate/tree/main/packages/vanilla#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nepdate/nepdate.git",
+    "directory": "packages/vanilla"
+  },
+  "bugs": {
+    "url": "https://github.com/nepdate/nepdate/issues"
+  },
   "type": "module",
   "sideEffects": [
     "./dist/auto-define.*",

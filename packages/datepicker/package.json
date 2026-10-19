@@ -14,6 +14,15 @@
   ],
   "license": "MIT",
   "author": "Shishir Rai",
+  "homepage": "https://github.com/nepdate/nepdate/tree/main/packages/datepicker#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nepdate/nepdate.git",
+    "directory": "packages/datepicker"
+  },
+  "bugs": {
+    "url": "https://github.com/nepdate/nepdate/issues"
+  },
   "type": "module",
   "sideEffects": false,
   "exports": {

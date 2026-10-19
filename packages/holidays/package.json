@@ -12,6 +12,15 @@
   ],
   "license": "MIT",
   "author": "Shishir Rai",
+  "homepage": "https://github.com/nepdate/nepdate/tree/main/packages/holidays#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nepdate/nepdate.git",
+    "directory": "packages/holidays"
+  },
+  "bugs": {
+    "url": "https://github.com/nepdate/nepdate/issues"
+  },
   "type": "module",
   "sideEffects": false,
   "exports": {

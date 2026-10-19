@@ -1,6 +1,10 @@
 {
   "name": "nepdate-monorepo",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nepdate/nepdate.git"
+  },
   "type": "module",
   "packageManager": "pnpm@12.11.2",
   "engines": {
