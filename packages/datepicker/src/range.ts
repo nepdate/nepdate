@@ -1,3 +1,4 @@
+import { maskDateText } from './mask';
 import {
   compareDates,
   differenceInDays,
@@ -243,6 +244,9 @@ export function createDateRangePicker(
         return;
       }
       emitter.act(() => {
+        if (options.mask !== false) {
+          text = maskDateText(text, field === 'start' ? startText : endText);
+        }
         if (field === 'start') {
           startText = text;
         } else {

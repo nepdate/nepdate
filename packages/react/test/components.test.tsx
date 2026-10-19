@@ -448,6 +448,23 @@ describe('<DateTimePicker> (TIME-003)', () => {
   });
 });
 
+describe('input masking (PICK-006)', () => {
+  test('typing digits fills in the dashes; mask={false} turns it off', () => {
+    const onChange = vi.fn();
+    render(<DatePicker today={TODAY} onChange={onChange} aria-label="When" />);
+    for (const char of '20830624') {
+      fireEvent.change(field(), { target: { value: field().value + char } });
+    }
+    expect(field().value).toBe('2083-06-24');
+    expect(onChange).toHaveBeenLastCalledWith('2026-10-10', expect.anything());
+    cleanup();
+
+    render(<DatePicker today={TODAY} mask={false} aria-label="When" />);
+    fireEvent.change(field(), { target: { value: '2083' } });
+    expect(field().value).toBe('2083');
+  });
+});
+
 describe('bottom sheet (PICK-007)', () => {
   const backdropTap = (panel: HTMLElement): void => {
     // happy-dom lays nothing out, so the panel box is 0×0 and any point is outside it.

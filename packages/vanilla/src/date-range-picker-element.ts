@@ -6,6 +6,7 @@ import {
   bool,
   calendarAttr,
   int,
+  onUnlessFalse,
   panelLayout,
   theme,
   presetIds,
@@ -38,6 +39,7 @@ export class NepDateRangePickerElement extends Base {
     'required',
     'theme',
     'panel-layout',
+    'mask',
     'start-label',
     'end-label',
   ];
@@ -150,6 +152,7 @@ export class NepDateRangePickerElement extends Base {
       required: bool(this, 'required'),
       theme: theme(this),
       panelLayout: panelLayout(this),
+      mask: onUnlessFalse(this, 'mask'),
       startLabel: str(this, 'start-label'),
       endLabel: str(this, 'end-label'),
       fiscalYearView: bool(this, 'fiscal-years'),

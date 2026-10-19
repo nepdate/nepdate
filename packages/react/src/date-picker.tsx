@@ -58,6 +58,8 @@ export interface DatePickerProps {
   persistCalendar?: string | undefined;
   /** Override "today" (tests, server rendering). */
   today?: CalendarDate | undefined;
+  /** Add the dashes of YYYY-MM-DD while the user types digits. Default true. */
+  mask?: boolean | undefined;
   /** 'sheet' opens a bottom sheet; 'popover' sits beside the field; 'auto' (default) uses the sheet below 480px. */
   panelLayout?: PanelLayout | undefined;
   theme?: 'light' | 'dark' | 'auto' | undefined;

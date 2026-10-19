@@ -1,3 +1,4 @@
+import { maskDateText } from './mask';
 import {
   getConfig,
   toCalendar,
@@ -178,9 +179,9 @@ export function createDatePicker(initial: DatePickerOptions = {}): DatePickerSto
         return;
       }
       emitter.act(() => {
-        text = next;
+        text = options.mask === false ? next : maskDateText(next, text);
         const result = parseInput(
-          next,
+          text,
           calendar,
           inputLimits(options, panel),
           localeOf(options),

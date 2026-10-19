@@ -2,7 +2,7 @@
 
 Framework-free BS/AD date picker behaviour:
 
-- typed text ⇄ value, year first, in ASCII or Devanagari digits
+- typed text ⇄ value, year first, in ASCII or Devanagari digits; dashes fill in as digits are typed (`mask: false` turns that off, `maskDateText` is exported)
 - validation with English or Nepali messages
 - the BS/AD switch
 - open/close

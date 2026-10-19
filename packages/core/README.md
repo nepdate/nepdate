@@ -58,7 +58,7 @@ formatDate(date, 'iso'); // 2083-07-01
 formatDate(date, 'cbms'); // 2083.07.01
 formatDate(date, 'short'); // 1 Kar 2083
 formatDate(date, 'D, j M y \\Y'); // Sun, 1 Kar 83 Y
-parseDate('2083/7/1', 'BS'); // year first only; ASCII or Devanagari digits; null if invalid
+parseDate('2083/7/1', 'BS'); // year first only (or compact '20830701'); ASCII or Devanagari digits; null if invalid
 parseDateStrict('17 July 2025', 'BS'); // throws with a reason
 ```
 

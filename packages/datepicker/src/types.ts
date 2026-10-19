@@ -47,6 +47,8 @@ export interface PickerBaseOptions {
   readonly displayFormat?: DateFormatPattern | undefined;
   /** Close the panel after a pick. Default true. */
   readonly closeOnSelect?: boolean | undefined;
+  /** Add the dashes of YYYY-MM-DD while the user types digits. Default true. */
+  readonly mask?: boolean | undefined;
   // Passed through to the panel's calendar.
   readonly holidays?: readonly HolidayInput[] | HolidayLookup | undefined;
   readonly events?: ((date: CalendarDate) => readonly EventMarker[]) | undefined;

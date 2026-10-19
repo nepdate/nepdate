@@ -365,6 +365,23 @@ describe('presets (PRE-007)', () => {
   });
 });
 
+describe('input masking (PICK-006)', () => {
+  test('typing digits fills in the dashes; mask="false" turns it off', () => {
+    const element = picker();
+    const input = q<HTMLInputElement>(element, 'input.ndp-input__control');
+    for (const char of '20830624') {
+      typeInto(input, input.value + char);
+    }
+    expect(input.value).toBe('2083-06-24');
+    expect(element.value).toBe('2026-10-10');
+
+    const plain = picker('mask="false"');
+    const plainInput = q<HTMLInputElement>(plain, 'input.ndp-input__control');
+    typeInto(plainInput, '2083');
+    expect(plainInput.value).toBe('2083');
+  });
+});
+
 describe('bottom sheet (PICK-007)', () => {
   const backdropTap = (panel: HTMLElement): void => {
     // happy-dom lays nothing out, so the panel box is 0×0 and any point is outside it.

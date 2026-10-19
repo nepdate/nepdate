@@ -5,10 +5,11 @@ import { toAsciiDigits } from './locale/index';
 import type { CalendarSystem, DateOf, FiscalYear } from './types';
 
 const YEAR_FIRST = /^(\d{4})[-./](\d{1,2})[-./](\d{1,2})$/;
+const COMPACT = /^(\d{4})(\d{2})(\d{2})$/;
 
 /**
- * A date written year first ("2083-06-24", "2083/6/24", "2083.06.24") in ASCII
- * or Devanagari digits, in the calendar the caller names. Other orders are
+ * A date written year first ("2083-06-24", "2083/6/24", "2083.06.24", or
+ * compact "20830624") in ASCII or Devanagari digits, in the calendar the caller names. Other orders are
  * rejected, not guessed. Returns null when the text is not a valid date.
  */
 export function parseDate<C extends CalendarSystem>(
@@ -27,7 +28,8 @@ export function parseDateStrict<C extends CalendarSystem>(
   text: string,
   calendar: C,
 ): DateOf<C> {
-  const match = YEAR_FIRST.exec(toAsciiDigits(text).trim());
+  const ascii = toAsciiDigits(text).trim();
+  const match = YEAR_FIRST.exec(ascii) ?? COMPACT.exec(ascii);
   if (!match) {
     throw new NepDateRangeError(
       'INVALID_ARGUMENT',

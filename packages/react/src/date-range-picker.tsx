@@ -43,6 +43,8 @@ export interface DateRangePickerProps {
   /** Show a "Fiscal year" button that switches the panel to fiscal-year tiles. */
   fiscalYearView?: boolean | undefined;
   disabled?: boolean | undefined;
+  /** Add the dashes of YYYY-MM-DD while the user types digits. Default true. */
+  mask?: boolean | undefined;
   /** 'sheet' opens a bottom sheet; 'popover' sits beside the field; 'auto' (default) uses the sheet below 480px. */
   panelLayout?: PanelLayout | undefined;
   theme?: 'light' | 'dark' | 'auto' | undefined;

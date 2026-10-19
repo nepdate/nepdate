@@ -5,6 +5,7 @@
  */
 export { createDatePicker } from './picker';
 export { createDateRangePicker } from './range';
+export { maskDateText } from './mask';
 export {
   createDateTimePicker,
   type DateTimeDetail,
