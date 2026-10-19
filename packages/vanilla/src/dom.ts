@@ -76,3 +76,34 @@ export function icon(name: IconName): SVGSVGElement {
 
   return svg;
 }
+
+/**
+ * Popup or inline: an inline picker's calendar is always in the page, so its
+ * inputs are plain text fields, its toggle is hidden and its panel is a group
+ * in normal flow rather than a top-layer dialog.
+ */
+export function setPopupMode(
+  state: { readonly open: boolean; readonly inline: boolean },
+  inputs: readonly HTMLElement[],
+  toggle: HTMLElement,
+  panel: HTMLElement,
+): void {
+  const { inline } = state;
+  for (const input of inputs) {
+    setAttrs(input, {
+      role: inline ? null : 'combobox',
+      'aria-haspopup': inline ? null : 'dialog',
+      'aria-expanded': inline ? null : String(state.open),
+    });
+  }
+  toggle.hidden = inline;
+  setAttrs(panel, {
+    role: inline ? 'group' : 'dialog',
+    popover: inline ? null : 'manual',
+  });
+  if (inline) {
+    panel.dataset['layout'] = 'inline';
+  } else if (panel.dataset['layout'] === 'inline') {
+    delete panel.dataset['layout'];
+  }
+}

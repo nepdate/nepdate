@@ -101,7 +101,8 @@ export function createDateRangePicker(
       endText,
       calendar,
       canSwitchCalendar: options.calendar === undefined,
-      open,
+      open: open || options.inline === true,
+      inline: options.inline === true,
       error,
       equivalentText: Object.freeze({
         start: error?.field === 'start' ? null : equivalentText(start, calendar, locale),

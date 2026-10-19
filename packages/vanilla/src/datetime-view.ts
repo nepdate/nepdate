@@ -15,7 +15,7 @@ import {
   type PanelLayout,
 } from '@nepdate/dom';
 import { CalendarView } from './calendar-view';
-import { el, icon, setAttrs, setText, uid } from './dom';
+import { el, icon, setAttrs, setPopupMode, setText, uid } from './dom';
 import type { Theme } from './picker-view';
 import {
   PANEL_WIDTH,
@@ -90,11 +90,9 @@ export class DateTimePickerView {
     this.dateInput = el('input', {
       class: 'ndp-input__control',
       id,
-      role: 'combobox',
       type: 'text',
       inputmode: 'numeric',
       autocomplete: 'off',
-      'aria-haspopup': 'dialog',
       'aria-controls': `${id}-panel`,
     });
     this.timeInput = el('input', {
@@ -159,8 +157,7 @@ export class DateTimePickerView {
       {
         class: 'ndp-panel',
         id: `${id}-panel`,
-        role: 'dialog',
-        popover: 'manual',
+
         hidden: true,
       },
       [
@@ -268,7 +265,6 @@ export class DateTimePickerView {
       disabled,
       required: this.options.required ?? false,
       'aria-label': this.options.ariaLabel ?? null,
-      'aria-expanded': state.open ? 'true' : 'false',
       'aria-invalid': state.error?.field === 'date' ? 'true' : null,
       'aria-describedby': hint ? this.hint.id : null,
     });
@@ -323,7 +319,21 @@ export class DateTimePickerView {
     setAttrs(this.hidden, { name: name ?? null });
     this.hidden.value = state.value;
     this.hidden.disabled = name === undefined || disabled;
-    this.syncPanel(state.open);
+    setPopupMode(state, [this.dateInput], this.toggleButton, this.panel);
+    this.syncPanel(state.open && !state.inline);
+    this.panel.hidden = !state.inline && !this.wasOpen;
+    this.panel.style.setProperty(
+      '--ndp-panel-width',
+      state.inline ? `${String(this.panelWidth())}px` : null,
+    );
+  }
+
+  private panelWidth(): number {
+    return (
+      (this.store.getState().presets.length > 0
+        ? PANEL_WIDTH_WITH_PRESETS
+        : PANEL_WIDTH) + TIME_COLUMNS_WIDTH
+    );
   }
 
   private syncPanel(open: boolean): void {
@@ -334,12 +344,8 @@ export class DateTimePickerView {
     this.options.onOpenChange?.(open);
     if (open) {
       this.panel.hidden = false;
-      const width =
-        (this.store.getState().presets.length > 0
-          ? PANEL_WIDTH_WITH_PRESETS
-          : PANEL_WIDTH) + TIME_COLUMNS_WIDTH;
       const stopTracking = trackPosition(this.row, this.panel, {
-        width,
+        width: this.panelWidth(),
         layout: this.options.panelLayout,
       });
       const stopOutside = onOutsidePointer([this.field], () => {

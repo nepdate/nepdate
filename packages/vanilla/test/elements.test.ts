@@ -365,6 +365,42 @@ describe('presets (PRE-007)', () => {
   });
 });
 
+describe('inline mode (PICK-004)', () => {
+  test('the inline attribute shows the calendar in the page, always open', () => {
+    const element = picker('inline');
+    const panel = q<HTMLElement>(element, '.ndp-panel');
+    const input = q<HTMLInputElement>(element, 'input.ndp-input__control');
+    expect(panel.hidden).toBe(false);
+    expect(panel.dataset['layout']).toBe('inline');
+    expect(panel.getAttribute('role')).toBe('group');
+    expect(panel.hasAttribute('popover')).toBe(false);
+    expect(panel.style.getPropertyValue('--ndp-panel-width')).toBe('320px');
+    expect(input.hasAttribute('role')).toBe(false);
+    expect(input.hasAttribute('aria-expanded')).toBe(false);
+    expect(q<HTMLElement>(element, '[data-action="toggle"]').hidden).toBe(true);
+
+    q<HTMLButtonElement>(element, '[data-action="today"]').click();
+    expect(element.value).toBe(TODAY);
+    expect(panel.hidden).toBe(false);
+
+    element.removeAttribute('inline');
+    const popup = q<HTMLElement>(element, '.ndp-panel');
+    expect(popup.hidden).toBe(true);
+    expect(popup.dataset['layout']).toBeUndefined();
+    expect(popup.getAttribute('role')).toBe('dialog');
+    expect(input.getAttribute('role')).toBe('combobox');
+  });
+
+  test('range and date-time pickers take it too', () => {
+    for (const tag of ['nep-date-range-picker', 'nep-date-time-picker']) {
+      const element = mount<HTMLElement>(`<${tag} inline></${tag}>`);
+      const panel = q<HTMLElement>(element, '.ndp-panel');
+      expect(panel.hidden).toBe(false);
+      expect(panel.dataset['layout']).toBe('inline');
+    }
+  });
+});
+
 describe('input masking (PICK-006)', () => {
   test('typing digits fills in the dashes; mask="false" turns it off', () => {
     const element = picker();

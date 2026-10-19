@@ -42,6 +42,7 @@ export function Form() {
 - **Limits:** `min`, `max`, `isDateDisabled`, `holidays`, `events`.
 - **Shortcuts:** `presets={['today', 'yesterday']}` (or custom `{ id, label, resolve }`) beside the calendar.
 - **Display:** `locale` (defaults to `ne` when `<html lang="ne">`), `displayFormat`, `showEquivalent`, `clearable`, `weekStartsOn`, `weekendDays`, `theme`.
+- **Inline:** `inline` keeps the calendar in the page under the input, always open.
 - **Typing:** dashes fill in as digits are typed (`20830624` → `2083-06-24`); `mask={false}` turns that off.
 - **Phones:** below 480px the panel opens as a bottom sheet. `panelLayout="popover"` or `"sheet"` forces one layout at any width.
 - **Field:** `required`, `disabled`, `placeholder`, `id`, `aria-*`.

@@ -54,6 +54,7 @@ A form-associated element: the form receives the AD `"YYYY-MM-DD"` value under `
 | `show-equivalent="false"` | Hide the other-calendar line                       |
 | `close-on-select="false"` | Keep the panel open after a pick                   |
 | `theme`                   | `light` \| `dark` \| `auto`                        |
+| `inline`                  | Calendar always shown under the input              |
 | `mask="false"`            | Don't fill in dashes while typing                  |
 | `panel-layout`            | `auto` (sheet below 480px) \| `popover` \| `sheet` |
 | `persist-calendar`        | localStorage key for the BS/AD choice              |

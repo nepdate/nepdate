@@ -2,6 +2,7 @@
 
 Framework-free BS/AD date picker behaviour:
 
+- `inline: true` keeps the panel open (`state.inline`) for calendars shown in the page
 - typed text ⇄ value, year first, in ASCII or Devanagari digits; dashes fill in as digits are typed (`mask: false` turns that off, `maskDateText` is exported)
 - validation with English or Nepali messages
 - the BS/AD switch

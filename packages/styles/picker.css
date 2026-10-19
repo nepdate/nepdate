@@ -15,6 +15,7 @@
  *   .ndp-panel [data-side=top|bottom] [data-layout=popover|sheet]
  *     data-layout=sheet: a bottom sheet across the screen (narrow screens by default);
  *     the top-layer ::backdrop dims the page behind it.
+ *     data-layout=inline: always shown in the page, in normal flow, up to --ndp-panel-width wide.
  *     .ndp-calendar
  *       .ndp-calendar__header
  *         button.ndp-icon-button (prev) · .ndp-calendar__title > button.ndp-calendar__title-button · button.ndp-icon-button (next)
@@ -422,6 +423,18 @@
     opacity: 0;
     transform: translateY(4px);
   }
+}
+
+/* Inline: part of the page, so no shadow, no animation and no scrolling of its own. */
+.ndp-panel[data-layout='inline'] {
+  position: static;
+  width: 100%;
+  max-width: var(--ndp-panel-width, 320px);
+  max-height: none;
+  margin-top: var(--ndp-space-8);
+  overflow: visible;
+  box-shadow: none;
+  animation: none;
 }
 
 /* Bottom sheet: pinned to the bottom edge, full width, with a drag-handle bar. */

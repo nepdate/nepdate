@@ -47,6 +47,8 @@ export interface PickerBaseOptions {
   readonly displayFormat?: DateFormatPattern | undefined;
   /** Close the panel after a pick. Default true. */
   readonly closeOnSelect?: boolean | undefined;
+  /** Show the calendar in the page, always open, instead of in a popover. Default false. */
+  readonly inline?: boolean | undefined;
   /** Add the dashes of YYYY-MM-DD while the user types digits. Default true. */
   readonly mask?: boolean | undefined;
   // Passed through to the panel's calendar.
@@ -78,7 +80,10 @@ export interface DatePickerState {
   /** The calendar the input and panel use. */
   readonly calendar: CalendarSystem;
   readonly canSwitchCalendar: boolean;
+  /** The panel is showing. Always true for an inline picker. */
   readonly open: boolean;
+  /** The calendar sits in the page and never closes (option `inline`). */
+  readonly inline: boolean;
   readonly error: DateError | null;
   /** The same day in the other calendar, e.g. "10 October 2026 AD". */
   readonly equivalentText: string | null;
@@ -151,7 +156,10 @@ export interface DateRangePickerState {
   readonly endText: string;
   readonly calendar: CalendarSystem;
   readonly canSwitchCalendar: boolean;
+  /** The panel is showing. Always true for an inline picker. */
   readonly open: boolean;
+  /** The calendar sits in the page and never closes (option `inline`). */
+  readonly inline: boolean;
   /** The first problem, and which field it belongs to ('range' for length problems). */
   readonly error: (DateError & { readonly field: RangeField | 'range' }) | null;
   readonly equivalentText: { readonly start: string | null; readonly end: string | null };

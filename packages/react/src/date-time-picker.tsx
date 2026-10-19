@@ -1,4 +1,4 @@
-import { useRef, type ReactElement } from 'react';
+import { useRef, type CSSProperties, type ReactElement } from 'react';
 import {
   getLocale,
   type CalendarDate,
@@ -9,7 +9,7 @@ import {
 import type { HolidayInput, HolidayLookup } from '@nepdate/calendar';
 import type { DateTimeDetail, SinglePreset } from '@nepdate/datepicker';
 import { CalendarBody } from './calendar-body';
-import { useDateTimePicker } from './hooks';
+import { popupProps, useDateTimePicker } from './hooks';
 import { Icon } from './icons';
 import { usePanel } from './panel';
 import type { PanelLayout } from '@nepdate/dom';
@@ -51,6 +51,8 @@ export interface DateTimePickerProps {
   disabled?: boolean | undefined;
   /** Add the dashes of YYYY-MM-DD while the user types digits. Default true. */
   mask?: boolean | undefined;
+  /** Show the calendar in the page, always open, instead of in a popover. */
+  inline?: boolean | undefined;
   /** 'sheet' opens a bottom sheet; 'popover' sits beside the field; 'auto' (default) uses the sheet below 480px. */
   panelLayout?: PanelLayout | undefined;
   theme?: 'light' | 'dark' | 'auto' | undefined;
@@ -80,15 +82,17 @@ export function DateTimePicker({
   const panel = useRef<HTMLDivElement | null>(null);
   const dateInput = useRef<HTMLInputElement | null>(null);
 
+  const panelWidth =
+    (state.presets.length > 0 ? PANEL_WIDTH_WITH_PRESETS : PANEL_WIDTH) +
+    TIME_COLUMNS_WIDTH;
   usePanel(
-    state.open,
+    state.open && !state.inline,
     { anchor: row, panel, field, returnFocus: dateInput },
     () => {
       store.actions.close();
     },
     calendar.focusGrid,
-    (state.presets.length > 0 ? PANEL_WIDTH_WITH_PRESETS : PANEL_WIDTH) +
-      TIME_COLUMNS_WIDTH,
+    panelWidth,
     panelLayout,
   );
 
@@ -111,15 +115,13 @@ export function DateTimePicker({
             ref={dateInput}
             id={ids.date}
             className="ndp-input__control"
-            role="combobox"
+            {...popupProps(state)}
             type="text"
             inputMode="numeric"
             autoComplete="off"
             value={state.dateText}
             placeholder={state.placeholder}
             aria-label={ariaLabel}
-            aria-haspopup="dialog"
-            aria-expanded={state.open}
             aria-controls={ids.panel}
             aria-invalid={invalid('date') || undefined}
             aria-describedby={hint ? ids.hint : undefined}
@@ -138,21 +140,23 @@ export function DateTimePicker({
               }
             }}
           />
-          <span className="ndp-input__actions">
-            <button
-              type="button"
-              className="ndp-icon-button"
-              disabled={disabled}
-              aria-label={labels.labels.openCalendar}
-              aria-expanded={state.open}
-              aria-controls={ids.panel}
-              onClick={() => {
-                store.actions.toggle();
-              }}
-            >
-              <Icon name="calendar" />
-            </button>
-          </span>
+          {!state.inline && (
+            <span className="ndp-input__actions">
+              <button
+                type="button"
+                className="ndp-icon-button"
+                disabled={disabled}
+                aria-label={labels.labels.openCalendar}
+                aria-expanded={state.open}
+                aria-controls={ids.panel}
+                onClick={() => {
+                  store.actions.toggle();
+                }}
+              >
+                <Icon name="calendar" />
+              </button>
+            </span>
+          )}
         </div>
         <div
           className="ndp-input ndp-input--time"
@@ -198,8 +202,14 @@ export function DateTimePicker({
           ref={panel}
           id={ids.panel}
           className="ndp-panel"
-          popover="manual"
-          role="dialog"
+          popover={state.inline ? undefined : 'manual'}
+          data-layout={state.inline ? 'inline' : undefined}
+          style={
+            state.inline
+              ? ({ '--ndp-panel-width': `${String(panelWidth)}px` } as CSSProperties)
+              : undefined
+          }
+          role={state.inline ? 'group' : 'dialog'}
           aria-label={labels.labels.chooseDate}
           data-ndp-theme={theme}
         >

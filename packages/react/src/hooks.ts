@@ -42,14 +42,15 @@ export function useCalendar(
 
 export interface InputProps {
   id: string;
-  role: 'combobox';
+  /** Left out for an inline picker, whose calendar is always in the page. */
+  role?: 'combobox';
   type: 'text';
   inputMode: 'numeric';
   autoComplete: 'off';
   value: string;
   placeholder: string;
-  'aria-haspopup': 'dialog';
-  'aria-expanded': boolean;
+  'aria-haspopup'?: 'dialog';
+  'aria-expanded'?: boolean;
   'aria-controls': string;
   'aria-invalid'?: true;
   'aria-describedby'?: string;
@@ -60,7 +61,8 @@ export interface InputProps {
 
 export interface PanelProps {
   id: string;
-  role: 'dialog';
+  /** 'group' for an inline picker. */
+  role: 'dialog' | 'group';
   'aria-label': string;
 }
 
@@ -118,14 +120,12 @@ export function useDatePicker(
     ids,
     getInputProps: () => ({
       id: ids.input,
-      role: 'combobox',
+      ...popupProps(state),
       type: 'text',
       inputMode: 'numeric',
       autoComplete: 'off',
       value: state.text,
       placeholder: state.placeholder,
-      'aria-haspopup': 'dialog',
-      'aria-expanded': state.open,
       'aria-controls': ids.panel,
       ...(state.error ? { 'aria-invalid': true as const } : {}),
       ...(hasHint ? { 'aria-describedby': ids.hint } : {}),
@@ -184,12 +184,22 @@ export function useDatePicker(
     }),
     getPanelProps: () => ({
       id: ids.panel,
-      role: 'dialog',
+      role: state.inline ? 'group' : 'dialog',
       'aria-label': labels.labels.chooseDate,
     }),
     getPresetProps: (preset) =>
       presetProps(preset, (id) => store.actions.applyPreset(id)),
   };
+}
+
+/** Combobox ARIA for a popup picker; an inline picker's input is a plain text field. */
+export function popupProps(state: {
+  readonly open: boolean;
+  readonly inline: boolean;
+}): Pick<InputProps, 'role' | 'aria-haspopup' | 'aria-expanded'> {
+  return state.inline
+    ? {}
+    : { role: 'combobox', 'aria-haspopup': 'dialog', 'aria-expanded': state.open };
 }
 
 function presetProps(preset: PresetState, apply: (id: string) => boolean): ButtonProps {
@@ -265,14 +275,12 @@ export function useDateRangePicker(
 
       return {
         id: ids[field],
-        role: 'combobox',
+        ...popupProps(state),
         type: 'text',
         inputMode: 'numeric',
         autoComplete: 'off',
         value: texts[field],
         placeholder: state.placeholder,
-        'aria-haspopup': 'dialog',
-        'aria-expanded': state.open,
         'aria-controls': ids.panel,
         ...(invalid ? { 'aria-invalid': true as const } : {}),
         ...(state.error ? { 'aria-describedby': ids.hint } : {}),
@@ -308,7 +316,7 @@ export function useDateRangePicker(
     }),
     getPanelProps: () => ({
       id: ids.panel,
-      role: 'dialog',
+      role: state.inline ? 'group' : 'dialog',
       'aria-label': labels.labels.chooseDate,
     }),
     getPresetProps: (preset) =>

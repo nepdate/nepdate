@@ -27,6 +27,7 @@ function App(): ReactElement {
   const [submitted, setSubmitted] = useState('');
   const [range, setRange] = useState({ start: '', end: '' });
   const [startsAt, setStartsAt] = useState('');
+  const [inlineValue, setInlineValue] = useState('');
   const [axe, setAxe] = useState<{ ok: boolean; text: string } | null>(null);
   const fixed = calendar === 'switch' ? undefined : calendar;
 
@@ -195,6 +196,20 @@ function App(): ReactElement {
             aria-label="Starts at"
           />
           <div className="value">value: {startsAt || '""'}</div>
+        </section>
+
+        <section>
+          <h2>Inline</h2>
+          <p>The calendar stays in the page; type or pick.</p>
+          <DatePicker
+            inline
+            locale={locale}
+            theme={theme}
+            calendar={fixed}
+            onChange={setInlineValue}
+            aria-label="Inline date"
+          />
+          <div className="value">value: {inlineValue || '""'}</div>
         </section>
 
         <section>

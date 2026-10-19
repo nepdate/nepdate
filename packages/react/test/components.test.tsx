@@ -448,6 +448,42 @@ describe('<DateTimePicker> (TIME-003)', () => {
   });
 });
 
+describe('inline mode (PICK-004)', () => {
+  test('the calendar is in the page from the start and stays after a pick', () => {
+    const onChange = vi.fn();
+    render(<DatePicker today={TODAY} inline onChange={onChange} aria-label="When" />);
+    const panel = screen.getByRole('group', { name: 'When: Calendar' });
+    expect(panel.dataset['layout']).toBe('inline');
+    expect(panel.hasAttribute('popover')).toBe(false);
+    expect(panel.style.getPropertyValue('--ndp-panel-width')).toBe('320px');
+    // A plain text field, no toggle, and focus is not moved on mount.
+    expect(screen.queryByRole('combobox')).toBeNull();
+    expect(screen.getByRole('textbox', { name: 'When' })).toBeDefined();
+    expect(screen.queryByRole('button', { name: 'Open calendar' })).toBeNull();
+    expect(document.activeElement).toBe(document.body);
+
+    fireEvent.click(within(panel).getByRole('button', { name: 'Today' }));
+    expect(onChange).toHaveBeenCalledWith('2026-10-18', expect.anything());
+    fireEvent.keyDown(document.body, { key: 'Escape' });
+    fireEvent.pointerDown(document.body);
+    expect(screen.getByRole('group', { name: 'When: Calendar' })).toBeDefined();
+  });
+
+  test('range and date-time pickers render inline too', () => {
+    render(<DateRangePicker today={TODAY} inline />);
+    expect(screen.getByRole('group', { name: 'Choose a date' }).dataset['layout']).toBe(
+      'inline',
+    );
+    expect(screen.queryByRole('combobox')).toBeNull();
+    cleanup();
+
+    render(<DateTimePicker today={TODAY} inline aria-label="Starts" />);
+    const panel = screen.getByRole('group', { name: 'Choose a date' });
+    expect(panel.style.getPropertyValue('--ndp-panel-width')).toBe('456px');
+    expect(screen.queryByRole('button', { name: 'Open calendar' })).toBeNull();
+  });
+});
+
 describe('input masking (PICK-006)', () => {
   test('typing digits fills in the dashes; mask={false} turns it off', () => {
     const onChange = vi.fn();

@@ -40,6 +40,7 @@ export class NepDateRangePickerElement extends Base {
     'theme',
     'panel-layout',
     'mask',
+    'inline',
     'start-label',
     'end-label',
   ];
@@ -153,6 +154,7 @@ export class NepDateRangePickerElement extends Base {
       theme: theme(this),
       panelLayout: panelLayout(this),
       mask: onUnlessFalse(this, 'mask'),
+      inline: this.hasAttribute('inline'),
       startLabel: str(this, 'start-label'),
       endLabel: str(this, 'end-label'),
       fiscalYearView: bool(this, 'fiscal-years'),

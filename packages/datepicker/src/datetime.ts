@@ -61,7 +61,10 @@ export interface DateTimePickerState {
   readonly time: TimeOfDay | null;
   readonly calendar: CalendarSystem;
   readonly canSwitchCalendar: boolean;
+  /** The panel is showing. Always true for an inline picker. */
   readonly open: boolean;
+  /** The calendar sits in the page and never closes (option `inline`). */
+  readonly inline: boolean;
   readonly error: (DateError & { readonly field: 'date' | 'time' }) | null;
   readonly equivalentText: string | null;
   readonly placeholder: string;
@@ -210,6 +213,7 @@ export function createDateTimePicker(
       calendar: inner.calendar,
       canSwitchCalendar: inner.canSwitchCalendar,
       open: inner.open,
+      inline: inner.inline,
       error: inner.error
         ? { ...inner.error, field: 'date' as const }
         : timeError

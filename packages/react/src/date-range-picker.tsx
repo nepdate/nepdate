@@ -1,4 +1,4 @@
-import { useRef, type ReactElement } from 'react';
+import { useRef, type CSSProperties, type ReactElement } from 'react';
 import {
   getLocale,
   type CalendarDate,
@@ -45,6 +45,8 @@ export interface DateRangePickerProps {
   disabled?: boolean | undefined;
   /** Add the dashes of YYYY-MM-DD while the user types digits. Default true. */
   mask?: boolean | undefined;
+  /** Show the calendar in the page, always open, instead of in a popover. */
+  inline?: boolean | undefined;
   /** 'sheet' opens a bottom sheet; 'popover' sits beside the field; 'auto' (default) uses the sheet below 480px. */
   panelLayout?: PanelLayout | undefined;
   theme?: 'light' | 'dark' | 'auto' | undefined;
@@ -72,14 +74,15 @@ export function DateRangePicker({
   const panel = useRef<HTMLDivElement | null>(null);
   const start = useRef<HTMLInputElement | null>(null);
 
+  const panelWidth = state.presets.length > 0 ? PANEL_WIDTH_WITH_PRESETS : PANEL_WIDTH;
   usePanel(
-    state.open,
+    state.open && !state.inline,
     { anchor: row, panel, field, returnFocus: start },
     () => {
       store.actions.close();
     },
     calendar.focusGrid,
-    state.presets.length > 0 ? PANEL_WIDTH_WITH_PRESETS : PANEL_WIDTH,
+    panelWidth,
     panelLayout,
   );
 
@@ -121,15 +124,17 @@ export function DateRangePicker({
             aria-label={endLabel}
             disabled={disabled}
           />
-          <span className="ndp-input__actions">
-            <button
-              className="ndp-icon-button"
-              disabled={disabled}
-              {...picker.getToggleProps()}
-            >
-              <Icon name="calendar" />
-            </button>
-          </span>
+          {!state.inline && (
+            <span className="ndp-input__actions">
+              <button
+                className="ndp-icon-button"
+                disabled={disabled}
+                {...picker.getToggleProps()}
+              >
+                <Icon name="calendar" />
+              </button>
+            </span>
+          )}
         </div>
       </div>
       {state.error && (
@@ -152,7 +157,13 @@ export function DateRangePicker({
         <div
           ref={panel}
           className="ndp-panel"
-          popover="manual"
+          popover={state.inline ? undefined : 'manual'}
+          data-layout={state.inline ? 'inline' : undefined}
+          style={
+            state.inline
+              ? ({ '--ndp-panel-width': `${String(panelWidth)}px` } as CSSProperties)
+              : undefined
+          }
           data-ndp-theme={theme}
           {...picker.getPanelProps()}
         >

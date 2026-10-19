@@ -15,7 +15,7 @@ import {
   type PanelLayout,
 } from '@nepdate/dom';
 import { CalendarView } from './calendar-view';
-import { el, icon, setAttrs, setText, uid } from './dom';
+import { el, icon, setAttrs, setPopupMode, setText, uid } from './dom';
 import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PresetList } from './preset-list';
 import type { Theme } from './picker-view';
 
@@ -88,11 +88,9 @@ export class DateRangePickerView {
       const input = el('input', {
         class: 'ndp-input__control',
         id: `${id}-${field}`,
-        role: 'combobox',
         type: 'text',
         inputmode: 'numeric',
         autocomplete: 'off',
-        'aria-haspopup': 'dialog',
         'aria-controls': `${id}-panel`,
         'data-field': field,
       });
@@ -157,8 +155,7 @@ export class DateRangePickerView {
       {
         class: 'ndp-panel',
         id: `${id}-panel`,
-        role: 'dialog',
-        popover: 'manual',
+
         hidden: true,
       },
       [
@@ -252,7 +249,6 @@ export class DateRangePickerView {
         disabled,
         required: this.options.required ?? false,
         'aria-label': labels[field] ?? null,
-        'aria-expanded': state.open ? 'true' : 'false',
         'aria-invalid': fieldError ? 'true' : null,
         'aria-describedby': hintText ? this.hint.id : null,
       });
@@ -300,7 +296,24 @@ export class DateRangePickerView {
       'aria-pressed': state.calendarState.view === 'fiscal' ? 'true' : 'false',
     });
     this.footer.hidden = !fiscal && !state.canSwitchCalendar;
-    this.syncPanel(state.open);
+    setPopupMode(
+      state,
+      [this.inputs.start, this.inputs.end],
+      this.toggleButton,
+      this.panel,
+    );
+    this.syncPanel(state.open && !state.inline);
+    this.panel.hidden = !state.inline && !this.wasOpen;
+    this.panel.style.setProperty(
+      '--ndp-panel-width',
+      state.inline ? `${String(this.panelWidth())}px` : null,
+    );
+  }
+
+  private panelWidth(): number {
+    return this.store.getState().presets.length > 0
+      ? PANEL_WIDTH_WITH_PRESETS
+      : PANEL_WIDTH;
   }
 
   private syncPanel(open: boolean): void {
@@ -313,10 +326,7 @@ export class DateRangePickerView {
       this.panel.hidden = false;
       const anchor = this.field.querySelector('.ndp-range') ?? this.field;
       const stopTracking = trackPosition(anchor, this.panel, {
-        width:
-          this.store.getState().presets.length > 0
-            ? PANEL_WIDTH_WITH_PRESETS
-            : PANEL_WIDTH,
+        width: this.panelWidth(),
         layout: this.options.panelLayout,
       });
       const stopOutside = onOutsidePointer([this.field], () => {
