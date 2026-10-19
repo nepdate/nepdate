@@ -87,6 +87,7 @@ export const en: LocaleData = {
     unavailable: 'This date is not available.',
     rangeTooShort: 'Choose at least {min} days.',
     rangeTooLong: 'Choose at most {max} days.',
+    tooManyDates: 'Choose at most {max} dates.',
     invalidTime: 'Enter a time as HH:MM.',
   },
 };

@@ -4,9 +4,11 @@ export {
   useDatePicker,
   useDateRangePicker,
   useDateTimePicker,
+  useMultiDatePicker,
   type DatePickerBindings,
   type DateTimePickerBindings,
   type DateRangePickerBindings,
+  type MultiDatePickerBindings,
   type InputProps,
   type PanelProps,
 } from './hooks';

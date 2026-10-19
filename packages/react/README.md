@@ -31,6 +31,7 @@ export function Form() {
 | ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
 | `<DatePicker>`                              | Props are listed below.                                                                                                  |
 | `<DateRangePicker>`                         | `value={{ start, end }}`, `minDays`, `maxDays`, `startName`/`endName` for forms.                                         |
+| `<MultiDatePicker>`                         | Several separate days: `value={['2026-10-18', …]}`, `maxDates`, `name` (one hidden input per day). Clicks toggle days.   |
 | `<Calendar>`                                | A standalone month view: `selected`, `onSelect`, `month`/`onMonthChange`, `selectionMode="range"`, `holidays`, `events`. |
 | `<DateText value="2026-09-26" />`           | "10 Ashwin 2083 · 26 Sep 2026". It has no hooks, so it's safe in server components (`@nepdate/react/server`).            |
 | `<ShortDate>`, `shortDate()`, `bothDates()` | Short text for tables and documents.                                                                                     |

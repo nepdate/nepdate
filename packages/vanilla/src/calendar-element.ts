@@ -1,6 +1,7 @@
 import { fromIsoDate } from '@nepdate/core';
 import {
   createCalendar as createCalendarStore,
+  isDayList,
   type CalendarOptions,
   type CalendarStore,
   type DateRange,
@@ -71,8 +72,9 @@ export class NepCalendarElement extends Base {
     const store = createCalendarStore({
       ...this.readOptions(),
       onSelect: (selection) => {
-        const detail =
-          'calendar' in selection
+        const detail = isDayList(selection)
+          ? { dates: selection, values: selection.map(isoOf) }
+          : 'calendar' in selection
             ? { date: selection, value: isoOf(selection) }
             : {
                 range: {

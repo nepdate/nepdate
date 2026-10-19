@@ -4,11 +4,13 @@ export const ELEMENT_NAMES: {
   readonly calendar: 'nep-calendar';
   readonly dateRangePicker: 'nep-date-range-picker';
   readonly dateTimePicker: 'nep-date-time-picker';
+  readonly multiDatePicker: 'nep-multi-date-picker';
 } = Object.freeze({
   datePicker: 'nep-date-picker',
   calendar: 'nep-calendar',
   dateRangePicker: 'nep-date-range-picker',
   dateTimePicker: 'nep-date-time-picker',
+  multiDatePicker: 'nep-multi-date-picker',
 });
 
 /** Define one element unless the name is taken. No-op during server rendering. */

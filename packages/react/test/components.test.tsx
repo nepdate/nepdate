@@ -10,6 +10,7 @@ import {
   DatePicker,
   DateRangePicker,
   DateText,
+  MultiDatePicker,
   shortDate,
   ShortDate,
   type DatePickerProps,
@@ -445,6 +446,66 @@ describe('<DateTimePicker> (TIME-003)', () => {
     expect(
       screen.getByRole('textbox', { name: 'Time' }).getAttribute('aria-invalid'),
     ).toBe('true');
+  });
+});
+
+describe('<MultiDatePicker> (PICK-001)', () => {
+  test('clicks add and remove days; the panel stays open; the form gets every day', () => {
+    const onChange = vi.fn();
+    const { container } = render(
+      <form>
+        <MultiDatePicker
+          today={TODAY}
+          name="off"
+          onChange={onChange}
+          aria-label="Days off"
+        />
+      </form>,
+    );
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    fireEvent.click(screen.getByRole('button', { name: /^Sunday, 8 Kartik/ }));
+    fireEvent.click(screen.getByRole('button', { name: /^Thursday, 5 Kartik/ }));
+    expect(onChange).toHaveBeenLastCalledWith(
+      ['2026-10-22', '2026-10-25'],
+      expect.anything(),
+    );
+    expect(
+      screen
+        .getByRole('button', { name: /^Thursday, 5 Kartik/ })
+        .getAttribute('aria-pressed'),
+    ).toBe('true');
+    expect(screen.getByRole('dialog')).toBeDefined();
+    expect(
+      screen.getByRole<HTMLInputElement>('combobox', { name: 'Days off' }).value,
+    ).toBe('2083-07-05, 2083-07-08');
+    const hidden = container.querySelectorAll<HTMLInputElement>('input[name="off"]');
+    expect([...hidden].map((input) => input.value)).toEqual(['2026-10-22', '2026-10-25']);
+
+    fireEvent.click(screen.getByRole('button', { name: /^Sunday, 8 Kartik/ }));
+    expect(onChange).toHaveBeenLastCalledWith(['2026-10-22'], expect.anything());
+    fireEvent.click(screen.getByRole('button', { name: 'Done' }));
+    expect(screen.queryByRole('dialog')).toBeNull();
+
+    fireEvent.click(screen.getByRole('button', { name: 'Clear date' }));
+    expect(onChange).toHaveBeenLastCalledWith([], []);
+    fireEvent.change(screen.getByRole('combobox'), {
+      target: { value: '2083-07-01, 2083' },
+    });
+    expect(onChange).toHaveBeenLastCalledWith(['2026-10-18'], expect.anything());
+    fireEvent.reset(container.querySelector('form') ?? document.body);
+    expect(onChange).toHaveBeenLastCalledWith([], []);
+  });
+
+  test('maxDates, the BS/AD segment, inline and errors', () => {
+    render(<MultiDatePicker today={TODAY} maxDates={1} inline aria-label="Day" />);
+    const panel = screen.getByRole('group', { name: 'Day: Calendar' });
+    fireEvent.click(within(panel).getByRole('button', { name: /^Thursday, 5 Kartik/ }));
+    fireEvent.click(within(panel).getByRole('button', { name: /^Sunday, 8 Kartik/ }));
+    expect(screen.getByText('Choose at most 1 dates.')).toBeDefined();
+    expect(screen.getByRole('textbox').getAttribute('aria-invalid')).toBe('true');
+    expect(within(panel).queryByRole('button', { name: 'Done' })).toBeNull();
+    fireEvent.click(within(panel).getByRole('button', { name: 'AD' }));
+    expect(screen.getByRole<HTMLInputElement>('textbox').value).toBe('2026-10-22');
   });
 });
 

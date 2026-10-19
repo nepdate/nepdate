@@ -23,7 +23,7 @@ import {
   type Weekday,
 } from '@nepdate/core';
 import { nextFocus } from './focus';
-import { buildMonthGrid, buildWeekdays, type HolidayResolver } from './grid';
+import { buildMonthGrid, buildWeekdays, isDayList, type HolidayResolver } from './grid';
 import { computeLimits, isInLimits, type Limits } from './limits';
 import {
   buildFiscalYearTiles,
@@ -39,6 +39,7 @@ import type {
   CalendarState,
   CalendarStore,
   CalendarView,
+  CalendarSelection,
   DateRange,
   FocusKey,
   HolidayInput,
@@ -135,7 +136,7 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
     const fiscalStart = fiscalStartOf(visibleMonth);
     const fiscalPage = yearPageStart(fiscalStart);
     const labels = getLocale(loc).labels;
-    const range = selection && !('calendar' in selection) ? selection : null;
+    const range = rangeOf(selection);
     const tileInput = {
       calendar,
       year,
@@ -236,8 +237,11 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
   }
 
   function stateKey(): string {
-    const range = selection && !('calendar' in selection) ? selection : null;
+    const range = rangeOf(selection);
     const single = selection && 'calendar' in selection ? selection : null;
+    const days = isDayList(selection)
+      ? selection.map((day) => toEpoch(day)).join(',')
+      : '';
 
     return [
       view,
@@ -247,6 +251,7 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
       range?.start ? toEpoch(range.start) : '',
       range?.end ? toEpoch(range.end) : '',
       rangeHover ? toEpoch(rangeHover) : '',
+      days,
     ].join('|');
   }
 
@@ -351,7 +356,7 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
         return false;
       }
       const day = toCalendar(date, calendar);
-      let result: CalendarDate | DateRange = day;
+      let result: CalendarSelection = day;
       update(() => {
         focused = day;
         if (!isSameMonth(visibleMonth, day)) {
@@ -359,6 +364,9 @@ export function createCalendar(initial: CalendarOptions = {}): CalendarStore {
         }
         if (mode === 'single') {
           selection = day;
+        } else if (mode === 'multiple') {
+          result = toggleDay(isDayList(selection) ? selection : [], day);
+          selection = result;
         } else {
           const range = (selection as DateRange | null) ?? { start: null, end: null };
           const next: DateRange =
@@ -438,10 +446,10 @@ function fiscalStartOf(date: CalendarDate): number {
 }
 
 function normalizeSelection(
-  selected: CalendarDate | DateRange | null,
+  selected: CalendarSelection | null,
   mode: SelectionMode,
   calendar: CalendarSystem,
-): CalendarDate | DateRange | null {
+): CalendarSelection | null {
   const inCalendar = (date: CalendarDate | null): CalendarDate | null => {
     if (date === null) {
       return null;
@@ -452,8 +460,25 @@ function normalizeSelection(
       return date; // outside the BS table: keep it as given
     }
   };
+  if (mode === 'multiple') {
+    const days = isDayList(selected)
+      ? selected
+      : selected === null
+        ? []
+        : 'calendar' in selected
+          ? [selected]
+          : [selected.start, selected.end].filter((day) => day !== null);
+
+    return sortDays(days.map((day) => inCalendar(day) ?? day));
+  }
   if (selected === null) {
     return mode === 'range' ? Object.freeze({ start: null, end: null }) : null;
+  }
+  if (isDayList(selected)) {
+    const [first = null, second = null] = sortDays(selected);
+    return mode === 'range'
+      ? Object.freeze({ start: inCalendar(first), end: inCalendar(second) })
+      : inCalendar(first);
   }
   if ('calendar' in selected) {
     return mode === 'range'
@@ -466,13 +491,36 @@ function normalizeSelection(
     : inCalendar(selected.start);
 }
 
-/** The day the selection points at: the date, or the range start. */
-function anchorOf(selection: CalendarDate | DateRange | null): CalendarDate | null {
+/** The day the selection points at: the date, the range start, or the first chosen day. */
+function anchorOf(selection: CalendarSelection | null): CalendarDate | null {
   if (selection === null) {
     return null;
   }
+  if (isDayList(selection)) {
+    return selection[0] ?? null;
+  }
 
   return 'calendar' in selection ? selection : selection.start;
+}
+
+function rangeOf(selection: CalendarSelection | null): DateRange | null {
+  return selection && !isDayList(selection) && !('calendar' in selection)
+    ? selection
+    : null;
+}
+
+/** Add the day, or remove it when it is already chosen. */
+function toggleDay(
+  days: readonly CalendarDate[],
+  day: CalendarDate,
+): readonly CalendarDate[] {
+  const kept = days.filter((other) => !isSameDay(other, day));
+
+  return sortDays(kept.length === days.length ? [...kept, day] : kept);
+}
+
+function sortDays(days: readonly CalendarDate[]): readonly CalendarDate[] {
+  return Object.freeze([...days].sort(compareDates));
 }
 
 function makeHolidayResolver(

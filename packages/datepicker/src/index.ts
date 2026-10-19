@@ -6,6 +6,7 @@
 export { createDatePicker } from './picker';
 export { createDateRangePicker } from './range';
 export { maskDateText } from './mask';
+export { createMultiDatePicker } from './multi';
 export {
   createDateTimePicker,
   type DateTimeDetail,
@@ -48,6 +49,10 @@ export type {
   DateRangePickerOptions,
   DateRangePickerState,
   DateRangePickerStore,
+  MultiDatePickerActions,
+  MultiDatePickerOptions,
+  MultiDatePickerState,
+  MultiDatePickerStore,
   PickerBaseOptions,
   RangeDetail,
   RangeField,

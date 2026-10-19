@@ -70,6 +70,8 @@ export interface LocaleData {
     /** Range pickers: {min} / {max} are day counts. */
     readonly rangeTooShort: string;
     readonly rangeTooLong: string;
+    /** Multiple-date pickers: {max} is a count of dates. */
+    readonly tooManyDates: string;
     readonly invalidTime: string;
   };
 }

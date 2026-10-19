@@ -34,7 +34,7 @@ import { defineDatePicker } from '@nepdate/vanilla/date-picker';
 defineDatePicker();
 ```
 
-The entries are `/date-picker`, `/calendar`, `/date-range-picker` and `/date-time-picker`. Each one exports its element, its view, `define…()` and `create…()`.
+The entries are `/date-picker`, `/calendar`, `/date-range-picker`, `/date-time-picker` and `/multi-date-picker`. Each one exports its element, its view, `define…()` and `create…()`.
 
 ## `<nep-date-picker>`
 
@@ -91,6 +91,21 @@ Submits one instant, e.g. `2026-10-18T14:30:00+05:45`.
 
 - **Attributes:** `time-zone`, `time-label`, `presets`, plus the date attributes above.
 - **Events:** `change` with `{ value, ad, bs, time }`.
+
+## `<nep-multi-date-picker>`
+
+```html
+<nep-multi-date-picker
+  name="days-off"
+  max-dates="5"
+  value="2026-10-18,2026-10-20"
+></nep-multi-date-picker>
+```
+
+Click days to add or remove them, or type them separated by commas. The form gets one `days-off` entry per day, each an AD `"YYYY-MM-DD"`, and `element.value` is the sorted list.
+
+- **Attributes:** `max-dates`, `close-on-select`, plus the date attributes above (`min`, `max`, `calendar`, `locale`, `required`, `disabled`, `inline`, `panel-layout`, `mask`, `label`, …).
+- **Events:** `change` with `{ value: string[], dates: { ad, bs }[] }`.
 
 ## Without custom elements
 

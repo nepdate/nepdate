@@ -9,13 +9,16 @@ import type {
 
 /** 'fiscal' shows Nepal's fiscal years (1 Shrawan – end of Asar) as tiles. */
 export type CalendarView = 'day' | 'month' | 'year' | 'fiscal';
-export type SelectionMode = 'single' | 'range';
+export type SelectionMode = 'single' | 'range' | 'multiple';
 
 /** A range being chosen or chosen. `end` is null after the first click. */
 export interface DateRange {
   readonly start: CalendarDate | null;
   readonly end: CalendarDate | null;
 }
+
+/** A day (single mode), a range (range mode) or the chosen days, sorted (multiple mode). */
+export type CalendarSelection = CalendarDate | DateRange | readonly CalendarDate[];
 
 export interface HolidayInfo {
   readonly label?: string;
@@ -122,8 +125,8 @@ export interface CalendarOptions {
   /** Names and digits. Default: core's configured default locale. */
   readonly locale?: LocaleCode | undefined;
   readonly selectionMode?: SelectionMode | undefined;
-  /** A date in single mode, a range in range mode. */
-  readonly selected?: CalendarDate | DateRange | null | undefined;
+  /** A date in single mode, a range in range mode, a list of days in multiple mode. */
+  readonly selected?: CalendarSelection | null | undefined;
   /** The month shown first (any day in it). Default: selected ?? today. */
   readonly defaultVisibleMonth?: CalendarDate | undefined;
   /** Show this month; pass again through setOptions to move it (controlled). */
@@ -144,7 +147,8 @@ export interface CalendarOptions {
   readonly weekendDays?: readonly Weekday[] | undefined;
   /** Override "today" (tests, server rendering). Default: core's today() in the configured zone. */
   readonly today?: CalendarDate | undefined;
-  readonly onSelect?: ((selection: CalendarDate | DateRange) => void) | undefined;
+  /** Single: the day. Range: the range so far. Multiple: every chosen day after the click toggled one. */
+  readonly onSelect?: ((selection: CalendarSelection) => void) | undefined;
   readonly onVisibleMonthChange?: ((month: CalendarDate) => void) | undefined;
   readonly onViewChange?: ((view: CalendarView) => void) | undefined;
 }
@@ -168,8 +172,8 @@ export interface CalendarState {
   readonly canPrev: boolean;
   readonly canNext: boolean;
   readonly selectionMode: SelectionMode;
-  /** In single mode the selected day; in range mode the range (either end may be null). */
-  readonly selected: CalendarDate | DateRange | null;
+  /** Single: the day. Range: the range (either end may be null). Multiple: the days, sorted. */
+  readonly selected: CalendarSelection | null;
   readonly rangeHover: CalendarDate | null;
   /** The first and last selectable days, in `calendar`. */
   readonly minDate: CalendarDate;

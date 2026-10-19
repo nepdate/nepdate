@@ -11,6 +11,7 @@ import {
   createDatePicker,
   createDateRangePicker,
   createDateTimePicker,
+  createMultiDatePicker,
   type DateTimePickerOptions,
   type DateTimePickerState,
   type DateTimePickerStore,
@@ -20,6 +21,9 @@ import {
   type DateRangePickerOptions,
   type DateRangePickerState,
   type DateRangePickerStore,
+  type MultiDatePickerOptions,
+  type MultiDatePickerState,
+  type MultiDatePickerStore,
   type RangeField,
 } from '@nepdate/datepicker';
 import { useCalendarBindings, type ButtonProps, type CalendarBindings } from './bindings';
@@ -366,5 +370,105 @@ export function useDateTimePicker(
       panel: `${base}-panel`,
       hint: `${base}-hint`,
     },
+  };
+}
+
+export interface MultiDatePickerBindings {
+  readonly state: MultiDatePickerState;
+  readonly actions: MultiDatePickerStore['actions'];
+  readonly store: MultiDatePickerStore;
+  readonly calendar: CalendarBindings;
+  readonly ids: { input: string; panel: string; hint: string };
+  getInputProps(): InputProps;
+  getToggleProps(): ButtonProps & { 'aria-expanded': boolean; 'aria-controls': string };
+  getClearProps(): ButtonProps;
+  getCalendarOptionProps(calendar: CalendarSystem): ButtonProps;
+  getPanelProps(): PanelProps;
+}
+
+/** A picker for several separate BS/AD days, without markup (PICK-001). */
+export function useMultiDatePicker(
+  options: MultiDatePickerOptions & { id?: string | undefined } = {},
+): MultiDatePickerBindings {
+  const { id: givenId, ...storeOptions } = options;
+  const { store, state } = useStore<
+    MultiDatePickerOptions,
+    MultiDatePickerState,
+    MultiDatePickerStore
+  >(createMultiDatePicker, storeOptions);
+  const input = givenId ?? `ndp${useId().replace(/:/g, '')}`;
+  const ids = { input, panel: `${input}-panel`, hint: `${input}-hint` };
+  const labels = getLocale(options.locale);
+  const calendar = useCalendarBindings(
+    state.calendarState,
+    store.calendar.actions,
+    options.locale,
+    {
+      getSnapshot: () => store.calendar.getState(),
+      onDayActivate: (date) => {
+        store.actions.select(date);
+      },
+    },
+  );
+
+  return {
+    state,
+    actions: store.actions,
+    store,
+    calendar,
+    ids,
+    getInputProps: () => ({
+      id: ids.input,
+      ...popupProps(state),
+      type: 'text',
+      inputMode: 'numeric',
+      autoComplete: 'off',
+      value: state.text,
+      placeholder: state.placeholder,
+      'aria-controls': ids.panel,
+      ...(state.error
+        ? { 'aria-invalid': true as const, 'aria-describedby': ids.hint }
+        : {}),
+      onChange: (event) => {
+        store.actions.type(event.target.value);
+      },
+      onBlur: () => {
+        store.actions.blur();
+      },
+      onKeyDown: (event) => {
+        if (event.key === 'ArrowDown' && (event.altKey || state.text === '')) {
+          event.preventDefault();
+          store.actions.open();
+        }
+      },
+    }),
+    getToggleProps: () => ({
+      type: 'button',
+      'aria-label': labels.labels.openCalendar,
+      'aria-expanded': state.open,
+      'aria-controls': ids.panel,
+      onClick: () => {
+        store.actions.toggle();
+      },
+    }),
+    getClearProps: () => ({
+      type: 'button',
+      'aria-label': labels.labels.clear,
+      onClick: () => {
+        store.actions.clear();
+      },
+    }),
+    getCalendarOptionProps: (option) => ({
+      type: 'button',
+      'aria-pressed': state.calendar === option,
+      onClick: () => {
+        store.actions.switchCalendar(option);
+      },
+    }),
+    getPanelProps: () => ({
+      id: ids.panel,
+      role: state.inline ? 'group' : 'dialog',
+      'aria-label': labels.labels.chooseDate,
+    }),
   };
 }

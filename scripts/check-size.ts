@@ -38,20 +38,30 @@ export const BUDGETS: Record<string, Budget[]> = {
   ],
   // Day, month, year and fiscal-year views; 4.5 kB since FY-001 (docs/plan D-034).
   calendar: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 4.5 * KB }],
-  // Single, range and date-time pickers and presets; 5 kB since D-035.
-  datepicker: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 5 * KB }],
+  // Single, range, date-time and multiple-date pickers and presets; 6 kB since D-042.
+  datepicker: [
+    { file: 'dist/index.js', bundle: true, maxGzipBytes: 6 * KB },
+    // One picker: what most apps ship.
+    {
+      file: 'dist/index.js',
+      bundle: true,
+      only: ['createDatePicker'],
+      maxGzipBytes: 3 * KB,
+    },
+  ],
   dom: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 1.5 * KB }],
   holidays: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 2 * KB }],
   react: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 8 * KB }],
   vanilla: [
-    // Four elements incl. <nep-date-time-picker>; 10 kB / 26 kB since D-035.
-    { file: 'dist/index.js', bundle: true, maxGzipBytes: 10 * KB },
+    // Five elements incl. <nep-multi-date-picker>; 11 kB / 26 kB since D-042.
+    { file: 'dist/index.js', bundle: true, maxGzipBytes: 11 * KB },
     { file: 'dist/nepdate-picker.global.js', bundle: false, maxGzipBytes: 26 * KB },
     // One element per page: each entry must stay well under the full package.
     { file: 'dist/date-picker.js', bundle: true, maxGzipBytes: 7 * KB },
     { file: 'dist/calendar.js', bundle: true, maxGzipBytes: 4 * KB },
     { file: 'dist/date-range-picker.js', bundle: true, maxGzipBytes: 6.5 * KB },
     { file: 'dist/date-time-picker.js', bundle: true, maxGzipBytes: 6.5 * KB },
+    { file: 'dist/multi-date-picker.js', bundle: true, maxGzipBytes: 6 * KB },
   ],
 };
 

@@ -9,6 +9,7 @@ import {
   DateRangePicker,
   DateText,
   DateTimePicker,
+  MultiDatePicker,
 } from '@nepdate/react';
 import { runAxe } from './axe';
 
@@ -28,6 +29,7 @@ function App(): ReactElement {
   const [range, setRange] = useState({ start: '', end: '' });
   const [startsAt, setStartsAt] = useState('');
   const [inlineValue, setInlineValue] = useState('');
+  const [daysOff, setDaysOff] = useState<readonly string[]>([]);
   const [axe, setAxe] = useState<{ ok: boolean; text: string } | null>(null);
   const fixed = calendar === 'switch' ? undefined : calendar;
 
@@ -196,6 +198,22 @@ function App(): ReactElement {
             aria-label="Starts at"
           />
           <div className="value">value: {startsAt || '""'}</div>
+        </section>
+
+        <section>
+          <h2>Multiple dates</h2>
+          <p>Click days to add or remove them; at most five.</p>
+          <MultiDatePicker
+            locale={locale}
+            theme={theme}
+            calendar={fixed}
+            holidays={HOLIDAYS}
+            maxDates={5}
+            name="days-off"
+            onChange={setDaysOff}
+            aria-label="Days off"
+          />
+          <div className="value">value: {JSON.stringify(daysOff)}</div>
         </section>
 
         <section>

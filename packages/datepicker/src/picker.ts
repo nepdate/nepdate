@@ -12,7 +12,7 @@ import {
   createEmitter,
   formatOf,
   inputLimits,
-  isRange,
+  isSingleDay,
   localeOf,
   panelOptions,
   todayOf,
@@ -64,7 +64,7 @@ export function createDatePicker(initial: DatePickerOptions = {}): DatePickerSto
     selectionMode: 'single',
     selected: date,
     onSelect: (selection) => {
-      if (!isRange(selection)) {
+      if (isSingleDay(selection)) {
         pick(selection);
       }
     },

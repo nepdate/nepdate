@@ -43,6 +43,7 @@ const ENTRIES: Record<string, string[]> = {
     '@nepdate/vanilla/calendar',
     '@nepdate/vanilla/date-range-picker',
     '@nepdate/vanilla/date-time-picker',
+    '@nepdate/vanilla/multi-date-picker',
   ],
 };
 

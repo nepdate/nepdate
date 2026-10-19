@@ -5,14 +5,19 @@ const YEAR_MONTH = new RegExp(`^(${DIGIT}{4}-${DIGIT}{2})(${DIGIT}?)$`);
 /**
  * Add the dashes of YYYY-MM-DD while the user types digits: "2083" becomes
  * "2083-", "208306" becomes "2083-06-" and a pasted "20830624" becomes
- * "2083-06-24". ASCII and Devanagari digits keep their script. Only text that
- * grew at the end (typing, or a paste into an empty field) is touched, so
- * deleting, editing in the middle and other separators ("2083/6/4") are left
- * as the user wrote them. Pure.
+ * "2083-06-24". ASCII and Devanagari digits keep their script, and a
+ * separator typed straight after a dash is dropped, so typing the dashes
+ * yourself works too. Only text that grew at the end (typing, or a paste into
+ * an empty field) is touched: deleting, editing in the middle and other
+ * separators ("2083/6/4") are left as the user wrote them. Pure.
  */
 export function maskDateText(next: string, previous = ''): string {
   if (next.length <= previous.length || !next.startsWith(previous)) {
     return next;
+  }
+  if (previous.endsWith('-') && /^[-./]$/.test(next.slice(previous.length))) {
+    // The user typed the separator the mask already added.
+    return previous;
   }
   if (DIGITS_ONLY.test(next)) {
     // Every character is one ASCII or Devanagari digit, so string offsets are safe.

@@ -97,6 +97,17 @@
         "default": "./dist/date-time-picker.cjs"
       }
     },
+    "./multi-date-picker": {
+      "@nepdate/source": "./src/multi-date-picker.ts",
+      "import": {
+        "types": "./dist/multi-date-picker.d.ts",
+        "default": "./dist/multi-date-picker.js"
+      },
+      "require": {
+        "types": "./dist/multi-date-picker.d.cts",
+        "default": "./dist/multi-date-picker.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
@@ -145,6 +156,9 @@
       ],
       "date-time-picker": [
         "./dist/date-time-picker.d.cts"
+      ],
+      "multi-date-picker": [
+        "./dist/multi-date-picker.d.cts"
       ]
     }
   }

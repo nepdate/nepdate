@@ -15,7 +15,7 @@ import {
 } from '@nepdate/core';
 import { isInLimits, type Limits } from './limits';
 import type {
-  DateRange,
+  CalendarSelection,
   DayCell,
   DayState,
   EventMarker,
@@ -36,7 +36,7 @@ export interface GridInput {
   readonly locale: LocaleCode;
   readonly today: CalendarDate;
   readonly selectionMode: SelectionMode;
-  readonly selected: CalendarDate | DateRange | null;
+  readonly selected: CalendarSelection | null;
   readonly rangeHover: CalendarDate | null;
   readonly focusTarget: CalendarDate | null;
   readonly showOtherCalendar: boolean;
@@ -64,7 +64,7 @@ export function buildMonthGrid(input: GridInput): (DayCell | null)[][] {
 
   const todayEpoch = toEpoch(input.today);
   const focusEpoch = input.focusTarget ? toEpoch(input.focusTarget) : null;
-  const { singleEpoch, startEpoch, endEpoch } = selectionEpochs(
+  const { singleEpoch, startEpoch, endEpoch, many } = selectionEpochs(
     input.selectionMode,
     input.selected,
   );
@@ -104,7 +104,8 @@ export function buildMonthGrid(input: GridInput): (DayCell | null)[][] {
         endEpoch !== null &&
         epoch > startEpoch &&
         epoch < endEpoch;
-      const isSelected = singleEpoch === epoch || isRangeStart || isRangeEnd;
+      const isSelected =
+        singleEpoch === epoch || isRangeStart || isRangeEnd || many.has(epoch);
       const isInRangePreview =
         previewLow !== null &&
         previewHigh !== null &&
@@ -194,31 +195,45 @@ export function buildWeekdays(
   });
 }
 
+const NONE: ReadonlySet<number> = new Set();
+
 function selectionEpochs(
   mode: SelectionMode,
-  selected: CalendarDate | DateRange | null,
-): { singleEpoch: number | null; startEpoch: number | null; endEpoch: number | null } {
+  selected: CalendarSelection | null,
+): {
+  singleEpoch: number | null;
+  startEpoch: number | null;
+  endEpoch: number | null;
+  many: ReadonlySet<number>;
+} {
+  const none = { singleEpoch: null, startEpoch: null, endEpoch: null, many: NONE };
   if (selected == null) {
-    return { singleEpoch: null, startEpoch: null, endEpoch: null };
+    return none;
+  }
+  if (isDayList(selected)) {
+    return { ...none, many: new Set(selected.map((day) => toEpoch(day))) };
   }
   if ('calendar' in selected) {
-    return mode === 'single'
-      ? { singleEpoch: toEpoch(selected), startEpoch: null, endEpoch: null }
-      : { singleEpoch: null, startEpoch: toEpoch(selected), endEpoch: null };
+    return mode === 'range'
+      ? { ...none, startEpoch: toEpoch(selected) }
+      : { ...none, singleEpoch: toEpoch(selected) };
   }
-  if (mode === 'single') {
-    return {
-      singleEpoch: selected.start ? toEpoch(selected.start) : null,
-      startEpoch: null,
-      endEpoch: null,
-    };
+  if (mode !== 'range') {
+    return { ...none, singleEpoch: selected.start ? toEpoch(selected.start) : null };
   }
 
   return {
-    singleEpoch: null,
+    ...none,
     startEpoch: selected.start ? toEpoch(selected.start) : null,
     endEpoch: selected.end ? toEpoch(selected.end) : null,
   };
+}
+
+/** Whether a selection is the multiple-mode list of days. */
+export function isDayList(
+  selection: CalendarSelection | null,
+): selection is readonly CalendarDate[] {
+  return Array.isArray(selection);
 }
 
 function safeFromEpoch(

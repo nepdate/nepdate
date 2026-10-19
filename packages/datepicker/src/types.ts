@@ -22,7 +22,8 @@ export interface DateDetail {
   readonly bs: BsDate;
 }
 
-export type DateErrorCode = 'format' | 'range' | 'disabled' | 'tooShort' | 'tooLong';
+export type DateErrorCode =
+  'format' | 'range' | 'disabled' | 'tooShort' | 'tooLong' | 'tooMany';
 
 export interface DateError {
   readonly code: DateErrorCode;
@@ -189,6 +190,61 @@ export interface DateRangePickerStore {
   subscribe(listener: () => void): () => void;
   setOptions(changes: Partial<DateRangePickerOptions>): void;
   readonly actions: DateRangePickerActions;
+  readonly calendar: CalendarStore;
+  destroy(): void;
+}
+
+export interface MultiDatePickerOptions extends PickerBaseOptions {
+  /** AD "YYYY-MM-DD" days. Passing it again through setOptions replaces the value. */
+  readonly value?: readonly string[] | undefined;
+  readonly defaultValue?: readonly string[] | undefined;
+  readonly onChange?:
+    ((value: readonly string[], dates: readonly DateDetail[]) => void) | undefined;
+  /** The most days that may be chosen. */
+  readonly maxDates?: number | undefined;
+}
+
+export interface MultiDatePickerState {
+  /** AD "YYYY-MM-DD" days, sorted, no repeats. Never BS dates. */
+  readonly value: readonly string[];
+  readonly dates: readonly DateDetail[];
+  /** What the input shows: the days as YYYY-MM-DD, separated by ", ". */
+  readonly text: string;
+  readonly calendar: CalendarSystem;
+  readonly canSwitchCalendar: boolean;
+  /** The panel is showing. Always true for an inline picker. */
+  readonly open: boolean;
+  readonly inline: boolean;
+  readonly error: DateError | null;
+  readonly placeholder: string;
+  readonly calendarState: CalendarState;
+}
+
+export interface MultiDatePickerActions {
+  /** The user typed days separated by commas or spaces. */
+  type(text: string): void;
+  /** Tidy the text unless it has an error. */
+  blur(): void;
+  clear(): void;
+  /** Set the value from outside; does not call onChange. */
+  setValue(value: readonly string[]): void;
+  open(): void;
+  close(): void;
+  toggle(): void;
+  switchCalendar(calendar: CalendarSystem): void;
+  /** Add the day, or remove it when chosen. Returns false when disabled or over maxDates. */
+  select(date: CalendarDate): boolean;
+  /** Remove one day, by its AD "YYYY-MM-DD" value. */
+  remove(value: string): void;
+  /** Back to defaultValue (form reset). */
+  reset(): void;
+}
+
+export interface MultiDatePickerStore {
+  getState(): MultiDatePickerState;
+  subscribe(listener: () => void): () => void;
+  setOptions(changes: Partial<MultiDatePickerOptions>): void;
+  readonly actions: MultiDatePickerActions;
   readonly calendar: CalendarStore;
   destroy(): void;
 }

@@ -1,4 +1,4 @@
-/** `import '@nepdate/vanilla/define'` registers <nep-date-picker>, <nep-calendar> and <nep-date-range-picker>. */
+/** `import '@nepdate/vanilla/define'` registers every element (<nep-date-picker>, <nep-calendar>, …). */
 import { defineElements } from './define';
 
 defineElements();

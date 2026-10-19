@@ -48,6 +48,6 @@ describe('per-element entries', () => {
     expect(all.createCalendar).toBe(createCalendar);
     expect(all.createDateRangePicker).toBe(createDateRangePicker);
     expect(all.createDateTimePicker).toBe(createDateTimePicker);
-    expect(Object.keys(all.ELEMENT_NAMES)).toHaveLength(4);
+    expect(Object.keys(all.ELEMENT_NAMES)).toHaveLength(5);
   });
 });

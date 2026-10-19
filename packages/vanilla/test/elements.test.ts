@@ -4,6 +4,7 @@ import {
   createCalendar,
   createDatePicker,
   createDateRangePicker,
+  createMultiDatePicker,
   defineElements,
   ELEMENT_NAMES,
   type NepCalendarElement,
@@ -362,6 +363,99 @@ describe('presets (PRE-007)', () => {
     expect(range.value).toEqual({ start: '2026-10-12', end: '2026-10-18' });
     range.presets = ['thisMonth'];
     expect(range.presets).toEqual(['thisMonth']);
+  });
+});
+
+describe('<nep-multi-date-picker> (PICK-001)', () => {
+  type MultiElement = HTMLElement & {
+    value: readonly string[];
+    view: { setOptions(o: object): void; open(): void } | null;
+  };
+
+  test('clicks toggle days, the form gets one entry per day, change fires', () => {
+    const element = mount<MultiElement>(
+      '<form><nep-multi-date-picker data-test name="off" value="2026-10-18" label="Days off"></nep-multi-date-picker></form>',
+    );
+    element.view?.setOptions({
+      today: { calendar: 'AD', year: 2026, month: 10, day: 18 },
+    });
+    const input = q<HTMLInputElement>(element, 'input.ndp-input__control');
+    expect(input.value).toBe('2083-07-01');
+    const onChange = vi.fn<(event: CustomEvent) => void>();
+    element.addEventListener('change', onChange as unknown as EventListener);
+    q<HTMLButtonElement>(element, '[data-action="toggle"]').click();
+    day(element, 'Thursday, 5 Kartik').click();
+    expect(element.value).toEqual(['2026-10-18', '2026-10-22']);
+    expect((onChange.mock.lastCall?.[0].detail as { value: string[] }).value).toEqual([
+      '2026-10-18',
+      '2026-10-22',
+    ]);
+    expect(q<HTMLElement>(element, '.ndp-panel').hidden).toBe(false);
+    const form = element.closest('form');
+    if (!form) {
+      throw new Error('no form');
+    }
+    expect(new FormData(form).getAll('off')).toEqual(['2026-10-18', '2026-10-22']);
+
+    day(element, 'Sunday, 1 Kartik').click();
+    expect(element.value).toEqual(['2026-10-22']);
+    q<HTMLButtonElement>(element, '[data-action="done"]').click();
+    expect(q<HTMLElement>(element, '.ndp-panel').hidden).toBe(true);
+
+    typeInto(input, '2083-07-02, 2083-07-03');
+    expect(element.value).toEqual(['2026-10-19', '2026-10-20']);
+    element.setAttribute('value', '2026-10-25');
+    expect(element.value).toEqual(['2026-10-25']);
+    element.value = [];
+    expect(input.value).toBe('');
+    form.reset();
+    (element as unknown as { formResetCallback(): void }).formResetCallback(); // happy-dom may not call it
+    expect(element.value).toEqual(['2026-10-18']);
+    q<HTMLButtonElement>(element, '[data-action="clear"]').click();
+    expect(element.value).toEqual([]);
+  });
+
+  test('max-dates, inline, the segment and createMultiDatePicker', () => {
+    const element = mount<MultiElement>(
+      '<nep-multi-date-picker inline max-dates="1" calendar="AD"></nep-multi-date-picker>',
+    );
+    const panel = q<HTMLElement>(element, '.ndp-panel');
+    expect(panel.hidden).toBe(false);
+    expect(q<HTMLElement>(element, '[data-action="done"]').hidden).toBe(true);
+    expect(q<HTMLElement>(element, '.ndp-segment').hidden).toBe(true);
+    const days = element.querySelectorAll<HTMLButtonElement>(
+      '.ndp-day:not([data-state="outside"])',
+    );
+    days[0]?.click();
+    days[1]?.click();
+    expect(element.value).toHaveLength(1);
+    expect(q<HTMLElement>(element, '.ndp-hint').textContent).toBe(
+      'Choose at most 1 dates.',
+    );
+
+    const host = document.createElement('div');
+    document.body.append(host);
+    const handle = createMultiDatePicker(host, {
+      name: 'days',
+      defaultValue: ['2026-10-20'],
+      today: { calendar: 'AD', year: 2026, month: 10, day: 18 },
+    });
+    expect(handle.getValue()).toEqual(['2026-10-20']);
+    expect(host.querySelector<HTMLInputElement>('input[name="days"]')?.value).toBe(
+      '2026-10-20',
+    );
+    handle.setValue(['2026-10-21']);
+    expect(handle.getState().value).toEqual(['2026-10-21']);
+    handle.open();
+    expect(host.querySelector<HTMLElement>('.ndp-panel')?.hidden).toBe(false);
+    q<HTMLButtonElement>(host, '[data-calendar="AD"]').click();
+    expect(handle.getState().calendar).toBe('AD');
+    handle.close();
+    handle.setOptions({ disabled: true });
+    handle.open();
+    expect(handle.getState().open).toBe(false);
+    handle.destroy();
+    expect(host.children).toHaveLength(0);
   });
 });
 

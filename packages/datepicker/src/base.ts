@@ -5,7 +5,13 @@ import {
   type DateFormatPattern,
   type LocaleCode,
 } from '@nepdate/core';
-import type { CalendarOptions, CalendarStore, DateRange } from '@nepdate/calendar';
+import {
+  isDayList,
+  type CalendarOptions,
+  type CalendarSelection,
+  type CalendarStore,
+  type DateRange,
+} from '@nepdate/calendar';
 import { readIso, type InputLimits } from './input';
 import type { PickerBaseOptions } from './types';
 
@@ -57,8 +63,12 @@ export function todayOf(options: PickerBaseOptions): CalendarDate {
   return options.today ?? today('AD');
 }
 
-export function isRange(selection: CalendarDate | DateRange): selection is DateRange {
-  return !('calendar' in selection);
+export function isRange(selection: CalendarSelection): selection is DateRange {
+  return !isDayList(selection) && !('calendar' in selection);
+}
+
+export function isSingleDay(selection: CalendarSelection): selection is CalendarDate {
+  return !isDayList(selection) && 'calendar' in selection;
 }
 
 /**

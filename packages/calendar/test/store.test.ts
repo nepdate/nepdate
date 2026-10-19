@@ -6,7 +6,7 @@ import {
   maxDate,
   type CalendarDate,
 } from '@nepdate/core';
-import { createCalendar, type DateRange } from '@nepdate/calendar';
+import { createCalendar, isDayList, type DateRange } from '@nepdate/calendar';
 import { ad, bs, cell, cells, TODAY, ymd } from './helpers';
 
 describe('defaults and navigation (CAL-001, CAL-002, CAL-007)', () => {
@@ -231,6 +231,55 @@ describe('selection (TEST-022)', () => {
     expect(cell(single.getState(), 2).isSelected).toBe(true);
     const emptyRange = createCalendar({ today: TODAY, selectionMode: 'range' });
     expect(emptyRange.getState().selected).toEqual({ start: null, end: null });
+  });
+
+  test('multiple mode toggles days and keeps them sorted (PICK-001)', () => {
+    const onSelect = vi.fn();
+    const store = createCalendar({ today: TODAY, selectionMode: 'multiple', onSelect });
+    expect(store.getState().selected).toEqual([]);
+    store.actions.select(bs('2083-07-09'));
+    store.actions.select(bs('2083-07-03'));
+    expect(onSelect).toHaveBeenLastCalledWith([bs('2083-07-03'), bs('2083-07-09')]);
+    const state = store.getState();
+    expect(cell(state, 3).isSelected).toBe(true);
+    expect(cell(state, 9).state).toBe('selected');
+    expect(cell(state, 4).isSelected).toBe(false);
+    store.actions.select(bs('2083-07-03'));
+    expect(store.getState().selected).toEqual([bs('2083-07-09')]);
+    expect(store.actions.select(maxDate('BS'))).toBe(true);
+    store.actions.hover(bs('2083-07-10')); // no range preview in multiple mode
+    expect(store.getState().rangeHover).toBeNull();
+  });
+
+  test('multiple mode reads a day, a range or a list; other modes read a list', () => {
+    const fromDay = createCalendar({
+      today: TODAY,
+      selectionMode: 'multiple',
+      selected: ad('2026-10-20'),
+    });
+    expect(fromDay.getState().selected).toEqual([bs('2083-07-03')]);
+    const fromRange = createCalendar({
+      today: TODAY,
+      selectionMode: 'multiple',
+      selected: { start: bs('2083-07-05'), end: null },
+    });
+    expect(fromRange.getState().selected).toEqual([bs('2083-07-05')]);
+    expect(fromRange.getState().visibleMonth).toEqual(bs('2083-07-01'));
+    const empty = createCalendar({ today: TODAY, selectionMode: 'multiple' });
+    empty.setOptions({ selected: null });
+    expect(empty.getState().selected).toEqual([]);
+
+    const list = [bs('2083-07-09'), bs('2083-07-02')];
+    expect(
+      createCalendar({ today: TODAY, selectionMode: 'range', selected: list }).getState()
+        .selected,
+    ).toEqual({ start: bs('2083-07-02'), end: bs('2083-07-09') });
+    expect(createCalendar({ today: TODAY, selected: list }).getState().selected).toEqual(
+      bs('2083-07-02'),
+    );
+    expect(createCalendar({ today: TODAY, selected: [] }).getState().selected).toBeNull();
+    expect(isDayList(list)).toBe(true);
+    expect(isDayList(null)).toBe(false);
   });
 });
 

@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
 import type { CalendarDate } from '@nepdate/core';
-import type { CalendarOptions, DateRange } from '@nepdate/calendar';
+import type { CalendarOptions, CalendarSelection } from '@nepdate/calendar';
 import { CalendarBody } from './calendar-body';
 import { useCalendar } from './hooks';
 
@@ -11,7 +11,7 @@ export interface CalendarProps extends Omit<
   /** Show this month (any day in it); pair with onMonthChange to control it. */
   month?: CalendarDate | undefined;
   onMonthChange?: ((month: CalendarDate) => void) | undefined;
-  onSelect?: ((selection: CalendarDate | DateRange) => void) | undefined;
+  onSelect?: ((selection: CalendarSelection) => void) | undefined;
   className?: string | undefined;
   theme?: 'light' | 'dark' | 'auto' | undefined;
 }

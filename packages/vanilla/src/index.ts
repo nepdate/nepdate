@@ -5,10 +5,11 @@
  *
  * Each element also has its own entry, so a page that needs one picker ships
  * only that one: '@nepdate/vanilla/date-picker', '/calendar',
- * '/date-range-picker' and '/date-time-picker'.
+ * '/date-range-picker', '/date-time-picker' and '/multi-date-picker'.
  */
 export * from './date-picker';
 export * from './calendar';
 export * from './date-range-picker';
 export * from './date-time-picker';
+export * from './multi-date-picker';
 export { defineElements, ELEMENT_NAMES } from './define';

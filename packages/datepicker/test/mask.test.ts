@@ -24,6 +24,8 @@ describe('maskDateText (PICK-006)', () => {
     ['20830624', '', '2083-06-24'],
     ['२०८३', '२०८', '२०८३-'],
     ['२०८३०६२४', '', '२०८३-०६-२४'],
+    ['2083--', '2083-', '2083-'],
+    ['2083-06-/', '2083-06-', '2083-06-'],
   ])('%s (was %s) → %s', (next, previous, expected) => {
     expect(maskDateText(next, previous)).toBe(expected);
   });
@@ -42,6 +44,18 @@ describe('maskDateText (PICK-006)', () => {
 });
 
 describe('pickers mask typed text (PICK-006)', () => {
+  test('typing the dashes yourself gives the same text', () => {
+    const picker = createDatePicker({ today: TODAY });
+    typeEach(
+      '2083-06-24',
+      (next) => {
+        picker.actions.type(next);
+      },
+      () => picker.getState().text,
+    );
+    expect(picker.getState()).toMatchObject({ text: '2083-06-24', value: '2026-10-10' });
+  });
+
   test('typing digits only fills in the dashes and sets the value', () => {
     const picker = createDatePicker({ today: TODAY });
     typeEach(

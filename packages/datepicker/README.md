@@ -95,6 +95,17 @@ picker.getState().hours; // hour cells for the time column; minutes likewise
 
 Use `timeZone` to show and store another zone. Values without an offset are taken as wall times in that zone.
 
-All three stores expose the panel's calendar store as `.calendar` (see `@nepdate/calendar`). The pure helpers `parseInput`, `checkDate`, `formatInput` and `equivalentText` are exported too.
+## Multiple dates
+
+```ts
+import { createMultiDatePicker } from '@nepdate/datepicker';
+
+const picker = createMultiDatePicker({ maxDates: 5 });
+picker.actions.select(bsDate(2083, 7, 8)); // a click adds a day, a second click removes it
+picker.actions.type('2083-07-01, 2083-07-05'); // or type them, separated by commas
+picker.getState().value; // ['2026-10-18', '2026-10-22']: sorted AD days
+```
+
+Every store exposes the panel's calendar store as `.calendar` (see `@nepdate/calendar`). The pure helpers `parseInput`, `checkDate`, `formatInput` and `equivalentText` are exported too.
 
 MIT © Shishir Rai

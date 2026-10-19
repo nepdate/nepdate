@@ -87,6 +87,7 @@ export const ne: LocaleData = {
     unavailable: 'यो मिति उपलब्ध छैन।',
     rangeTooShort: 'कम्तीमा {min} दिन छान्नुहोस्।',
     rangeTooLong: 'बढीमा {max} दिन छान्नुहोस्।',
+    tooManyDates: 'बढीमा {max} मिति छान्नुहोस्।',
     invalidTime: 'समय HH:MM ढाँचामा लेख्नुहोस्।',
   },
 };

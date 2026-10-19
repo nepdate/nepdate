@@ -7,6 +7,7 @@ export { createCalendar } from './store';
 export {
   buildMonthGrid,
   buildWeekdays,
+  isDayList,
   type GridInput,
   type HolidayResolver,
 } from './grid';
@@ -16,6 +17,7 @@ export { computeLimits, isInLimits, type Limits } from './limits';
 export type {
   CalendarActions,
   CalendarOptions,
+  CalendarSelection,
   CalendarState,
   CalendarStore,
   CalendarView,

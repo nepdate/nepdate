@@ -12,7 +12,7 @@ import { createCalendar } from '@nepdate/calendar';
 const calendar = createCalendar({
   calendar: 'BS',
   locale: 'en',
-  selectionMode: 'single', // or 'range'
+  selectionMode: 'single', // or 'range', or 'multiple' (clicks toggle days)
   holidays: [
     { date: { calendar: 'BS', year: 2083, month: 6, day: 26 }, label: 'Dashain' },
   ],

@@ -9,6 +9,7 @@ export default defineConfig([
       'src/calendar.ts',
       'src/date-range-picker.ts',
       'src/date-time-picker.ts',
+      'src/multi-date-picker.ts',
     ],
     format: ['esm', 'cjs'],
     platform: 'browser',
