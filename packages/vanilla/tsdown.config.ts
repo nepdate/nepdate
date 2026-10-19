@@ -2,7 +2,14 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig([
   {
-    entry: ['src/index.ts', 'src/auto-define.ts'],
+    entry: [
+      'src/index.ts',
+      'src/auto-define.ts',
+      'src/date-picker.ts',
+      'src/calendar.ts',
+      'src/date-range-picker.ts',
+      'src/date-time-picker.ts',
+    ],
     format: ['esm', 'cjs'],
     platform: 'browser',
     target: 'es2020',

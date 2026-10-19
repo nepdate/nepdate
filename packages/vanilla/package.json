@@ -53,6 +53,50 @@
         "default": "./dist/auto-define.cjs"
       }
     },
+    "./date-picker": {
+      "@nepdate/source": "./src/date-picker.ts",
+      "import": {
+        "types": "./dist/date-picker.d.ts",
+        "default": "./dist/date-picker.js"
+      },
+      "require": {
+        "types": "./dist/date-picker.d.cts",
+        "default": "./dist/date-picker.cjs"
+      }
+    },
+    "./calendar": {
+      "@nepdate/source": "./src/calendar.ts",
+      "import": {
+        "types": "./dist/calendar.d.ts",
+        "default": "./dist/calendar.js"
+      },
+      "require": {
+        "types": "./dist/calendar.d.cts",
+        "default": "./dist/calendar.cjs"
+      }
+    },
+    "./date-range-picker": {
+      "@nepdate/source": "./src/date-range-picker.ts",
+      "import": {
+        "types": "./dist/date-range-picker.d.ts",
+        "default": "./dist/date-range-picker.js"
+      },
+      "require": {
+        "types": "./dist/date-range-picker.d.cts",
+        "default": "./dist/date-range-picker.cjs"
+      }
+    },
+    "./date-time-picker": {
+      "@nepdate/source": "./src/date-time-picker.ts",
+      "import": {
+        "types": "./dist/date-time-picker.d.ts",
+        "default": "./dist/date-time-picker.js"
+      },
+      "require": {
+        "types": "./dist/date-time-picker.d.cts",
+        "default": "./dist/date-time-picker.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "main": "./dist/index.cjs",
@@ -89,6 +133,18 @@
     "*": {
       "define": [
         "./dist/auto-define.d.cts"
+      ],
+      "date-picker": [
+        "./dist/date-picker.d.cts"
+      ],
+      "calendar": [
+        "./dist/calendar.d.cts"
+      ],
+      "date-range-picker": [
+        "./dist/date-range-picker.d.cts"
+      ],
+      "date-time-picker": [
+        "./dist/date-time-picker.d.cts"
       ]
     }
   }

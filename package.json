@@ -29,7 +29,8 @@
     "test:coverage": "vitest run --coverage",
     "smoke": "node scripts/smoke.ts",
     "bench": "node scripts/bench.ts",
-    "check:holidays": "node scripts/check-holidays.ts"
+    "check:holidays": "node scripts/check-holidays.ts",
+    "check:consumer": "node scripts/consumer.ts all"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",

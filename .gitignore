@@ -10,3 +10,6 @@ docs/plan/
 
 # Local Claude Code settings
 .claude/
+
+# scripts/consumer.ts output in CI
+/consumer/

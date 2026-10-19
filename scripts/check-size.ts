@@ -28,6 +28,13 @@ export const BUDGETS: Record<string, Budget[]> = {
   core: [
     { file: 'dist/index.js', bundle: true, maxGzipBytes: 8 * KB },
     { file: 'dist/index.js', bundle: true, only: ['adToBs'], maxGzipBytes: 3 * KB },
+    // A typical form: parse what was typed, store AD, show BS.
+    {
+      file: 'dist/index.js',
+      bundle: true,
+      only: ['parseDate', 'toIsoDate', 'formatDate'],
+      maxGzipBytes: 4.5 * KB,
+    },
   ],
   // Day, month, year and fiscal-year views; 4.5 kB since FY-001 (docs/plan D-034).
   calendar: [{ file: 'dist/index.js', bundle: true, maxGzipBytes: 4.5 * KB }],
@@ -40,6 +47,11 @@ export const BUDGETS: Record<string, Budget[]> = {
     // Four elements incl. <nep-date-time-picker>; 10 kB / 26 kB since D-035.
     { file: 'dist/index.js', bundle: true, maxGzipBytes: 10 * KB },
     { file: 'dist/nepdate-picker.global.js', bundle: false, maxGzipBytes: 26 * KB },
+    // One element per page: each entry must stay well under the full package.
+    { file: 'dist/date-picker.js', bundle: true, maxGzipBytes: 7 * KB },
+    { file: 'dist/calendar.js', bundle: true, maxGzipBytes: 4 * KB },
+    { file: 'dist/date-range-picker.js', bundle: true, maxGzipBytes: 6.5 * KB },
+    { file: 'dist/date-time-picker.js', bundle: true, maxGzipBytes: 6.5 * KB },
   ],
 };
 
@@ -58,6 +70,12 @@ export async function measure(
   const result = await build({
     input: only ? VIRTUAL_ENTRY : path,
     write: false,
+    // React's 'use client' banner is meant for frameworks, not this measurement.
+    onLog: (level, log, handler) => {
+      if (log.code !== 'MODULE_LEVEL_DIRECTIVE') {
+        handler(level, log);
+      }
+    },
     external: EXTERNAL,
     plugins: only
       ? [

@@ -1,13 +1,16 @@
-import {
-  createCalendar as createCalendarStore,
-  type CalendarOptions,
-  type CalendarStore,
-} from '@nepdate/calendar';
+/** `@nepdate/vanilla/date-picker`: just the date picker (element, view and mount function). */
 import type { DatePickerState } from '@nepdate/datepicker';
-import { CalendarView } from './calendar-view';
+import { NepDatePickerElement } from './date-picker-element';
 import { DatePickerView, type DatePickerViewOptions } from './picker-view';
-import { DateRangePickerView, type DateRangePickerViewOptions } from './range-view';
-import { DateTimePickerView, type DateTimePickerViewOptions } from './datetime-view';
+import { defineElement, ELEMENT_NAMES } from './registry';
+
+export { NepDatePickerElement };
+export { DatePickerView, type DatePickerViewOptions, type Theme } from './picker-view';
+
+/** Register <nep-date-picker> (skipped if already defined). */
+export function defineDatePicker(registry?: CustomElementRegistry): void {
+  defineElement(ELEMENT_NAMES.datePicker, NepDatePickerElement, registry);
+}
 
 export interface DatePickerHandle {
   readonly view: DatePickerView;
@@ -85,48 +88,4 @@ export function createDatePicker(
       }
     },
   };
-}
-
-export interface CalendarHandle {
-  readonly store: CalendarStore;
-  readonly view: CalendarView;
-  setOptions(changes: Partial<CalendarOptions>): void;
-  destroy(): void;
-}
-
-/** Mount a standalone calendar into a container. */
-export function createCalendar(
-  container: HTMLElement,
-  options: CalendarOptions = {},
-): CalendarHandle {
-  const store = createCalendarStore(options);
-  const view = new CalendarView(container, store, { locale: () => options.locale });
-
-  return {
-    store,
-    view,
-    setOptions: (changes) => {
-      store.setOptions(changes);
-    },
-    destroy: () => {
-      view.destroy();
-      store.destroy();
-    },
-  };
-}
-
-/** Mount a date range picker into a container. */
-export function createDateRangePicker(
-  container: HTMLElement,
-  options: DateRangePickerViewOptions = {},
-): DateRangePickerView {
-  return new DateRangePickerView(container, options);
-}
-
-/** Mount a date + time picker into a container. */
-export function createDateTimePicker(
-  container: HTMLElement,
-  options: DateTimePickerViewOptions = {},
-): DateTimePickerView {
-  return new DateTimePickerView(container, options);
 }

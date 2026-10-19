@@ -30,3 +30,25 @@ jobs:
       - run: pnpm install --frozen-lockfile
       # format, lint, boundaries, data drift, typecheck, tests, build, publint/attw, size
       - run: pnpm verify
+
+  consumer:
+    # TEST-031 / TEST-033: install the packed tarballs like a user, type-check
+    # consumers (node16 ESM + CJS, bundler), then load every entry on Node 18.
+    name: Packed packages (TS consumers, Node 18 runtime)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: node scripts/consumer.ts prepare consumer
+      - run: node scripts/consumer.ts types consumer
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 18
+      - run: node --version && node check.mjs && node check.cjs
+        working-directory: consumer

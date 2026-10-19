@@ -25,6 +25,17 @@ import '@nepdate/styles';
 import '@nepdate/vanilla/define'; // registers the elements
 ```
 
+### One element per page
+
+Each element has its own entry, so you ship only what you use (the calendar alone is about 3.7 kB of vanilla code instead of 9 kB):
+
+```js
+import { defineDatePicker } from '@nepdate/vanilla/date-picker';
+defineDatePicker();
+```
+
+The entries are `/date-picker`, `/calendar`, `/date-range-picker` and `/date-time-picker`. Each one exports its element, its view, `define…()` and `create…()`.
+
 ## `<nep-date-picker>`
 
 A form-associated element: the form receives the AD `"YYYY-MM-DD"` value under `name`. It supports `required`, `disabled` fieldsets and form reset.
