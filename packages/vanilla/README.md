@@ -40,25 +40,26 @@ The entries are `/date-picker`, `/calendar`, `/date-range-picker` and `/date-tim
 
 A form-associated element: the form receives the AD `"YYYY-MM-DD"` value under `name`. It supports `required`, `disabled` fieldsets and form reset.
 
-| Attribute                 | Meaning                               |
-| ------------------------- | ------------------------------------- |
-| `value`                   | Starting value (AD)                   |
-| `min`, `max`              | Limits (AD)                           |
-| `calendar`                | `BS` or `AD`, fixed                   |
-| `default-calendar`        | Calendar shown first                  |
-| `locale`                  | `en`, `ne`                            |
-| `name`                    | Form field name                       |
-| `placeholder`             | Input placeholder                     |
-| `required`, `disabled`    | As on a native input                  |
-| `clearable="false"`       | Hide the clear button                 |
-| `show-equivalent="false"` | Hide the other-calendar line          |
-| `close-on-select="false"` | Keep the panel open after a pick      |
-| `theme`                   | `light` \| `dark` \| `auto`           |
-| `persist-calendar`        | localStorage key for the BS/AD choice |
-| `week-starts-on`          | `0`–`6`                               |
-| `display-format`          | e.g. `long`                           |
-| `label`                   | The input's `aria-label`              |
-| `input-id`                | For `<label for>`                     |
+| Attribute                 | Meaning                                            |
+| ------------------------- | -------------------------------------------------- |
+| `value`                   | Starting value (AD)                                |
+| `min`, `max`              | Limits (AD)                                        |
+| `calendar`                | `BS` or `AD`, fixed                                |
+| `default-calendar`        | Calendar shown first                               |
+| `locale`                  | `en`, `ne`                                         |
+| `name`                    | Form field name                                    |
+| `placeholder`             | Input placeholder                                  |
+| `required`, `disabled`    | As on a native input                               |
+| `clearable="false"`       | Hide the clear button                              |
+| `show-equivalent="false"` | Hide the other-calendar line                       |
+| `close-on-select="false"` | Keep the panel open after a pick                   |
+| `theme`                   | `light` \| `dark` \| `auto`                        |
+| `panel-layout`            | `auto` (sheet below 480px) \| `popover` \| `sheet` |
+| `persist-calendar`        | localStorage key for the BS/AD choice              |
+| `week-starts-on`          | `0`–`6`                                            |
+| `display-format`          | e.g. `long`                                        |
+| `label`                   | The input's `aria-label`                           |
+| `input-id`                | For `<label for>`                                  |
 
 - **Properties:** `value`; `holidays`, `events` and `isDateDisabled` (functions and lists); `open()`, `close()`, `focus()`, `checkValidity()`.
 - **Events:** `change` (detail `{ value, ad, bs }`), `nep-open`, `nep-close`, `nep-calendar-change`.

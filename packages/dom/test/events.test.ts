@@ -3,6 +3,7 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 import {
   focusFirst,
   hasDom,
+  onBackdropPointer,
   onEscape,
   onOutsidePointer,
   prefersReducedMotion,
@@ -48,6 +49,35 @@ describe('onOutsidePointer (DOM-003)', () => {
     document.body.append(panel);
     pointerDown(panel);
     expect(callback).not.toHaveBeenCalled();
+  });
+});
+
+describe('onBackdropPointer (PICK-007)', () => {
+  test('fires for pointers on the panel but outside its box', () => {
+    const panel = document.createElement('div');
+    const button = document.createElement('button');
+    panel.append(button);
+    document.body.append(panel);
+    vi.spyOn(panel, 'getBoundingClientRect').mockReturnValue(
+      DOMRect.fromRect({ x: 0, y: 400, width: 375, height: 400 }),
+    );
+    const callback = vi.fn();
+    const stop = onBackdropPointer(panel, callback);
+    const at = (target: EventTarget, clientY: number): void => {
+      target.dispatchEvent(
+        new MouseEvent('pointerdown', { bubbles: true, clientX: 100, clientY }),
+      );
+    };
+
+    at(button, 100); // a child: never the backdrop
+    at(panel, 500); // inside the sheet
+    expect(callback).not.toHaveBeenCalled();
+    at(panel, 100); // above the sheet: the backdrop
+    expect(callback).toHaveBeenCalledOnce();
+
+    stop();
+    at(panel, 100);
+    expect(callback).toHaveBeenCalledOnce();
   });
 });
 

@@ -448,6 +448,43 @@ describe('<DateTimePicker> (TIME-003)', () => {
   });
 });
 
+describe('bottom sheet (PICK-007)', () => {
+  const backdropTap = (panel: HTMLElement): void => {
+    // happy-dom lays nothing out, so the panel box is 0×0 and any point is outside it.
+    fireEvent.pointerDown(panel, { clientX: 100, clientY: 100 });
+  };
+
+  test('panelLayout="sheet" opens a bottom sheet; a backdrop tap closes it', () => {
+    render(<DatePicker today={TODAY} panelLayout="sheet" aria-label="When" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    const panel = screen.getByRole('dialog');
+    expect(panel.dataset['layout']).toBe('sheet');
+    expect(panel.style.top).toBe('');
+    fireEvent.click(within(panel).getByRole('button', { name: 'Today' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    backdropTap(screen.getByRole('dialog'));
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  test('auto keeps the popover on wide screens; range and date-time take the prop too', () => {
+    render(<DatePicker today={TODAY} aria-label="When" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    expect(screen.getByRole('dialog').dataset['layout']).toBe('popover');
+    cleanup();
+
+    render(<DateRangePicker today={TODAY} panelLayout="sheet" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    expect(screen.getByRole('dialog').dataset['layout']).toBe('sheet');
+    backdropTap(screen.getByRole('dialog'));
+    expect(screen.queryByRole('dialog')).toBeNull();
+    cleanup();
+
+    render(<DateTimePicker today={TODAY} panelLayout="sheet" aria-label="Starts" />);
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    expect(screen.getByRole('dialog').dataset['layout']).toBe('sheet');
+  });
+});
+
 describe('dates as text (REACT-013, REACT-014)', () => {
   test('DateText, ShortDate, shortDate and bothDates', () => {
     render(

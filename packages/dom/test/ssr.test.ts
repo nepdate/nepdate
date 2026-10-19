@@ -2,6 +2,7 @@
 import { describe, expect, test, vi } from 'vitest';
 import {
   hasDom,
+  onBackdropPointer,
   onEscape,
   onOutsidePointer,
   placePopover,
@@ -22,6 +23,7 @@ describe('server rendering (SSR-safe)', () => {
       trackPosition(fake, fake),
       onOutsidePointer([], callback),
       onEscape(callback),
+      onBackdropPointer(fake, callback),
     ]) {
       expect(() => {
         cleanup();

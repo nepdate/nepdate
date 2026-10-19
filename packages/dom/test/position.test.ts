@@ -3,6 +3,7 @@ import { afterEach, describe, expect, test, vi } from 'vitest';
 import {
   computePosition,
   placePopover,
+  resolveLayout,
   supportsPopover,
   trackPosition,
 } from '@nepdate/dom';
@@ -72,6 +73,20 @@ describe('computePosition (DOM-001)', () => {
   });
 });
 
+describe('resolveLayout (PICK-007)', () => {
+  test('auto picks the sheet below the breakpoint', () => {
+    expect(resolveLayout(undefined, 375)).toBe('sheet');
+    expect(resolveLayout('auto', 479)).toBe('sheet');
+    expect(resolveLayout('auto', 480)).toBe('popover');
+    expect(resolveLayout('auto', 700, 768)).toBe('sheet');
+  });
+
+  test('an explicit layout wins at any width', () => {
+    expect(resolveLayout('popover', 320)).toBe('popover');
+    expect(resolveLayout('sheet', 1400)).toBe('sheet');
+  });
+});
+
 describe('placePopover and trackPosition (DOM-001, DOM-002)', () => {
   afterEach(() => {
     document.body.innerHTML = '';
@@ -134,6 +149,33 @@ describe('placePopover and trackPosition (DOM-001, DOM-002)', () => {
         delete proto['hidePopover'];
       }
     }
+  });
+
+  test('a sheet drops the popover coordinates and marks the layout (PICK-007)', () => {
+    const { anchor, panel } = setup();
+    placePopover(anchor, panel);
+    expect(panel.dataset['layout']).toBe('popover');
+    placePopover(anchor, panel, { layout: 'sheet' });
+    expect(panel.dataset['layout']).toBe('sheet');
+    expect(panel.dataset['side']).toBeUndefined();
+    expect(panel.style.position).toBe('fixed');
+    expect(panel.style.top).toBe('');
+    expect(panel.style.left).toBe('');
+    expect(panel.style.width).toBe('');
+  });
+
+  test('auto switches layout when a resize crosses the breakpoint', () => {
+    const { anchor, panel } = setup();
+    const stop = trackPosition(anchor, panel);
+    expect(panel.dataset['layout']).toBe('popover');
+    Object.assign(window, { innerWidth: 375 });
+    window.dispatchEvent(new Event('resize'));
+    expect(panel.dataset['layout']).toBe('sheet');
+    Object.assign(window, { innerWidth: 1000 });
+    window.dispatchEvent(new Event('resize'));
+    expect(panel.dataset['layout']).toBe('popover');
+    expect(panel.style.top).toBe('142px');
+    stop();
   });
 
   test('re-places on resize and scroll until stopped', () => {

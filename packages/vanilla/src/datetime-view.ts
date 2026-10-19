@@ -6,7 +6,14 @@ import {
   type DateTimePickerStore,
   type TimeCell,
 } from '@nepdate/datepicker';
-import { onEscape, onOutsidePointer, restoreFocus, trackPosition } from '@nepdate/dom';
+import {
+  onBackdropPointer,
+  onEscape,
+  onOutsidePointer,
+  restoreFocus,
+  trackPosition,
+  type PanelLayout,
+} from '@nepdate/dom';
 import { CalendarView } from './calendar-view';
 import { el, icon, setAttrs, setText, uid } from './dom';
 import type { Theme } from './picker-view';
@@ -22,6 +29,8 @@ export interface DateTimePickerViewOptions extends DateTimePickerOptions {
   readonly hiddenInput?: boolean | undefined;
   readonly required?: boolean | undefined;
   readonly disabled?: boolean | undefined;
+  /** 'sheet' opens a bottom sheet; 'popover' sits beside the field; 'auto' (default) uses the sheet below 480px. */
+  readonly panelLayout?: PanelLayout | undefined;
   readonly theme?: Theme | undefined;
   readonly ariaLabel?: string | undefined;
   readonly timeLabel?: string | undefined;
@@ -35,6 +44,7 @@ const VIEW_KEYS = new Set([
   'required',
   'disabled',
   'theme',
+  'panelLayout',
   'ariaLabel',
   'timeLabel',
   'id',
@@ -328,8 +338,14 @@ export class DateTimePickerView {
         (this.store.getState().presets.length > 0
           ? PANEL_WIDTH_WITH_PRESETS
           : PANEL_WIDTH) + TIME_COLUMNS_WIDTH;
-      const stopTracking = trackPosition(this.row, this.panel, { width });
+      const stopTracking = trackPosition(this.row, this.panel, {
+        width,
+        layout: this.options.panelLayout,
+      });
       const stopOutside = onOutsidePointer([this.field], () => {
+        this.store.actions.close();
+      });
+      const stopBackdrop = onBackdropPointer(this.panel, () => {
         this.store.actions.close();
       });
       const stopEscape = onEscape(() => {
@@ -339,6 +355,7 @@ export class DateTimePickerView {
       this.closePanel = () => {
         stopTracking();
         stopOutside();
+        stopBackdrop();
         stopEscape();
         this.panel.hidden = true;
       };

@@ -13,13 +13,15 @@ const stop = [
 // later: stop.forEach((cleanup) => cleanup());
 ```
 
-| Helper                                                        | Does                                     |
-| ------------------------------------------------------------- | ---------------------------------------- |
-| `computePosition(anchorRect, panelHeight, viewport, options)` | Pure placement maths.                    |
-| `placePopover(anchor, panel, options)` / `trackPosition(…)`   | Show and position (and keep positioned). |
-| `onOutsidePointer(elements, callback)`                        | Pointer down outside the elements.       |
-| `onEscape(callback, { capture, stop })`                       | Escape key.                              |
-| `focusFirst(container, selector?)`, `restoreFocus(element)`   | Focus helpers.                           |
-| `supportsPopover()`, `prefersReducedMotion()`, `hasDom()`     | Feature checks.                          |
+| Helper                                                        | Does                                                                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `computePosition(anchorRect, panelHeight, viewport, options)` | Pure placement maths.                                                                                  |
+| `placePopover(anchor, panel, options)` / `trackPosition(…)`   | Show and position (and keep positioned); `layout: 'auto' \| 'popover' \| 'sheet'`, `sheetBelow` (480). |
+| `onOutsidePointer(elements, callback)`                        | Pointer down outside the elements.                                                                     |
+| `onEscape(callback, { capture, stop })`                       | Escape key.                                                                                            |
+| `onBackdropPointer(panel, callback)`                          | Tap on a bottom sheet's backdrop.                                                                      |
+| `resolveLayout(layout, viewportWidth, sheetBelow?)`           | `'popover'` or `'sheet'` for a width.                                                                  |
+| `focusFirst(container, selector?)`, `restoreFocus(element)`   | Focus helpers.                                                                                         |
+| `supportsPopover()`, `prefersReducedMotion()`, `hasDom()`     | Feature checks.                                                                                        |
 
 MIT © Shishir Rai

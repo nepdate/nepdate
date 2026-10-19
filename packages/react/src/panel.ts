@@ -1,10 +1,17 @@
 import { useEffect, useRef, type RefObject } from 'react';
-import { onEscape, onOutsidePointer, restoreFocus, trackPosition } from '@nepdate/dom';
+import {
+  onBackdropPointer,
+  onEscape,
+  onOutsidePointer,
+  restoreFocus,
+  trackPosition,
+  type PanelLayout,
+} from '@nepdate/dom';
 import { useIsomorphicLayoutEffect } from './use-store';
 
 /**
  * While `open`: show the panel in the top layer beside the anchor, close on an
- * outside pointer or Escape (returning focus to `returnFocus`), and move focus
+ * outside pointer, a tap on a bottom sheet's backdrop, or Escape (returning focus to `returnFocus`), and move focus
  * into the calendar.
  */
 export function usePanel(
@@ -18,6 +25,7 @@ export function usePanel(
   close: () => void,
   focusGrid: () => void,
   width = 320,
+  layout: PanelLayout = 'auto',
 ): void {
   const closeRef = useRef(close);
   closeRef.current = close;
@@ -28,13 +36,16 @@ export function usePanel(
     if (!open || !anchor || !panel) {
       return undefined;
     }
-    const stopTracking = trackPosition(anchor, panel, { width });
+    const stopTracking = trackPosition(anchor, panel, { width, layout });
     const stopOutside = onOutsidePointer(
       () => [refs.field.current, refs.panel.current],
       () => {
         closeRef.current();
       },
     );
+    const stopBackdrop = onBackdropPointer(panel, () => {
+      closeRef.current();
+    });
     const stopEscape = onEscape(() => {
       closeRef.current();
       restoreFocus(refs.returnFocus.current);
@@ -43,9 +54,10 @@ export function usePanel(
     return () => {
       stopTracking();
       stopOutside();
+      stopBackdrop();
       stopEscape();
     };
-  }, [open, width]);
+  }, [open, width, layout]);
 
   useEffect(() => {
     if (open) {

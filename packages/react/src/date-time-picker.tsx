@@ -12,6 +12,7 @@ import { CalendarBody } from './calendar-body';
 import { useDateTimePicker } from './hooks';
 import { Icon } from './icons';
 import { usePanel } from './panel';
+import type { PanelLayout } from '@nepdate/dom';
 import {
   PANEL_WIDTH,
   PANEL_WIDTH_WITH_PRESETS,
@@ -48,6 +49,8 @@ export interface DateTimePickerProps {
   id?: string | undefined;
   required?: boolean | undefined;
   disabled?: boolean | undefined;
+  /** 'sheet' opens a bottom sheet; 'popover' sits beside the field; 'auto' (default) uses the sheet below 480px. */
+  panelLayout?: PanelLayout | undefined;
   theme?: 'light' | 'dark' | 'auto' | undefined;
   className?: string | undefined;
   /** Accessible names for the two inputs. */
@@ -60,6 +63,7 @@ export function DateTimePicker({
   name,
   required,
   disabled = false,
+  panelLayout,
   theme,
   className,
   'aria-label': ariaLabel,
@@ -83,6 +87,7 @@ export function DateTimePicker({
     calendar.focusGrid,
     (state.presets.length > 0 ? PANEL_WIDTH_WITH_PRESETS : PANEL_WIDTH) +
       TIME_COLUMNS_WIDTH,
+    panelLayout,
   );
 
   const hint = state.error?.message ?? state.equivalentText;

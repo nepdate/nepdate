@@ -33,6 +33,39 @@ export function onOutsidePointer(
 }
 
 /**
+ * Call `callback` when the pointer goes down on a panel's backdrop (the dimmed
+ * area around a bottom sheet). A top-layer panel receives those events itself,
+ * so they are told apart by position: on the panel, but outside its box.
+ */
+export function onBackdropPointer(
+  panel: HTMLElement,
+  callback: (event: PointerEvent) => void,
+): () => void {
+  if (!hasDom()) {
+    return noop;
+  }
+  const listener = (event: PointerEvent): void => {
+    if (event.target !== panel) {
+      return;
+    }
+    const box = panel.getBoundingClientRect();
+    const outside =
+      event.clientX < box.left ||
+      event.clientX > box.right ||
+      event.clientY < box.top ||
+      event.clientY > box.bottom;
+    if (outside) {
+      callback(event);
+    }
+  };
+  panel.addEventListener('pointerdown', listener);
+
+  return () => {
+    panel.removeEventListener('pointerdown', listener);
+  };
+}
+
+/**
  * Call `callback` on Escape. By default it listens in the capture phase and
  * stops the event, so an enclosing dialog does not close as well.
  */

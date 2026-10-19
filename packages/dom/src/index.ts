@@ -7,10 +7,18 @@ export { hasDom, prefersReducedMotion, supportsPopover } from './env';
 export {
   computePosition,
   placePopover,
+  resolveLayout,
+  type PanelLayout,
   trackPosition,
   type Placement,
   type PlaceOptions,
   type Position,
   type Rect,
 } from './position';
-export { focusFirst, onEscape, onOutsidePointer, restoreFocus } from './events';
+export {
+  focusFirst,
+  onBackdropPointer,
+  onEscape,
+  onOutsidePointer,
+  restoreFocus,
+} from './events';

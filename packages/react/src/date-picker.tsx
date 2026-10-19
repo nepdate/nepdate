@@ -14,6 +14,7 @@ import { CalendarBody } from './calendar-body';
 import { useDatePicker } from './hooks';
 import { Icon } from './icons';
 import { usePanel } from './panel';
+import type { PanelLayout } from '@nepdate/dom';
 import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PanelBody } from './presets';
 
 export interface DatePickerProps {
@@ -57,6 +58,8 @@ export interface DatePickerProps {
   persistCalendar?: string | undefined;
   /** Override "today" (tests, server rendering). */
   today?: CalendarDate | undefined;
+  /** 'sheet' opens a bottom sheet; 'popover' sits beside the field; 'auto' (default) uses the sheet below 480px. */
+  panelLayout?: PanelLayout | undefined;
   theme?: 'light' | 'dark' | 'auto' | undefined;
   className?: string | undefined;
   'aria-label'?: string | undefined;
@@ -78,6 +81,7 @@ export function DatePicker(props: DatePickerProps): ReactElement {
     clearable = true,
     showEquivalent = true,
     persistCalendar,
+    panelLayout,
     theme,
     className,
     'aria-label': ariaLabel,
@@ -112,6 +116,7 @@ export function DatePicker(props: DatePickerProps): ReactElement {
     },
     calendar.focusGrid,
     state.presets.length > 0 ? PANEL_WIDTH_WITH_PRESETS : PANEL_WIDTH,
+    panelLayout,
   );
 
   // The viewer's last BS/AD choice, read after hydration so server and client render alike.

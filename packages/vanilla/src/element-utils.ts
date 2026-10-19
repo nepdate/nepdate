@@ -6,6 +6,7 @@ import {
   type Weekday,
 } from '@nepdate/core';
 import type { EventMarker, HolidayInput, HolidayLookup } from '@nepdate/calendar';
+import type { PanelLayout } from '@nepdate/dom';
 import type { Theme } from './picker-view';
 
 /** Lets this module load during server rendering, where HTMLElement does not exist. */
@@ -49,6 +50,11 @@ export function int(element: Element, name: string): number | undefined {
 export function theme(element: Element): Theme | undefined {
   const value = element.getAttribute('theme');
   return value === 'light' || value === 'dark' || value === 'auto' ? value : undefined;
+}
+
+export function panelLayout(element: Element): PanelLayout | undefined {
+  const value = element.getAttribute('panel-layout');
+  return value === 'auto' || value === 'popover' || value === 'sheet' ? value : undefined;
 }
 
 /** presets="today, last7Days" → ['today', 'last7Days']; unknown ids show as disabled. */

@@ -6,6 +6,7 @@ import {
   bool,
   calendarAttr,
   int,
+  panelLayout,
   theme,
   presetIds,
   swallowInnerChange,
@@ -36,6 +37,7 @@ export class NepDateRangePickerElement extends Base {
     'disabled',
     'required',
     'theme',
+    'panel-layout',
     'start-label',
     'end-label',
   ];
@@ -147,6 +149,7 @@ export class NepDateRangePickerElement extends Base {
       disabled: bool(this, 'disabled'),
       required: bool(this, 'required'),
       theme: theme(this),
+      panelLayout: panelLayout(this),
       startLabel: str(this, 'start-label'),
       endLabel: str(this, 'end-label'),
       fiscalYearView: bool(this, 'fiscal-years'),

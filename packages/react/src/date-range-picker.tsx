@@ -13,6 +13,7 @@ import { CalendarBody } from './calendar-body';
 import { useDateRangePicker } from './hooks';
 import { Icon } from './icons';
 import { usePanel } from './panel';
+import type { PanelLayout } from '@nepdate/dom';
 import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PanelBody } from './presets';
 
 export interface DateRangePickerProps {
@@ -42,6 +43,8 @@ export interface DateRangePickerProps {
   /** Show a "Fiscal year" button that switches the panel to fiscal-year tiles. */
   fiscalYearView?: boolean | undefined;
   disabled?: boolean | undefined;
+  /** 'sheet' opens a bottom sheet; 'popover' sits beside the field; 'auto' (default) uses the sheet below 480px. */
+  panelLayout?: PanelLayout | undefined;
   theme?: 'light' | 'dark' | 'auto' | undefined;
   className?: string | undefined;
 }
@@ -54,6 +57,7 @@ export function DateRangePicker({
   endLabel,
   fiscalYearView = false,
   disabled = false,
+  panelLayout,
   theme,
   className,
   ...options
@@ -74,6 +78,7 @@ export function DateRangePicker({
     },
     calendar.focusGrid,
     state.presets.length > 0 ? PANEL_WIDTH_WITH_PRESETS : PANEL_WIDTH,
+    panelLayout,
   );
 
   const invalid = (which: 'start' | 'end'): boolean =>

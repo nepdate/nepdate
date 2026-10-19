@@ -365,6 +365,41 @@ describe('presets (PRE-007)', () => {
   });
 });
 
+describe('bottom sheet (PICK-007)', () => {
+  const backdropTap = (panel: HTMLElement): void => {
+    // happy-dom lays nothing out, so the panel box is 0×0 and any point is outside it.
+    panel.dispatchEvent(
+      new MouseEvent('pointerdown', { bubbles: true, clientX: 100, clientY: 100 }),
+    );
+  };
+
+  test('panel-layout="sheet" opens a bottom sheet; a backdrop tap closes it', () => {
+    const element = picker('panel-layout="sheet"');
+    element.open();
+    const panel = q<HTMLElement>(element, '.ndp-panel');
+    expect(panel.dataset['layout']).toBe('sheet');
+    backdropTap(panel);
+    expect(panel.hidden).toBe(true);
+
+    element.setAttribute('panel-layout', 'popover');
+    element.open();
+    expect(q<HTMLElement>(element, '.ndp-panel').dataset['layout']).toBe('popover');
+  });
+
+  test('the range and date-time pickers take the attribute too', () => {
+    for (const tag of ['nep-date-range-picker', 'nep-date-time-picker']) {
+      const element = mount<HTMLElement & { view: { open(): void } | null }>(
+        `<${tag} panel-layout="sheet"></${tag}>`,
+      );
+      element.view?.open();
+      const panel = q<HTMLElement>(element, '.ndp-panel');
+      expect(panel.dataset['layout']).toBe('sheet');
+      backdropTap(panel);
+      expect(panel.hidden).toBe(true);
+    }
+  });
+});
+
 describe('fiscal-year view (FY-001)', () => {
   test('fiscal-years shows the button; a tile picks the whole year', () => {
     const element = mount<NepDateRangePickerElement>(

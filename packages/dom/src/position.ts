@@ -2,13 +2,33 @@ import { hasDom, supportsPopover } from './env';
 
 export type Placement = 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
 
+/** 'popover' sits beside the anchor; 'sheet' is a bottom sheet; 'auto' picks the sheet on narrow screens. */
+export type PanelLayout = 'auto' | 'popover' | 'sheet';
+
 export interface PlaceOptions {
   /** Space between the anchor and the panel, and kept from the viewport edges. Default 6. */
-  readonly gap?: number;
+  readonly gap?: number | undefined;
   /** Panel width in px; shrinks to fit narrow screens. Default 320. */
-  readonly width?: number;
+  readonly width?: number | undefined;
   /** Preferred side; flips when there is not enough room. Default 'bottom-start'. */
-  readonly placement?: Placement;
+  readonly placement?: Placement | undefined;
+  /** Default 'auto'. */
+  readonly layout?: PanelLayout | undefined;
+  /** 'auto' uses the sheet below this viewport width, in px. Default 480. */
+  readonly sheetBelow?: number | undefined;
+}
+
+/** The layout to use for a viewport width. Pure. */
+export function resolveLayout(
+  layout: PanelLayout | undefined,
+  viewportWidth: number,
+  sheetBelow = 480,
+): 'popover' | 'sheet' {
+  if (layout !== undefined && layout !== 'auto') {
+    return layout;
+  }
+
+  return viewportWidth < sheetBelow ? 'sheet' : 'popover';
 }
 
 export interface Rect {
@@ -86,6 +106,22 @@ export function placePopover(
       panel.showPopover();
     }
   }
+  const layout = resolveLayout(options.layout, window.innerWidth, options.sheetBelow);
+  panel.dataset['layout'] = layout;
+  if (layout === 'sheet') {
+    // The stylesheet pins a sheet to the bottom edge; clear any popover coordinates.
+    Object.assign(panel.style, {
+      top: '',
+      left: '',
+      width: '',
+      position: 'fixed',
+      margin: '0',
+      inset: 'auto 0 0 0',
+    });
+    delete panel.dataset['side'];
+
+    return hider(panel, topLayer);
+  }
   const position = computePosition(
     anchor.getBoundingClientRect(),
     panel.offsetHeight,
@@ -102,6 +138,10 @@ export function placePopover(
   });
   panel.dataset['side'] = position.side;
 
+  return hider(panel, topLayer);
+}
+
+function hider(panel: HTMLElement, topLayer: boolean): () => void {
   return () => {
     if (topLayer && panel.matches(':popover-open')) {
       panel.hidePopover();

@@ -12,7 +12,9 @@
  *         button.ndp-icon-button (clear) · button.ndp-input__switch (BS/AD) · button.ndp-icon-button (calendar)
  *     p.ndp-hint [data-error]
  *   Range: .ndp-field > .ndp-range > .ndp-input (start) · span.ndp-range__separator · .ndp-input (end)
- *   .ndp-panel [data-side=top|bottom]
+ *   .ndp-panel [data-side=top|bottom] [data-layout=popover|sheet]
+ *     data-layout=sheet: a bottom sheet across the screen (narrow screens by default);
+ *     the top-layer ::backdrop dims the page behind it.
  *     .ndp-calendar
  *       .ndp-calendar__header
  *         button.ndp-icon-button (prev) · .ndp-calendar__title > button.ndp-calendar__title-button · button.ndp-icon-button (next)
@@ -419,6 +421,39 @@
   from {
     opacity: 0;
     transform: translateY(4px);
+  }
+}
+
+/* Bottom sheet: pinned to the bottom edge, full width, with a drag-handle bar. */
+.ndp-panel[data-layout='sheet'] {
+  inset: auto 0 0 0;
+  width: auto;
+  max-width: none;
+  max-height: 85vh;
+  max-height: 85dvh;
+  padding: var(--ndp-space-8) 16px calc(16px + env(safe-area-inset-bottom, 0px));
+  border-bottom: 0;
+  border-radius: var(--ndp-radius-lg) var(--ndp-radius-lg) 0 0;
+  animation: ndp-sheet-in 0.2s ease-out;
+}
+
+.ndp-panel[data-layout='sheet']::before {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 4px;
+  margin: 0 auto var(--ndp-space-8);
+  border-radius: 2px;
+  background: var(--ndp-border-default);
+}
+
+.ndp-panel[data-layout='sheet']::backdrop {
+  background: rgb(15 23 42 / 0.45);
+}
+
+@keyframes ndp-sheet-in {
+  from {
+    transform: translateY(100%);
   }
 }
 

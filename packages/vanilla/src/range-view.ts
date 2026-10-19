@@ -6,7 +6,14 @@ import {
   type DateRangePickerStore,
   type RangeField,
 } from '@nepdate/datepicker';
-import { onEscape, onOutsidePointer, restoreFocus, trackPosition } from '@nepdate/dom';
+import {
+  onBackdropPointer,
+  onEscape,
+  onOutsidePointer,
+  restoreFocus,
+  trackPosition,
+  type PanelLayout,
+} from '@nepdate/dom';
 import { CalendarView } from './calendar-view';
 import { el, icon, setAttrs, setText, uid } from './dom';
 import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PresetList } from './preset-list';
@@ -19,6 +26,8 @@ export interface DateRangePickerViewOptions extends DateRangePickerOptions {
   readonly hiddenInput?: boolean | undefined;
   readonly disabled?: boolean | undefined;
   readonly required?: boolean | undefined;
+  /** 'sheet' opens a bottom sheet; 'popover' sits beside the field; 'auto' (default) uses the sheet below 480px. */
+  readonly panelLayout?: PanelLayout | undefined;
   readonly theme?: Theme | undefined;
   readonly startLabel?: string | undefined;
   readonly endLabel?: string | undefined;
@@ -34,6 +43,7 @@ const VIEW_KEYS = new Set([
   'disabled',
   'required',
   'theme',
+  'panelLayout',
   'startLabel',
   'endLabel',
   'fiscalYearView',
@@ -307,8 +317,12 @@ export class DateRangePickerView {
           this.store.getState().presets.length > 0
             ? PANEL_WIDTH_WITH_PRESETS
             : PANEL_WIDTH,
+        layout: this.options.panelLayout,
       });
       const stopOutside = onOutsidePointer([this.field], () => {
+        this.store.actions.close();
+      });
+      const stopBackdrop = onBackdropPointer(this.panel, () => {
         this.store.actions.close();
       });
       const stopEscape = onEscape(() => {
@@ -318,6 +332,7 @@ export class DateRangePickerView {
       this.closePanel = () => {
         stopTracking();
         stopOutside();
+        stopBackdrop();
         stopEscape();
         this.panel.hidden = true;
       };
