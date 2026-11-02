@@ -1,0 +1,17 @@
+# Keeps dependencies current, and updates the commit each GitHub Action is pinned to.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      development:
+        dependency-type: development
