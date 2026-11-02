@@ -91,6 +91,14 @@ For each package on npm, open **Settings → Publishing access** and choose **Re
 2. After merging, the workflow opens or updates the version pull request.
 3. Merge it when you're ready. The workflow publishes everything that changed.
 
+`main` is protected, and GitHub doesn't run CI on the version pull request, so it can't meet the required checks by itself. Merge it as an admin:
+
+```bash
+gh pr merge <number> --squash --admin
+```
+
+The Release workflow still runs `pnpm verify` before it publishes.
+
 ## Versioning
 
 While the version is `0.x`:
@@ -107,5 +115,5 @@ Exports, type names, `ndp-*` class names, custom element names, attributes and e
 | `404` or `ENEEDAUTH` when publishing                      | The trusted publisher doesn't match. Repository, workflow file and environment must match exactly, and are case-sensitive. Check with `npm trust list @nepdatejs/core`. |
 | It worked in setup, but fails days later on the first run | The trust expired after 2 days without a publish. Revoke it with `npm trust revoke`, then run `pnpm npm:bootstrap` again.                                               |
 | No version pull request appears                           | `NPM_PUBLISH_ENABLED` isn't `true`, or **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests** is off.                              |
-| The version pull request has no CI checks                 | Normal. GitHub doesn't run workflows for pull requests opened by Actions. The Release workflow runs `pnpm verify` before publishing.                                    |
+| The version pull request has no CI checks                 | Normal. GitHub doesn't run workflows for pull requests opened by Actions. Merge it as an admin; the Release workflow runs `pnpm verify` before publishing.              |
 | One package published but the rest failed                 | Re-run the workflow. It skips versions that are already on npm.                                                                                                         |
