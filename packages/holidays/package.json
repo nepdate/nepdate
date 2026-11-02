@@ -1,6 +1,6 @@
 {
   "name": "@nepdatejs/holidays",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Nepal's fixed-date national days, plus a loader for each year's official holiday list. Works with @nepdatejs/calendar.",
   "keywords": [
     "nepali",
