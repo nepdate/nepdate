@@ -31,7 +31,8 @@
     "bench": "node scripts/bench.ts",
     "check:holidays": "node scripts/check-holidays.ts",
     "check:consumer": "node scripts/consumer.ts all",
-    "check:docs": "node scripts/check-docs.ts"
+    "check:docs": "node scripts/check-docs.ts",
+    "npm:bootstrap": "node scripts/npm-bootstrap.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",

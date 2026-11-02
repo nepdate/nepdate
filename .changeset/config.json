@@ -3,9 +3,20 @@
   "changelog": "@changesets/cli/changelog",
   "commit": false,
   "fixed": [],
-  "linked": [["@nepdate/*"]],
+  "linked": [
+    [
+      "@nepdate/calendar",
+      "@nepdate/core",
+      "@nepdate/datepicker",
+      "@nepdate/dom",
+      "@nepdate/holidays",
+      "@nepdate/react",
+      "@nepdate/styles",
+      "@nepdate/vanilla"
+    ]
+  ],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@nepdate/playground"]
+  "ignore": ["@nepdate/playground", "@nepdate/docs"]
 }

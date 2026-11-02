@@ -1,41 +1,108 @@
+# Versions and publishes the packages. See RELEASING.md.
+#
+# There is no npm token: the publish job signs in with npm trusted publishing
+# (OIDC), and npm only accepts it from this workflow file, in this repository,
+# on the `npm` environment. Renaming this file breaks publishing.
 name: Release
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
-permissions:
-  contents: write
-  pull-requests: write
-  id-token: write # npm provenance
+permissions: {}
 
 concurrency:
-  group: release
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  release:
-    # Off until the npm org exists and NPM_TOKEN is set (docs/plan REL-003).
+  select-mode:
+    # Stays off until the npm packages exist and trust this workflow.
     if: ${{ vars.NPM_PUBLISH_ENABLED == 'true' }}
     runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.select-mode.outputs.mode }}
+      publish-plan-artifact-id: ${{ steps.select-mode.outputs.publish-plan-artifact-id }}
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
       - uses: pnpm/action-setup@v6
       - uses: actions/setup-node@v7
         with:
           node-version: 24
-          cache: pnpm
-          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
       - run: pnpm install --frozen-lockfile
-      - name: Version PR or publish
-        uses: changesets/action@v1
+      - id: select-mode
+        uses: changesets/action/select-mode@v2
+
+  version:
+    if: needs.select-mode.outputs.mode == 'version'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # commit the version changes
+      pull-requests: write # open the version pull request
+    steps:
+      - uses: actions/checkout@v7
         with:
-          version: pnpm changeset version
-          publish: pnpm release
-          title: 'chore: version packages'
-          commit: 'chore: version packages'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          NPM_CONFIG_PROVENANCE: 'true'
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: pnpm install --frozen-lockfile
+      - uses: changesets/action/version@v2
+        with:
+          commit-message: 'chore: version packages'
+          pr-title: 'chore: version packages'
+
+  pack:
+    if: needs.select-mode.outputs.mode == 'publish'
+    needs: select-mode
+    runs-on: ubuntu-latest
+    outputs:
+      pack-dir-artifact-id: ${{ steps.pack.outputs.pack-dir-artifact-id }}
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: pnpm install --frozen-lockfile
+      # The same checks as CI, including the docs, on exactly what gets packed.
+      - run: pnpm verify
+      - id: pack
+        uses: changesets/action/pack@v2
+        with:
+          publish-plan-artifact-id: ${{ needs.select-mode.outputs.publish-plan-artifact-id }}
+
+  publish:
+    needs: pack
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: write # create the tags and GitHub releases
+      id-token: write # trusted publishing; only this job may have it
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+      - run: pnpm install --frozen-lockfile
+      - uses: changesets/action/publish@v2
+        with:
+          pack-dir-artifact-id: ${{ needs.pack.outputs.pack-dir-artifact-id }}

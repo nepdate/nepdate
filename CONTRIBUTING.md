@@ -57,6 +57,8 @@ pnpm changeset
 
 Pick the packages and the bump (0.x: a breaking change is a minor bump; say so in the summary). Releases are published from CI with npm provenance.
 
+Releases are automated. See [RELEASING.md](RELEASING.md).
+
 ## Commits
 
 Use short, imperative messages with a scope, e.g. `fix(core): …`, `feat(react): …`.
