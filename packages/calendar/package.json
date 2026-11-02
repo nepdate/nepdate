@@ -1,6 +1,6 @@
 {
   "name": "@nepdatejs/calendar",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Framework-free BS/AD calendar view model: month/year grids, keyboard navigation, day states.",
   "keywords": [
     "nepali",

@@ -1,6 +1,6 @@
 {
   "name": "@nepdatejs/core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Bikram Sambat (BS) ⇄ AD date engine: conversion, formatting, parsing, fiscal year. Zero dependencies.",
   "keywords": [
     "nepali",

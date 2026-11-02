@@ -1,6 +1,6 @@
 {
   "name": "@nepdatejs/datepicker",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Framework-free BS/AD date picker behaviour: typed input, validation, BS/AD switch, single and range values.",
   "keywords": [
     "nepali",
