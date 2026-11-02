@@ -2,12 +2,6 @@
 
 [[toc]]
 
-::: warning Not on npm yet
-The first release hasn't been published, so the `npm install` commands below won't work yet.
-Until then, you can build the packages from
-[the repository](https://github.com/nepdate/nepdate).
-:::
-
 ## Requirements
 
 - Node 18 or newer, if you run nepdate on a server or use a bundler.

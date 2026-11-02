@@ -5,7 +5,7 @@
 nepdate follows [semantic versioning](https://semver.org/). While the version is `0.x`, a minor
 release may contain breaking changes, and they are listed here.
 
-## 0.1 (not yet released)
+## 0.1.0 (2 November 2026)
 
 The first version. It includes:
 
