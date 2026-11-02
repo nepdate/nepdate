@@ -1,5 +1,5 @@
-import { fromIsoDate } from '@nepdate/core';
-import type { SinglePreset } from '@nepdate/datepicker';
+import { fromIsoDate } from '@nepdatejs/core';
+import type { SinglePreset } from '@nepdatejs/datepicker';
 import { DatePickerView, type DatePickerViewOptions } from './picker-view';
 import {
   Base,

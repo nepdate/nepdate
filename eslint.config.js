@@ -13,11 +13,11 @@ const allPackages = Object.keys(boundaries.packages);
 const dateBan = [
   {
     selector: "NewExpression[callee.name='Date']",
-    message: 'Only @nepdate/core may create Date objects. Ask core instead (D-004).',
+    message: 'Only @nepdatejs/core may create Date objects. Ask core instead (D-004).',
   },
   {
     selector: "MemberExpression[object.name='Date'][property.name=/^(now|UTC|parse)$/]",
-    message: 'Only @nepdate/core may read the clock or do date maths (D-004).',
+    message: 'Only @nepdatejs/core may read the clock or do date maths (D-004).',
   },
 ];
 
@@ -26,7 +26,7 @@ const packageRules = allPackages.map((name) => {
   const rule = boundaries.packages[name] ?? { internal: [], external: [] };
   const forbidden = allPackages
     .filter((other) => other !== name && !rule.internal.includes(other))
-    .map((other) => `@nepdate/${other}`);
+    .map((other) => `@nepdatejs/${other}`);
 
   return {
     files: [`packages/${name}/src/**/*.{ts,tsx}`],
@@ -36,17 +36,17 @@ const packageRules = allPackages.map((name) => {
         {
           paths: forbidden.map((path) => ({
             name: path,
-            message: `@nepdate/${name} may not import ${path} (see boundaries.json).`,
+            message: `@nepdatejs/${name} may not import ${path} (see boundaries.json).`,
           })),
           patterns: [
             {
               group: forbidden.map((path) => `${path}/*`),
-              message: `@nepdate/${name} may not import this package (see boundaries.json).`,
+              message: `@nepdatejs/${name} may not import this package (see boundaries.json).`,
             },
             {
               group: ['../../*'],
               message:
-                'Import other packages by name (@nepdate/...), not by relative path.',
+                'Import other packages by name (@nepdatejs/...), not by relative path.',
             },
           ],
         },

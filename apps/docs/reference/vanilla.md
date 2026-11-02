@@ -1,4 +1,4 @@
-# @nepdate/vanilla
+# @nepdatejs/vanilla
 
 [[toc]]
 
@@ -7,13 +7,13 @@ Web Components and a plain JavaScript API. See [Web Components](/integrations/we
 
 | Entry | Contains |
 |---|---|
-| `@nepdate/vanilla` | Everything, with no side effects |
-| `@nepdate/vanilla/define` | Importing it registers every element |
-| `@nepdate/vanilla/date-picker` | Date picker only |
-| `@nepdate/vanilla/date-range-picker` | Range picker only |
-| `@nepdate/vanilla/date-time-picker` | Date and time picker only |
-| `@nepdate/vanilla/multi-date-picker` | Multiple dates only |
-| `@nepdate/vanilla/calendar` | Calendar only |
+| `@nepdatejs/vanilla` | Everything, with no side effects |
+| `@nepdatejs/vanilla/define` | Importing it registers every element |
+| `@nepdatejs/vanilla/date-picker` | Date picker only |
+| `@nepdatejs/vanilla/date-range-picker` | Range picker only |
+| `@nepdatejs/vanilla/date-time-picker` | Date and time picker only |
+| `@nepdatejs/vanilla/multi-date-picker` | Multiple dates only |
+| `@nepdatejs/vanilla/calendar` | Calendar only |
 
 ## Shared attributes
 

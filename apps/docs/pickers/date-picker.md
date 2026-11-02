@@ -20,7 +20,7 @@ and you get the AD date.
 
 ```tsx [React]
 import { useState } from 'react';
-import { DatePicker } from '@nepdate/react';
+import { DatePicker } from '@nepdatejs/react';
 
 export function BirthDate() {
   const [value, setValue] = useState('');
@@ -149,7 +149,7 @@ event on the element.
 <nep-date-picker id="date" min="2026-01-01" max="2026-12-31"></nep-date-picker>
 
 <script type="module">
-  import { isWeekend } from '@nepdate/core';
+  import { isWeekend } from '@nepdatejs/core';
 
   document.querySelector('#date').isDateDisabled = (date) => isWeekend(date);
 </script>

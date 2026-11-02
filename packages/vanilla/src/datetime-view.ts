@@ -1,11 +1,11 @@
-import { getLocale, type CalendarSystem } from '@nepdate/core';
+import { getLocale, type CalendarSystem } from '@nepdatejs/core';
 import {
   createDateTimePicker,
   type DateTimePickerOptions,
   type DateTimePickerState,
   type DateTimePickerStore,
   type TimeCell,
-} from '@nepdate/datepicker';
+} from '@nepdatejs/datepicker';
 import {
   onBackdropPointer,
   onEscape,
@@ -13,7 +13,7 @@ import {
   restoreFocus,
   trackPosition,
   type PanelLayout,
-} from '@nepdate/dom';
+} from '@nepdatejs/dom';
 import { CalendarView } from './calendar-view';
 import { el, icon, setAttrs, setPopupMode, setText, uid } from './dom';
 import type { Theme } from './picker-view';

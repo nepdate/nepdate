@@ -1,5 +1,5 @@
-/** `@nepdate/vanilla/multi-date-picker`: just the multiple-date picker (element, view and mount function). */
-import type { MultiDatePickerState } from '@nepdate/datepicker';
+/** `@nepdatejs/vanilla/multi-date-picker`: just the multiple-date picker (element, view and mount function). */
+import type { MultiDatePickerState } from '@nepdatejs/datepicker';
 import { NepMultiDatePickerElement } from './multi-date-picker-element';
 import { MultiDatePickerView, type MultiDatePickerViewOptions } from './multi-view';
 import { defineElement, ELEMENT_NAMES } from './registry';

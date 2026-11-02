@@ -15,7 +15,7 @@ when it is already 19 October in Kathmandu. nepdate gives you the right day eith
 
 <!-- no-check -->
 ```ts
-import { now, today } from '@nepdate/core';
+import { now, today } from '@nepdatejs/core';
 
 today(); // today in Nepal, as an AD date
 today('BS'); // today in Nepal, as a BS date
@@ -33,7 +33,7 @@ To change the default for your whole app, set `timeZone` with
 A `TimeOfDay` is a frozen object with an `hour` from 0 to 23 and a `minute` from 0 to 59.
 
 ```ts
-import { compareTimes, isValidTime, timeOfDay } from '@nepdate/core';
+import { compareTimes, isValidTime, timeOfDay } from '@nepdatejs/core';
 
 timeOfDay(14, 30); // → { hour: 14, minute: 30 }
 timeOfDay(9); // → { hour: 9, minute: 0 }
@@ -49,7 +49,7 @@ compareTimes(timeOfDay(9), timeOfDay(17)); // → -1
 `null` for anything else:
 
 ```ts
-import { parseTime } from '@nepdate/core';
+import { parseTime } from '@nepdatejs/core';
 
 parseTime('14:30'); // → { hour: 14, minute: 30 }
 parseTime('2:30 pm'); // → { hour: 14, minute: 30 }
@@ -63,7 +63,7 @@ parseTime('25:00'); // → null
 `formatTime` writes a time back out:
 
 ```ts
-import { formatTime, timeOfDay } from '@nepdate/core';
+import { formatTime, timeOfDay } from '@nepdatejs/core';
 
 const time = timeOfDay(14, 30);
 
@@ -79,7 +79,7 @@ A date plus a time is an instant, and an instant needs a zone. `toIsoDateTime` g
 timestamp with the offset included, which any database or API can read:
 
 ```ts
-import { bsDate, timeOfDay, toIsoDateTime } from '@nepdate/core';
+import { bsDate, timeOfDay, toIsoDateTime } from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 1);
 
@@ -90,7 +90,7 @@ toIsoDateTime(date, timeOfDay(14, 30), 'UTC'); // → '2026-10-18T14:30:00+00:00
 `fromIsoDateTime` reads one back, in Nepal time by default:
 
 ```ts
-import { fromIsoDateTime } from '@nepdate/core';
+import { fromIsoDateTime } from '@nepdatejs/core';
 
 const moment = fromIsoDateTime('2026-10-18T09:00:00Z');
 
@@ -106,7 +106,7 @@ If you have a timestamp from a server and just want the day and a display time i
 `fromIsoTimestamp`. It gives the time as `HH:MM` text:
 
 ```ts
-import { formatDate, fromIsoTimestamp, toCalendar } from '@nepdate/core';
+import { formatDate, fromIsoTimestamp, toCalendar } from '@nepdatejs/core';
 
 const local = fromIsoTimestamp('2026-04-13T20:00:00Z');
 

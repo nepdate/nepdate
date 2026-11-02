@@ -4,7 +4,7 @@ import {
   toEpoch,
   type CalendarDate,
   type LocaleCode,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import { fixedHolidaysFor, registeredHolidaysFor } from './registry';
 import type { Holiday, HolidayType } from './types';
 
@@ -83,7 +83,7 @@ export function holidayName(holiday: Holiday, locale: LocaleCode = 'en'): string
 }
 
 /**
- * A lookup for @nepdate/calendar's `holidays` option (and the pickers'):
+ * A lookup for @nepdatejs/calendar's `holidays` option (and the pickers'):
  *   createCalendar({ holidays: toCalendarHolidays({ locale: 'ne' }) })
  * Several holidays on one day are joined with ", ".
  */

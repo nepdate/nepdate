@@ -8,7 +8,7 @@
 convert first if you want the other one.
 
 ```ts
-import { bsDate, formatDate } from '@nepdate/core';
+import { bsDate, formatDate } from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 1);
 
@@ -30,7 +30,7 @@ The signature is `formatDate(date, pattern = 'iso', locale?)`.
 | `full` | `l, j F Y` | Sunday, 1 Kartik 2083 | आइतबार, १ कार्तिक २०८३ |
 
 ```ts
-import { bsDate, formatDate } from '@nepdate/core';
+import { bsDate, formatDate } from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 1);
 
@@ -59,7 +59,7 @@ Build your own pattern from these letters. Any other character is printed as it 
 | `D` | Short weekday | Sun |
 
 ```ts
-import { bsDate, formatDate } from '@nepdate/core';
+import { bsDate, formatDate } from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 1);
 
@@ -71,7 +71,7 @@ formatDate(date, 'F Y'); // → 'Kartik 2083'
 To print one of these letters as a letter, put a backslash before it:
 
 ```ts
-import { bsDate, formatDate } from '@nepdate/core';
+import { bsDate, formatDate } from '@nepdatejs/core';
 
 formatDate(bsDate(2083, 7, 1), 'Y \\B\\S'); // → '2083 BS'
 ```
@@ -81,7 +81,7 @@ formatDate(bsDate(2083, 7, 1), 'Y \\B\\S'); // → '2083 BS'
 Pass `'en'` or `'ne'` as the third argument. Names and digits both follow it:
 
 ```ts
-import { adDate, bsDate, formatDate } from '@nepdate/core';
+import { adDate, bsDate, formatDate } from '@nepdatejs/core';
 
 formatDate(bsDate(2083, 7, 1), 'long', 'ne'); // → '१ कार्तिक २०८३'
 formatDate(adDate(2026, 10, 18), 'long', 'ne'); // → '१८ अक्टोबर २०२६'
@@ -96,7 +96,7 @@ If you leave it out, nepdate uses the `defaultLocale` from
 Convert and format each one. This is common on official documents:
 
 ```ts
-import { adDate, adToBs, formatDate } from '@nepdate/core';
+import { adDate, adToBs, formatDate } from '@nepdatejs/core';
 
 const ad = adDate(2026, 10, 18);
 
@@ -110,7 +110,7 @@ In React, [`<DateText>`](/integrations/react#showing-dates) does this for you.
 To change digits in text you already have:
 
 ```ts
-import { formatNumber, toAsciiDigits, toDevanagariDigits } from '@nepdate/core';
+import { formatNumber, toAsciiDigits, toDevanagariDigits } from '@nepdatejs/core';
 
 toDevanagariDigits('2083-07-01'); // → '२०८३-०७-०१'
 toAsciiDigits('२०८३'); // → '2083'
@@ -123,7 +123,7 @@ formatNumber(2083, 'en'); // → '2083'
 ## Month and weekday names
 
 ```ts
-import { monthNames, weekdayNames } from '@nepdate/core';
+import { monthNames, weekdayNames } from '@nepdatejs/core';
 
 monthNames('BS')[0]; // → 'Baisakh'
 monthNames('BS', 'ne')[0]; // → 'बैशाख'

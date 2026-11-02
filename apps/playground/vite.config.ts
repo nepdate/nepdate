@@ -9,7 +9,7 @@ export default defineConfig({
   root,
   plugins: [react()],
   // Use the packages' TypeScript sources, so edits show up without a build (docs/plan D-017).
-  resolve: { conditions: ['@nepdate/source', ...defaultClientConditions] },
+  resolve: { conditions: ['@nepdatejs/source', ...defaultClientConditions] },
   server: { fs: { allow: [repo] } },
   build: {
     rollupOptions: {

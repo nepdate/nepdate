@@ -1,4 +1,4 @@
-/** `@nepdate/vanilla/date-time-picker`: just the date + time picker. */
+/** `@nepdatejs/vanilla/date-time-picker`: just the date + time picker. */
 import { NepDateTimePickerElement } from './date-time-picker-element';
 import { DateTimePickerView, type DateTimePickerViewOptions } from './datetime-view';
 import { defineElement, ELEMENT_NAMES } from './registry';

@@ -8,7 +8,7 @@ The defaults suit Nepal, so most apps change nothing. If you do need to change s
 `configure` once when your app starts, before you use any other function.
 
 ```ts
-import { configure } from '@nepdate/core';
+import { configure } from '@nepdatejs/core';
 
 configure({ defaultLocale: 'ne' });
 ```
@@ -30,7 +30,7 @@ error and changes nothing.
 Any [IANA time zone](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) name works:
 
 ```ts
-import { configure, getConfig } from '@nepdate/core';
+import { configure, getConfig } from '@nepdatejs/core';
 
 configure({ timeZone: 'Asia/Dubai' });
 
@@ -43,7 +43,7 @@ Nepal's government offices have Saturday and sometimes Sunday as holidays. To tr
 the weekend:
 
 ```ts
-import { bsDate, configure, isWeekend } from '@nepdate/core';
+import { bsDate, configure, isWeekend } from '@nepdatejs/core';
 
 configure({ weekendDays: [6, 0] });
 
@@ -56,7 +56,7 @@ its own `weekStartsOn` and `weekendDays` options.
 ### Language
 
 ```ts
-import { bsDate, configure, formatDate } from '@nepdate/core';
+import { bsDate, configure, formatDate } from '@nepdatejs/core';
 
 configure({ defaultLocale: 'ne' });
 
@@ -70,7 +70,7 @@ formatDate(bsDate(2083, 7, 1), 'long', 'en'); // → '1 Kartik 2083'
 the defaults. `resetConfig` is mainly useful between tests.
 
 ```ts
-import { configure, getConfig, resetConfig } from '@nepdate/core';
+import { configure, getConfig, resetConfig } from '@nepdatejs/core';
 
 configure({ defaultLocale: 'ne' });
 getConfig().defaultLocale; // → 'ne'

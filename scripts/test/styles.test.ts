@@ -37,7 +37,7 @@ const light = declared(tokens, ':root,');
 const dark = declared(tokens, "[data-ndp-theme='dark']");
 const systemDark = declared(tokens, '@media (prefers-color-scheme: dark)');
 
-describe('@nepdate/styles tokens (STY-001..004)', () => {
+describe('@nepdatejs/styles tokens (STY-001..004)', () => {
   test('every token picker.css uses without a fallback is defined', () => {
     const used = new Set(
       [...picker.matchAll(/var\((--ndp-[\w-]+)\)/g)].map((m) => m[1] ?? ''),

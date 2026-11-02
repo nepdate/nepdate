@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useRef, type KeyboardEvent, type Ref } from 'react';
-import { getLocale, type CalendarDate, type LocaleCode } from '@nepdate/core';
+import { getLocale, type CalendarDate, type LocaleCode } from '@nepdatejs/core';
 import type {
   CalendarActions,
   CalendarState,
   DayCell,
   FocusKey,
   PickerCell,
-} from '@nepdate/calendar';
+} from '@nepdatejs/calendar';
 
 const FOCUS_KEYS: ReadonlySet<string> = new Set([
   'ArrowLeft',

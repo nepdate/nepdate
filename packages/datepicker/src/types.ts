@@ -6,7 +6,7 @@ import type {
   DateFormatPattern,
   LocaleCode,
   Weekday,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import type { PresetState, RangePreset, SinglePreset } from './presets';
 import type {
   CalendarState,
@@ -14,7 +14,7 @@ import type {
   EventMarker,
   HolidayInput,
   HolidayLookup,
-} from '@nepdate/calendar';
+} from '@nepdatejs/calendar';
 
 /** The same day in both calendars, sent with every change. */
 export interface DateDetail {

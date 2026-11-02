@@ -1,4 +1,4 @@
-import type { BsDate } from '@nepdate/core';
+import type { BsDate } from '@nepdatejs/core';
 
 /** national: fixed-date national days · festival: lunar festivals from the yearly list · observance: days without leave · custom: your own. */
 export type HolidayType = 'national' | 'festival' | 'observance' | 'custom';

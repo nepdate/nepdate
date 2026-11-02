@@ -30,20 +30,20 @@ const dir = resolve(dirArg ?? mkdtempSync(join(tmpdir(), 'nepdate-consumer-')));
 
 /** Every JS entry users can import, by package. */
 const ENTRIES: Record<string, string[]> = {
-  core: ['@nepdate/core', '@nepdate/core/data'],
-  calendar: ['@nepdate/calendar'],
-  datepicker: ['@nepdate/datepicker'],
-  dom: ['@nepdate/dom'],
-  holidays: ['@nepdate/holidays'],
-  react: ['@nepdate/react', '@nepdate/react/headless', '@nepdate/react/server'],
+  core: ['@nepdatejs/core', '@nepdatejs/core/data'],
+  calendar: ['@nepdatejs/calendar'],
+  datepicker: ['@nepdatejs/datepicker'],
+  dom: ['@nepdatejs/dom'],
+  holidays: ['@nepdatejs/holidays'],
+  react: ['@nepdatejs/react', '@nepdatejs/react/headless', '@nepdatejs/react/server'],
   vanilla: [
-    '@nepdate/vanilla',
-    '@nepdate/vanilla/define',
-    '@nepdate/vanilla/date-picker',
-    '@nepdate/vanilla/calendar',
-    '@nepdate/vanilla/date-range-picker',
-    '@nepdate/vanilla/date-time-picker',
-    '@nepdate/vanilla/multi-date-picker',
+    '@nepdatejs/vanilla',
+    '@nepdatejs/vanilla/define',
+    '@nepdatejs/vanilla/date-picker',
+    '@nepdatejs/vanilla/calendar',
+    '@nepdatejs/vanilla/date-range-picker',
+    '@nepdatejs/vanilla/date-time-picker',
+    '@nepdatejs/vanilla/multi-date-picker',
   ],
 };
 
@@ -72,9 +72,9 @@ function prepare(): void {
   }
   const dependencies: Record<string, string> = {};
   for (const file of readdirSync(tarballs)) {
-    const match = /^nepdate-(\w+)-/.exec(file);
+    const match = /^nepdatejs-(\w+)-/.exec(file);
     if (match) {
-      dependencies[`@nepdate/${match[1] ?? ''}`] = `file:./tarballs/${file}`;
+      dependencies[`@nepdatejs/${match[1] ?? ''}`] = `file:./tarballs/${file}`;
     }
   }
   const react = versionOf('react', 'packages/react');
@@ -115,16 +115,16 @@ export const results = [label, cal.title, value, fy.label, days, place.side, BS_
 `;
   const imports = (): string => {
     const lines = [
-      ['{ adDate, adToBs, fiscalYear, formatDate, type FiscalYear }', '@nepdate/core'],
-      ['{ BS_DATA }', '@nepdate/core/data'],
-      ['{ createCalendar, type CalendarState }', '@nepdate/calendar'],
-      ['{ createDatePicker }', '@nepdate/datepicker'],
-      ['{ computePosition }', '@nepdate/dom'],
-      ['{ holidaysFor }', '@nepdate/holidays'],
-      ['{ ELEMENT_NAMES }', '@nepdate/vanilla'],
-      ['{ DatePicker, type DatePickerProps }', '@nepdate/react'],
-      ['{ useDatePicker }', '@nepdate/react/headless'],
-      ['{ DateText }', '@nepdate/react/server'],
+      ['{ adDate, adToBs, fiscalYear, formatDate, type FiscalYear }', '@nepdatejs/core'],
+      ['{ BS_DATA }', '@nepdatejs/core/data'],
+      ['{ createCalendar, type CalendarState }', '@nepdatejs/calendar'],
+      ['{ createDatePicker }', '@nepdatejs/datepicker'],
+      ['{ computePosition }', '@nepdatejs/dom'],
+      ['{ holidaysFor }', '@nepdatejs/holidays'],
+      ['{ ELEMENT_NAMES }', '@nepdatejs/vanilla'],
+      ['{ DatePicker, type DatePickerProps }', '@nepdatejs/react'],
+      ['{ useDatePicker }', '@nepdatejs/react/headless'],
+      ['{ DateText }', '@nepdatejs/react/server'],
     ];
 
     return lines.map(([names, from]) => `import ${names} from '${from}';`).join('\n');
@@ -178,7 +178,7 @@ for (const entry of entries) {
   if (Object.keys(module).length === 0) throw new Error(entry + ' has no exports');
   console.log('✔ import ' + entry);
 }
-const core = await import('@nepdate/core');
+const core = await import('@nepdatejs/core');
 const iso = core.toIsoDate(core.bsDate(2083, 7, 1));
 if (iso !== '2026-10-18') throw new Error('core converted wrongly: ' + iso);
 console.log('✔ BS 2083-07-01 = AD ' + iso);
@@ -193,7 +193,7 @@ for (const entry of entries) {
   if (Object.keys(module).length === 0) throw new Error(entry + ' has no exports');
   console.log('✔ require ' + entry);
 }
-const core = require('@nepdate/core');
+const core = require('@nepdatejs/core');
 const iso = core.toIsoDate(core.bsDate(2083, 7, 1));
 if (iso !== '2026-10-18') throw new Error('core converted wrongly: ' + iso);
 console.log('✔ BS 2083-07-01 = AD ' + iso + ' (CJS)');

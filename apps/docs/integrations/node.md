@@ -4,23 +4,23 @@
 
 ## Introduction
 
-`@nepdate/core` runs in Node with no dependencies, in ESM or CommonJS, so you can use it in APIs,
+`@nepdatejs/core` runs in Node with no dependencies, in ESM or CommonJS, so you can use it in APIs,
 scripts, cron jobs and serverless functions.
 
 ```bash
-npm install @nepdate/core
+npm install @nepdatejs/core
 ```
 
 ::: code-group
 
 ```js [ESM]
-import { formatDate, today } from '@nepdate/core';
+import { formatDate, today } from '@nepdatejs/core';
 
 console.log(formatDate(today('BS'), 'long'));
 ```
 
 ```js [CommonJS]
-const { formatDate, today } = require('@nepdate/core');
+const { formatDate, today } = require('@nepdatejs/core');
 
 console.log(formatDate(today('BS'), 'long'));
 ```
@@ -38,7 +38,7 @@ day in Nepal.
 Your API can take and return AD dates and add the BS date for display:
 
 ```ts
-import { adToBs, formatDate, fromIsoDate } from '@nepdate/core';
+import { adToBs, formatDate, fromIsoDate } from '@nepdatejs/core';
 
 function describeDate(input: string) {
   const ad = fromIsoDate(input);
@@ -59,7 +59,7 @@ describeDate('soon'); // → { error: 'Use YYYY-MM-DD' }
 Check dates sent by a client again on the server, as the browser's checks can be bypassed:
 
 ```ts
-import { fromIsoDate, isWithin, parseDate, toIsoDate } from '@nepdate/core';
+import { fromIsoDate, isWithin, parseDate, toIsoDate } from '@nepdatejs/core';
 
 const earliest = fromIsoDate('2026-01-01');
 
@@ -87,7 +87,7 @@ arguments. See [Global state](/guide/configuration#global-state).
 To convert a column of BS dates to AD, `parseDateStrict` gives you the reason for each bad row:
 
 ```ts
-import { parseDateStrict, toIsoDate } from '@nepdate/core';
+import { parseDateStrict, toIsoDate } from '@nepdatejs/core';
 
 const rows = ['2083-06-24', '2083-02-33'];
 
@@ -105,5 +105,5 @@ results.length; // → 2
 
 ## Other runtimes
 
-`@nepdate/core` uses only standard JavaScript, so it also runs on Deno, Bun and edge runtimes such
+`@nepdatejs/core` uses only standard JavaScript, so it also runs on Deno, Bun and edge runtimes such
 as Cloudflare Workers.

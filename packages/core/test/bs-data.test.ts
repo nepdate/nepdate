@@ -15,8 +15,8 @@ import {
   toEpoch,
   validateBsData,
   type BsData,
-} from '@nepdate/core';
-import { BS_DATA } from '@nepdate/core/data';
+} from '@nepdatejs/core';
+import { BS_DATA } from '@nepdatejs/core/data';
 import { bsMonthLength, epochToBs } from '../src/bs/table';
 import { ymd } from './helpers';
 

@@ -1,4 +1,4 @@
-# @nepdate/react
+# @nepdatejs/react
 
 [[toc]]
 
@@ -6,9 +6,9 @@ React components and hooks. See the [React guide](/integrations/react).
 
 | Entry | Contains |
 |---|---|
-| `@nepdate/react` | Components and everything below |
-| `@nepdate/react/headless` | Hooks only, no markup or CSS |
-| `@nepdate/react/server` | Components with no hooks, for Server Components |
+| `@nepdatejs/react` | Components and everything below |
+| `@nepdatejs/react/headless` | Hooks only, no markup or CSS |
+| `@nepdatejs/react/server` | Components with no hooks, for Server Components |
 
 ## Components
 

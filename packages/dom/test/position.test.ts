@@ -6,7 +6,7 @@ import {
   resolveLayout,
   supportsPopover,
   trackPosition,
-} from '@nepdate/dom';
+} from '@nepdatejs/dom';
 
 const viewport = { width: 1000, height: 800 };
 const rect = (top: number, left: number, height = 36, width = 260) => ({

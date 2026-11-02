@@ -5,7 +5,7 @@ import {
   formatInput,
   parseInput,
   placeholderText,
-} from '@nepdate/datepicker';
+} from '@nepdatejs/datepicker';
 import { ad, bs } from './helpers';
 
 const limits = { min: bs('2083-01-01'), max: bs('2083-12-30') };

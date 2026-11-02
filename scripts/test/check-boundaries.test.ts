@@ -18,12 +18,12 @@ describe('checkBoundaries', () => {
     const messages = checkBoundaries(fixture('bad')).map((v) => `${v.pkg}: ${v.message}`);
 
     expect(messages).toEqual([
-      'calendar: "@nepdate/core" is imported but @nepdate/core is not in package.json.',
-      'calendar: @nepdate/calendar may not import "left-pad".',
+      'calendar: "@nepdatejs/core" is imported but @nepdatejs/core is not in package.json.',
+      'calendar: @nepdatejs/calendar may not import "left-pad".',
       'calendar: relative import "../../core/src/index" leaves packages/calendar/src.',
-      'core: @nepdate/core must not depend on any package, but lists: left-pad.',
-      'core: @nepdate/core may not depend on left-pad.',
-      'core: @nepdate/core may not import "@nepdate/calendar".',
+      'core: @nepdatejs/core must not depend on any package, but lists: left-pad.',
+      'core: @nepdatejs/core may not depend on left-pad.',
+      'core: @nepdatejs/core may not import "@nepdatejs/calendar".',
       'core: Node built-in "node:fs" is only allowed under src/node/ (the package must also run in browsers).',
       'core: Node built-in "fs" is only allowed under src/node/ (the package must also run in browsers).',
       'stray: packages/stray is not listed in boundaries.json.',

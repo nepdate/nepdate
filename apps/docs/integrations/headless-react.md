@@ -5,11 +5,11 @@
 ## Introduction
 
 If the built-in look doesn't fit, you can keep the behaviour and write your own markup. The hooks in
-`@nepdate/react/headless` give you the state, the actions and **prop getters**, which supply the
+`@nepdatejs/react/headless` give you the state, the actions and **prop getters**, which supply the
 right ARIA attributes and keyboard handling.
 
 ```ts
-import { useDatePicker } from '@nepdate/react/headless';
+import { useDatePicker } from '@nepdatejs/react/headless';
 ```
 
 | Hook | For |
@@ -25,7 +25,7 @@ import { useDatePicker } from '@nepdate/react/headless';
 Spread each getter on the matching element:
 
 ```tsx
-import { useDatePicker } from '@nepdate/react/headless';
+import { useDatePicker } from '@nepdatejs/react/headless';
 
 export function MyDatePicker() {
   const picker = useDatePicker({ min: '2026-01-01' });
@@ -63,7 +63,7 @@ export function MyDatePicker() {
 }
 ```
 
-The panel isn't positioned for you here. `@nepdate/dom` has
+The panel isn't positioned for you here. `@nepdatejs/dom` has
 [`trackPosition`](/reference/dom) to place it beside the input.
 
 ## What a hook returns
@@ -88,8 +88,8 @@ The panel isn't positioned for you here. `@nepdate/dom` has
 
 ## Using the styles anyway
 
-You can write your own markup and still use `@nepdate/styles`, by using the same classes. See
-[Markup and classes](/guide/markup). `CalendarBody` from `@nepdate/react` renders just the calendar
+You can write your own markup and still use `@nepdatejs/styles`, by using the same classes. See
+[Markup and classes](/guide/markup). `CalendarBody` from `@nepdatejs/react` renders just the calendar
 part with those classes.
 
 ## Options

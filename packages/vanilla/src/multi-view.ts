@@ -1,10 +1,10 @@
-import { getLocale } from '@nepdate/core';
+import { getLocale } from '@nepdatejs/core';
 import {
   createMultiDatePicker,
   type MultiDatePickerOptions,
   type MultiDatePickerState,
   type MultiDatePickerStore,
-} from '@nepdate/datepicker';
+} from '@nepdatejs/datepicker';
 import {
   onBackdropPointer,
   onEscape,
@@ -12,7 +12,7 @@ import {
   restoreFocus,
   trackPosition,
   type PanelLayout,
-} from '@nepdate/dom';
+} from '@nepdatejs/dom';
 import { CalendarView } from './calendar-view';
 import { el, icon, setAttrs, setPopupMode, setText, uid } from './dom';
 import type { Theme } from './picker-view';
@@ -54,7 +54,7 @@ const VIEW_KEYS = new Set([
 
 /**
  * The multiple-date picker field and panel (PICK-001), rendered with the
- * @nepdate/styles markup into `host`. Used by <nep-multi-date-picker> and by
+ * @nepdatejs/styles markup into `host`. Used by <nep-multi-date-picker> and by
  * createMultiDatePicker().
  */
 export class MultiDatePickerView {

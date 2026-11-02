@@ -14,8 +14,8 @@ Every calendar and picker takes a `today` option. Use it, and tests give the sam
 ```tsx
 import { render, screen } from '@testing-library/react';
 import { test } from 'vitest';
-import { adDate } from '@nepdate/core';
-import { DatePicker } from '@nepdate/react';
+import { adDate } from '@nepdatejs/core';
+import { DatePicker } from '@nepdatejs/react';
 
 test('shows the day', () => {
   render(<DatePicker today={adDate(2026, 10, 18)} aria-label="Date" />);
@@ -26,7 +26,7 @@ test('shows the day', () => {
 Stores take it too:
 
 ```ts
-import { createCalendar } from '@nepdate/calendar';
+import { createCalendar } from '@nepdatejs/calendar';
 
 const calendar = createCalendar({ today: adDate(2026, 10, 18) });
 
@@ -42,7 +42,7 @@ Dates are plain objects, so a deep comparison works:
 
 ```ts
 import { expect, test } from 'vitest';
-import { adDate, adToBs, bsDate } from '@nepdate/core';
+import { adDate, adToBs, bsDate } from '@nepdatejs/core';
 
 test('converts', () => {
   expect(adToBs(adDate(2026, 10, 18))).toEqual(bsDate(2083, 7, 1));
@@ -58,8 +58,8 @@ Each day button is named with its full date, so tests read clearly:
 ```tsx
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, test, vi } from 'vitest';
-import { adDate } from '@nepdate/core';
-import { DatePicker } from '@nepdate/react';
+import { adDate } from '@nepdatejs/core';
+import { DatePicker } from '@nepdatejs/react';
 
 test('picks a day', () => {
   const onChange = vi.fn();
@@ -77,7 +77,7 @@ test('picks a day', () => {
 ```tsx
 import { fireEvent, render, screen } from '@testing-library/react';
 import { expect, test, vi } from 'vitest';
-import { DatePicker } from '@nepdate/react';
+import { DatePicker } from '@nepdatejs/react';
 
 test('types a date', () => {
   const onChange = vi.fn();
@@ -97,7 +97,7 @@ falls back to fixed positioning, which is fine for tests.
 Web Components need the elements registered first:
 
 ```js
-import '@nepdate/vanilla/define';
+import '@nepdatejs/vanilla/define';
 ```
 
 happy-dom doesn't call `formResetCallback` on `form.reset()`. Call it yourself in a test, as
@@ -109,8 +109,8 @@ If a test calls `configure`, `patchBsYear` or `registerHolidays`, clean up after
 
 ```ts
 import { afterEach } from 'vitest';
-import { resetBsData, resetConfig } from '@nepdate/core';
-import { clearHolidays } from '@nepdate/holidays';
+import { resetBsData, resetConfig } from '@nepdatejs/core';
+import { clearHolidays } from '@nepdatejs/holidays';
 
 afterEach(() => {
   resetConfig();

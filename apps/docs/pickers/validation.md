@@ -34,7 +34,7 @@ input.
 If you think in BS, convert with `toIsoDate`:
 
 ```ts
-import { bsDate, toIsoDate } from '@nepdate/core';
+import { bsDate, toIsoDate } from '@nepdatejs/core';
 
 toIsoDate(bsDate(2083, 1, 1)); // → '2026-04-14'
 ```
@@ -46,8 +46,8 @@ Days outside the limits are greyed out, and the panel won't move past them.
 `isDateDisabled` gets each date and returns `true` to rule it out:
 
 ```tsx
-import { dayOfWeek } from '@nepdate/core';
-import { DatePicker } from '@nepdate/react';
+import { dayOfWeek } from '@nepdatejs/core';
+import { DatePicker } from '@nepdatejs/react';
 
 const closed = new Set(['2083-07-15']);
 
@@ -98,7 +98,7 @@ message is already translated.
 The same check in code, with the framework-free store:
 
 ```ts
-import { createDatePicker } from '@nepdate/datepicker';
+import { createDatePicker } from '@nepdatejs/datepicker';
 
 const picker = createDatePicker({ min: '2026-01-01' });
 
@@ -142,7 +142,7 @@ $request->validate([
 Or in Node, with the same library:
 
 ```ts
-import { fromIsoDate } from '@nepdate/core';
+import { fromIsoDate } from '@nepdatejs/core';
 
 function isValidDay(input: unknown) {
   return typeof input === 'string' && fromIsoDate(input) !== null;

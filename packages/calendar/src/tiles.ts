@@ -16,7 +16,7 @@ import {
   type CalendarDate,
   type CalendarSystem,
   type LocaleCode,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import type { Limits } from './limits';
 import type { PickerCell } from './types';
 

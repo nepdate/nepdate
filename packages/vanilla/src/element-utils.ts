@@ -4,9 +4,9 @@ import {
   type CalendarDate,
   type CalendarSystem,
   type Weekday,
-} from '@nepdate/core';
-import type { EventMarker, HolidayInput, HolidayLookup } from '@nepdate/calendar';
-import type { PanelLayout } from '@nepdate/dom';
+} from '@nepdatejs/core';
+import type { EventMarker, HolidayInput, HolidayLookup } from '@nepdatejs/calendar';
+import type { PanelLayout } from '@nepdatejs/dom';
 import type { Theme } from './picker-view';
 
 /** Lets this module load during server rendering, where HTMLElement does not exist. */

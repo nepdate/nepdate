@@ -3,7 +3,7 @@ import {
   createDatePicker,
   createDateRangePicker,
   createDateTimePicker,
-} from '@nepdate/datepicker';
+} from '@nepdatejs/datepicker';
 import { bs, TODAY } from './helpers';
 
 describe('inline pickers (PICK-004)', () => {

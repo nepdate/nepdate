@@ -1,11 +1,11 @@
-import { getLocale, type CalendarSystem } from '@nepdate/core';
+import { getLocale, type CalendarSystem } from '@nepdatejs/core';
 import {
   createDatePicker,
   type DateDetail,
   type DatePickerOptions,
   type DatePickerState,
   type DatePickerStore,
-} from '@nepdate/datepicker';
+} from '@nepdatejs/datepicker';
 import {
   onBackdropPointer,
   onEscape,
@@ -13,7 +13,7 @@ import {
   restoreFocus,
   trackPosition,
   type PanelLayout,
-} from '@nepdate/dom';
+} from '@nepdatejs/dom';
 import { CalendarView } from './calendar-view';
 import { el, icon, setAttrs, setPopupMode, setText, uid } from './dom';
 import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PresetList } from './preset-list';
@@ -63,7 +63,7 @@ const VIEW_KEYS = new Set([
 ]);
 
 /**
- * The date picker field and panel, rendered with the @nepdate/styles markup
+ * The date picker field and panel, rendered with the @nepdatejs/styles markup
  * into `host`. Used by <nep-date-picker> and by createDatePicker().
  */
 export class DatePickerView {

@@ -1,9 +1,9 @@
-/** `@nepdate/vanilla/calendar`: just the standalone calendar. */
+/** `@nepdatejs/vanilla/calendar`: just the standalone calendar. */
 import {
   createCalendar as createCalendarStore,
   type CalendarOptions,
   type CalendarStore,
-} from '@nepdate/calendar';
+} from '@nepdatejs/calendar';
 import { NepCalendarElement } from './calendar-element';
 import { CalendarView } from './calendar-view';
 import { defineElement, ELEMENT_NAMES } from './registry';

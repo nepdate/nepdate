@@ -34,7 +34,7 @@ CREATE TABLE students (
 ## Showing a date
 
 ```ts
-import { formatDate, fromIsoDate, toCalendar } from '@nepdate/core';
+import { formatDate, fromIsoDate, toCalendar } from '@nepdatejs/core';
 
 function showDate(stored: string | null) {
   const date = fromIsoDate(stored);
@@ -54,7 +54,7 @@ A date with no time should never pass through a JavaScript `Date`. `new Date('20
 midnight UTC, which is the evening of the 9th in New York.
 
 ```ts
-import { fromIsoDate, toIsoDate } from '@nepdate/core';
+import { fromIsoDate, toIsoDate } from '@nepdatejs/core';
 
 const date = fromIsoDate('2026-10-10');
 
@@ -69,7 +69,7 @@ For a timestamp, such as when a record was created, store the instant in a `time
 Then show it in Nepal time:
 
 ```ts
-import { formatDate, fromIsoTimestamp, toCalendar } from '@nepdate/core';
+import { formatDate, fromIsoTimestamp, toCalendar } from '@nepdatejs/core';
 
 function showMoment(stored: string) {
   const local = fromIsoTimestamp(stored);
@@ -89,7 +89,7 @@ Turn the BS period into AD limits, and query those.
 ### By BS month
 
 ```ts
-import { bsDate, endOfMonth, startOfMonth, toIsoDate } from '@nepdate/core';
+import { bsDate, endOfMonth, startOfMonth, toIsoDate } from '@nepdatejs/core';
 
 const month = bsDate(2083, 7, 1);
 
@@ -100,7 +100,7 @@ toIsoDate(endOfMonth(month)); // → '2026-11-16'
 ### By BS year
 
 ```ts
-import { bsDate, endOfYear, startOfYear, toIsoDate } from '@nepdate/core';
+import { bsDate, endOfYear, startOfYear, toIsoDate } from '@nepdatejs/core';
 
 const year = bsDate(2083, 1, 1);
 
@@ -113,7 +113,7 @@ toIsoDate(endOfYear(year)); // → '2027-04-13'
 SQL can't group by BS month by itself, so group in your code:
 
 ```ts
-import { formatDate, fromIsoDate, toCalendar } from '@nepdate/core';
+import { formatDate, fromIsoDate, toCalendar } from '@nepdatejs/core';
 
 const rows = ['2026-10-18', '2026-11-05', '2026-11-20'];
 const byMonth = new Map<string, number>();
@@ -135,7 +135,7 @@ byMonth.get('Mangsir 2083'); // → 1
 If people send BS, such as in a spreadsheet import, convert it to AD on the way in:
 
 ```ts
-import { parseDate, toIsoDate } from '@nepdate/core';
+import { parseDate, toIsoDate } from '@nepdatejs/core';
 
 const date = parseDate('2083-06-24', 'BS');
 

@@ -11,7 +11,7 @@ import {
   type CalendarSystem,
   type DateFormatPattern,
   type LocaleCode,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import type { DateDetail, DateError } from './types';
 
 /** What a picker allows, in any calendar. */

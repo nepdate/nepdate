@@ -16,8 +16,8 @@ Add the stylesheet and the script, then use the elements:
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://unpkg.com/@nepdate/styles/index.css" />
-    <script src="https://unpkg.com/@nepdate/vanilla/dist/nepdate-picker.global.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@nepdatejs/styles/index.css" />
+    <script src="https://unpkg.com/@nepdatejs/vanilla/dist/nepdate-picker.global.js"></script>
   </head>
   <body>
     <form action="/save" method="post">
@@ -37,7 +37,7 @@ are on `window.NepDateElements`, for example `NepDateElements.createDatePicker`.
 To convert and format with no components, load core. It's on `window.NepDate`:
 
 ```html
-<script src="https://unpkg.com/@nepdate/core"></script>
+<script src="https://unpkg.com/@nepdatejs/core"></script>
 <script>
   const today = NepDate.today('BS');
 
@@ -49,19 +49,19 @@ To convert and format with no components, load core. It's on `window.NepDate`:
 
 | Package | File | Global |
 |---|---|---|
-| `@nepdate/vanilla` | `dist/nepdate-picker.global.js` | `NepDateElements` |
-| `@nepdate/core` | `dist/nepdate.global.js` | `NepDate` |
-| `@nepdate/calendar` | `dist/nepdate-calendar.global.js` | `NepDateCalendar` |
-| `@nepdate/datepicker` | `dist/nepdate-datepicker.global.js` | `NepDatePicker` |
-| `@nepdate/styles` | `index.css` | |
+| `@nepdatejs/vanilla` | `dist/nepdate-picker.global.js` | `NepDateElements` |
+| `@nepdatejs/core` | `dist/nepdate.global.js` | `NepDate` |
+| `@nepdatejs/calendar` | `dist/nepdate-calendar.global.js` | `NepDateCalendar` |
+| `@nepdatejs/datepicker` | `dist/nepdate-datepicker.global.js` | `NepDatePicker` |
+| `@nepdatejs/styles` | `index.css` | |
 
 ## Pin a version
 
 For production, pin a version so a new release can't change your site unexpectedly:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@nepdate/styles@0.1.0/index.css" />
-<script src="https://unpkg.com/@nepdate/vanilla@0.1.0/dist/nepdate-picker.global.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@nepdatejs/styles@0.1.0/index.css" />
+<script src="https://unpkg.com/@nepdatejs/vanilla@0.1.0/dist/nepdate-picker.global.js"></script>
 ```
 
 [jsDelivr](https://www.jsdelivr.com/) works too: replace `https://unpkg.com/` with

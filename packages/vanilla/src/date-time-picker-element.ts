@@ -1,4 +1,4 @@
-import type { SinglePreset } from '@nepdate/datepicker';
+import type { SinglePreset } from '@nepdatejs/datepicker';
 import { DateTimePickerView, type DateTimePickerViewOptions } from './datetime-view';
 import {
   Base,

@@ -1,4 +1,4 @@
-# @nepdate/styles
+# @nepdatejs/styles
 
 [[toc]]
 
@@ -6,9 +6,9 @@ The stylesheet for the components. It's plain CSS.
 
 | Import | Contains |
 |---|---|
-| `@nepdate/styles` | Tokens and components |
-| `@nepdate/styles/tokens.css` | The `--ndp-*` variables only |
-| `@nepdate/styles/picker.css` | The component styles only |
+| `@nepdatejs/styles` | Tokens and components |
+| `@nepdatejs/styles/tokens.css` | The `--ndp-*` variables only |
+| `@nepdatejs/styles/picker.css` | The component styles only |
 
 See [Theming](/guide/theming) for every token, and [Markup and classes](/guide/markup) for the
 classes.

@@ -8,7 +8,7 @@ Comparisons work across calendars, because they compare the actual day. A BS dat
 date for the same day are equal.
 
 ```ts
-import { adDate, bsDate, isSameDay } from '@nepdate/core';
+import { adDate, bsDate, isSameDay } from '@nepdatejs/core';
 
 isSameDay(bsDate(2083, 7, 1), adDate(2026, 10, 18)); // → true
 ```
@@ -19,7 +19,7 @@ objects.
 ## Before and after
 
 ```ts
-import { bsDate, isAfter, isBefore } from '@nepdate/core';
+import { bsDate, isAfter, isBefore } from '@nepdatejs/core';
 
 const first = bsDate(2083, 7, 1);
 const second = bsDate(2083, 7, 2);
@@ -31,7 +31,7 @@ isAfter(first, second); // → false
 ## Same day, month or year
 
 ```ts
-import { bsDate, isSameDay, isSameMonth, isSameYear } from '@nepdate/core';
+import { bsDate, isSameDay, isSameMonth, isSameYear } from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 1);
 
@@ -51,7 +51,7 @@ overlap but aren't the same month, so the result depends on the calendar of the 
 `isWithin(date, min, max)` includes both ends. Either limit can be left out:
 
 ```ts
-import { bsDate, isWithin } from '@nepdate/core';
+import { bsDate, isWithin } from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 15);
 
@@ -65,7 +65,7 @@ isWithin(date, null, bsDate(2083, 7, 15)); // → true
 `clampDate` returns the date, moved to the nearest limit if it falls outside:
 
 ```ts
-import { bsDate, clampDate, formatDate } from '@nepdate/core';
+import { bsDate, clampDate, formatDate } from '@nepdatejs/core';
 
 const min = bsDate(2083, 7, 1);
 const max = bsDate(2083, 7, 29);
@@ -79,7 +79,7 @@ formatDate(clampDate(bsDate(2083, 7, 15), min, max)); // → '2083-07-15'
 `compareDates` returns `-1`, `0` or `1`, so it fits straight into `sort`:
 
 ```ts
-import { bsDate, compareDates, formatDate } from '@nepdate/core';
+import { bsDate, compareDates, formatDate } from '@nepdatejs/core';
 
 const dates = [bsDate(2083, 7, 9), bsDate(2083, 1, 1), bsDate(2083, 7, 2)];
 

@@ -1,11 +1,11 @@
-import { fromIsoDate } from '@nepdate/core';
+import { fromIsoDate } from '@nepdatejs/core';
 import {
   createCalendar as createCalendarStore,
   isDayList,
   type CalendarOptions,
   type CalendarStore,
   type DateRange,
-} from '@nepdate/calendar';
+} from '@nepdatejs/calendar';
 import { CalendarView } from './calendar-view';
 import {
   Base,

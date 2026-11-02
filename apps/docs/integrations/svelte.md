@@ -10,14 +10,14 @@ setup.
 ## Setting up
 
 ```bash
-npm install @nepdate/vanilla @nepdate/styles
+npm install @nepdatejs/vanilla @nepdatejs/styles
 ```
 
 Import these once, for example in your root layout or `main.js`:
 
 ```js
-import '@nepdate/styles';
-import '@nepdate/vanilla/define';
+import '@nepdatejs/styles';
+import '@nepdatejs/vanilla/define';
 ```
 
 ## Using a picker
@@ -55,8 +55,8 @@ Elements exist only in the browser, so register them when the component mounts:
 <script>
   import { onMount } from 'svelte';
 
-  onMount(() => import('@nepdate/vanilla/define'));
+  onMount(() => import('@nepdatejs/vanilla/define'));
 </script>
 ```
 
-Import `@nepdate/styles` in your root `+layout.svelte`. `@nepdate/core` works on the server as is.
+Import `@nepdatejs/styles` in your root `+layout.svelte`. `@nepdatejs/core` works on the server as is.

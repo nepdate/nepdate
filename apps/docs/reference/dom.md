@@ -1,4 +1,4 @@
-# @nepdate/dom
+# @nepdatejs/dom
 
 [[toc]]
 
@@ -7,7 +7,7 @@ package. Every helper is safe to call during server rendering, where it does not
 don't need this directly. It's useful with [headless hooks](/integrations/headless-react).
 
 ```ts
-import { onEscape, onOutsidePointer, trackPosition } from '@nepdate/dom';
+import { onEscape, onOutsidePointer, trackPosition } from '@nepdatejs/dom';
 
 function open(input: HTMLElement, field: HTMLElement, panel: HTMLElement) {
   const stops = [

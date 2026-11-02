@@ -8,7 +8,7 @@ Nepal's fiscal year runs from **1 Shrawan** to the last day of **Asar**, about m
 mid-July. So the fiscal year that begins in BS 2083 ends in BS 2084, and is written `2083/84`.
 
 ```ts
-import { bsDate, fiscalYear } from '@nepdate/core';
+import { bsDate, fiscalYear } from '@nepdatejs/core';
 
 const fy = fiscalYear(bsDate(2083, 7, 1));
 
@@ -23,7 +23,7 @@ fy.startYear; // → 2083
 This takes any date, in either calendar, and gives the fiscal year it falls in:
 
 ```ts
-import { adDate, bsDate, fiscalYear } from '@nepdate/core';
+import { adDate, bsDate, fiscalYear } from '@nepdatejs/core';
 
 fiscalYear(bsDate(2083, 4, 1)).label; // → '2083/84'
 fiscalYear(bsDate(2083, 3, 15)).label; // → '2082/83'
@@ -35,7 +35,7 @@ fiscalYear(adDate(2026, 10, 18)).label; // → '2083/84'
 This builds a fiscal year from the BS year it starts in:
 
 ```ts
-import { fiscalYearRange, formatDate } from '@nepdate/core';
+import { fiscalYearRange, formatDate } from '@nepdatejs/core';
 
 const fy = fiscalYearRange(2083);
 
@@ -55,7 +55,7 @@ A `FiscalYear` is a frozen object:
 ## Checking a date
 
 ```ts
-import { bsDate, fiscalYearRange, isInFiscalYear } from '@nepdate/core';
+import { bsDate, fiscalYearRange, isInFiscalYear } from '@nepdatejs/core';
 
 const fy = fiscalYearRange(2083);
 
@@ -68,7 +68,7 @@ isInFiscalYear(bsDate(2083, 2, 1), fy); // → false
 `formatFiscalYear` has three styles, and digits follow the locale:
 
 ```ts
-import { fiscalYearRange, formatFiscalYear } from '@nepdate/core';
+import { fiscalYearRange, formatFiscalYear } from '@nepdatejs/core';
 
 const fy = fiscalYearRange(2083);
 
@@ -87,7 +87,7 @@ To read one back, use [`parseFiscalYear`](./parsing#fiscal-years).
 To filter stored AD dates, turn the two ends into AD strings:
 
 ```ts
-import { fiscalYearRange, toIsoDate } from '@nepdate/core';
+import { fiscalYearRange, toIsoDate } from '@nepdatejs/core';
 
 const fy = fiscalYearRange(2083);
 

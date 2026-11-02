@@ -1,5 +1,5 @@
 {
-  "name": "@nepdate/react",
+  "name": "@nepdatejs/react",
   "version": "0.0.0",
   "description": "Nepali BS/AD date picker and calendar for React: headless hooks and styled components.",
   "keywords": [
@@ -27,7 +27,7 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "@nepdate/source": "./src/index.ts",
+      "@nepdatejs/source": "./src/index.ts",
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
@@ -38,7 +38,7 @@
       }
     },
     "./headless": {
-      "@nepdate/source": "./src/headless.ts",
+      "@nepdatejs/source": "./src/headless.ts",
       "import": {
         "types": "./dist/headless.d.ts",
         "default": "./dist/headless.js"
@@ -49,7 +49,7 @@
       }
     },
     "./server": {
-      "@nepdate/source": "./src/server.ts",
+      "@nepdatejs/source": "./src/server.ts",
       "import": {
         "types": "./dist/server.d.ts",
         "default": "./dist/server.js"
@@ -80,11 +80,11 @@
     "check:package": "publint --strict && attw --pack"
   },
   "dependencies": {
-    "@nepdate/calendar": "workspace:^",
-    "@nepdate/core": "workspace:^",
-    "@nepdate/datepicker": "workspace:^",
-    "@nepdate/dom": "workspace:^",
-    "@nepdate/styles": "workspace:^"
+    "@nepdatejs/calendar": "workspace:^",
+    "@nepdatejs/core": "workspace:^",
+    "@nepdatejs/datepicker": "workspace:^",
+    "@nepdatejs/dom": "workspace:^",
+    "@nepdatejs/styles": "workspace:^"
   },
   "peerDependencies": {
     "react": ">=18",

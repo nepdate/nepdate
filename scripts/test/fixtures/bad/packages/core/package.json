@@ -1,5 +1,5 @@
 {
-  "name": "@nepdate/core",
+  "name": "@nepdatejs/core",
   "dependencies": {
     "left-pad": "1.0.0"
   }

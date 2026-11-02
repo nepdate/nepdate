@@ -1,12 +1,12 @@
 import { useId, type ChangeEvent, type KeyboardEvent } from 'react';
-import { getLocale, type CalendarSystem } from '@nepdate/core';
+import { getLocale, type CalendarSystem } from '@nepdatejs/core';
 import {
   createCalendar,
   type CalendarOptions,
   type CalendarState,
   type CalendarStore,
-} from '@nepdate/calendar';
-import type { PresetState } from '@nepdate/datepicker';
+} from '@nepdatejs/calendar';
+import type { PresetState } from '@nepdatejs/datepicker';
 import {
   createDatePicker,
   createDateRangePicker,
@@ -25,7 +25,7 @@ import {
   type MultiDatePickerState,
   type MultiDatePickerStore,
   type RangeField,
-} from '@nepdate/datepicker';
+} from '@nepdatejs/datepicker';
 import { useCalendarBindings, type ButtonProps, type CalendarBindings } from './bindings';
 import { useStore } from './use-store';
 

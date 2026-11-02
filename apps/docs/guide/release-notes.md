@@ -9,14 +9,14 @@ release may contain breaking changes, and they are listed here.
 
 The first version. It includes:
 
-**Dates (`@nepdate/core`)**
+**Dates (`@nepdatejs/core`)**
 
 - BS and AD conversion for BS 1970–2099, with a table that can be corrected at run time.
 - Formatting and parsing in English and Nepali, with ASCII or Devanagari digits.
 - Date arithmetic, comparison, and Nepal's fiscal year.
 - Time of day and time zones, with Nepal time by default.
 
-**Components (`@nepdate/react`, `@nepdate/vanilla`)**
+**Components (`@nepdatejs/react`, `@nepdatejs/vanilla`)**
 
 - Date picker, date range picker, date and time picker, and a picker for several separate dates.
 - A calendar with month, year and fiscal-year views.
@@ -26,5 +26,5 @@ The first version. It includes:
 
 **Other**
 
-- `@nepdate/holidays`: national days and a loader for each year's published list.
-- `@nepdate/calendar` and `@nepdate/datepicker`: framework-free logic for building your own UI.
+- `@nepdatejs/holidays`: national days and a loader for each year's published list.
+- `@nepdatejs/calendar` and `@nepdatejs/datepicker`: framework-free logic for building your own UI.

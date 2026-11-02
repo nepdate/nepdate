@@ -1,6 +1,6 @@
 /**
  * Enforces the package rules in boundaries.json (docs/plan/01-architecture.md):
- * which @nepdate packages each package may import, which outside packages it may
+ * which @nepdatejs packages each package may import, which outside packages it may
  * use, that core/dom/styles depend on no package, and that Node built-ins are
  * only used under a package's src/node/ folder.
  *
@@ -28,7 +28,7 @@ export interface Violation {
   message: string;
 }
 
-const SCOPE = '@nepdate/';
+const SCOPE = '@nepdatejs/';
 const SOURCE_FILE = /\.(?:ts|tsx|mts|cts)$/;
 const TEST_FILE = /\.test(?:-d)?\.tsx?$/;
 const NODE_BUILTINS = new Set(builtinModules);
@@ -72,12 +72,12 @@ export function checkBoundaries(root: string): Violation[] {
     if (boundaries.noPackageDependencies.includes(name) && declared.size > 0) {
       report(
         manifestPath,
-        `@nepdate/${name} must not depend on any package, but lists: ${[...declared].join(', ')}.`,
+        `@nepdatejs/${name} must not depend on any package, but lists: ${[...declared].join(', ')}.`,
       );
     }
     for (const dep of declared) {
       if (!isAllowed(dep, rule)) {
-        report(manifestPath, `@nepdate/${name} may not depend on ${dep}.`);
+        report(manifestPath, `@nepdatejs/${name} may not depend on ${dep}.`);
       }
     }
 
@@ -105,7 +105,7 @@ export function checkBoundaries(root: string): Violation[] {
         }
         const pkg = packageName(specifier);
         if (!isAllowed(pkg, rule)) {
-          report(file, `@nepdate/${name} may not import "${specifier}".`);
+          report(file, `@nepdatejs/${name} may not import "${specifier}".`);
         } else if (!declared.has(pkg) && pkg !== `${SCOPE}${name}`) {
           report(file, `"${specifier}" is imported but ${pkg} is not in package.json.`);
         }

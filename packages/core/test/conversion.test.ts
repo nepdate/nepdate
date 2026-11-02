@@ -17,7 +17,7 @@ import {
   toEpoch,
   toEpochDay,
   toIsoDate,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import { BS_NEW_YEAR_AD, KNOWN_CONVERSIONS } from './fixtures/known-conversions';
 import { ad, bs, ymd } from './helpers';
 

@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, test, vi } from 'vitest';
-import { bsDate } from '@nepdate/core';
-import { createDateTimePicker, type DateTimeDetail } from '@nepdate/datepicker';
+import { bsDate } from '@nepdatejs/core';
+import { createDateTimePicker, type DateTimeDetail } from '@nepdatejs/datepicker';
 import { TODAY } from './helpers';
 
 const make = (options: Parameters<typeof createDateTimePicker>[0] = {}) =>

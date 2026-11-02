@@ -12,7 +12,7 @@ import {
   type CalendarSystem,
   type LocaleCode,
   type Weekday,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import { isInLimits, type Limits } from './limits';
 import type {
   CalendarSelection,

@@ -23,7 +23,7 @@ import {
   weekdayNames,
   weekdayOf,
   type LocaleData,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 
 afterEach(() => {
   resetConfig();

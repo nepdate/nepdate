@@ -1,7 +1,7 @@
 /**
- * @nepdate/react: BS/AD date picker and calendar for React. Headless hooks
+ * @nepdatejs/react: BS/AD date picker and calendar for React. Headless hooks
  * (useCalendar, useDatePicker, useDateRangePicker, …) and styled components that
- * use the @nepdate/styles classes (import '@nepdate/styles' once).
+ * use the @nepdatejs/styles classes (import '@nepdatejs/styles' once).
  */
 export { Calendar, type CalendarProps } from './calendar';
 export { DatePicker, type DatePickerProps } from './date-picker';

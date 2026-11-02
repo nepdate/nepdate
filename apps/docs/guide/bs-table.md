@@ -17,7 +17,7 @@ day here and there when it comes out.
 `isProjected` tells you when a date falls in a projected year:
 
 ```ts
-import { adDate, bsDate, isProjected } from '@nepdate/core';
+import { adDate, bsDate, isProjected } from '@nepdatejs/core';
 
 isProjected(bsDate(2083, 12, 30)); // → false
 isProjected(bsDate(2084, 1, 1)); // → true
@@ -32,7 +32,7 @@ If a calendar is published that differs from the table, you don't have to wait f
 release. `patchBsYear` replaces one year's twelve month lengths:
 
 ```ts
-import { bsDate, daysInMonth, patchBsYear, toIsoDate } from '@nepdate/core';
+import { bsDate, daysInMonth, patchBsYear, toIsoDate } from '@nepdatejs/core';
 
 const before = toIsoDate(bsDate(2083, 1, 1));
 
@@ -58,7 +58,7 @@ table by one year.
 returns the table in use.
 
 ```ts
-import { getBsData, resetBsData, setBsData } from '@nepdate/core';
+import { getBsData, resetBsData, setBsData } from '@nepdatejs/core';
 
 const table = getBsData();
 
@@ -87,7 +87,7 @@ Every table is checked before it is used. `validateBsData` runs the same checks 
 changing anything:
 
 ```ts
-import { getBsData, validateBsData } from '@nepdate/core';
+import { getBsData, validateBsData } from '@nepdatejs/core';
 
 validateBsData(getBsData());
 ```
@@ -101,7 +101,7 @@ names the year and month at fault. See [Errors](./errors).
 To use the table without any of the functions, for example to generate something at build time:
 
 ```ts
-import { BS_DATA } from '@nepdate/core/data';
+import { BS_DATA } from '@nepdatejs/core/data';
 
 BS_DATA.firstYear; // → 1970
 ```

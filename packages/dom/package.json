@@ -1,7 +1,7 @@
 {
-  "name": "@nepdate/dom",
+  "name": "@nepdatejs/dom",
   "version": "0.0.0",
-  "description": "Tiny browser helpers for @nepdate adapters: popover placement, outside click, Escape, focus.",
+  "description": "Tiny browser helpers for @nepdatejs adapters: popover placement, outside click, Escape, focus.",
   "keywords": [
     "nepali",
     "bikram-sambat",
@@ -27,7 +27,7 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "@nepdate/source": "./src/index.ts",
+      "@nepdatejs/source": "./src/index.ts",
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"

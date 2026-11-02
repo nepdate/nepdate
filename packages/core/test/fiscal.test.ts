@@ -6,7 +6,7 @@ import {
   fiscalYear,
   fiscalYearRange,
   isInFiscalYear,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import { FISCAL_YEAR_STARTS } from './fixtures/known-conversions';
 import { ad, ymd } from './helpers';
 

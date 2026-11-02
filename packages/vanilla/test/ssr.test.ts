@@ -2,7 +2,7 @@
 import { expect, test } from 'vitest';
 
 test('importing the package during server rendering does not throw', async () => {
-  const module = await import('@nepdate/vanilla');
+  const module = await import('@nepdatejs/vanilla');
   expect(module.ELEMENT_NAMES.datePicker).toBe('nep-date-picker');
   expect(() => {
     module.defineElements();

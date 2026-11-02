@@ -7,7 +7,7 @@ import {
   isValidDate,
   toEpoch,
   toEpochDay,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 
 const DAY_MS = 86_400_000;
 

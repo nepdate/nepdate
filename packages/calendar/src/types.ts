@@ -5,7 +5,7 @@ import type {
   LocaleCode,
   MonthNumber,
   Weekday,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 
 /** 'fiscal' shows Nepal's fiscal years (1 Shrawan – end of Asar) as tiles. */
 export type CalendarView = 'day' | 'month' | 'year' | 'fiscal';

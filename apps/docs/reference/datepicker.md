@@ -1,11 +1,11 @@
-# @nepdate/datepicker
+# @nepdatejs/datepicker
 
 [[toc]]
 
 Picker logic with no UI. See [Framework-free stores](/integrations/stores) for how to use it.
 
 ```ts
-import { createDatePicker } from '@nepdate/datepicker';
+import { createDatePicker } from '@nepdatejs/datepicker';
 ```
 
 ## Stores

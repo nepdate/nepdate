@@ -4,16 +4,16 @@
 
 ## Introduction
 
-`@nepdate/holidays` knows Nepal's **fixed-date national days**, and can load **each year's official
-list** for everything else. It works with `@nepdate/core`, and plugs into the calendar and pickers.
+`@nepdatejs/holidays` knows Nepal's **fixed-date national days**, and can load **each year's official
+list** for everything else. It works with `@nepdatejs/core`, and plugs into the calendar and pickers.
 
 ```bash
-npm install @nepdate/holidays
+npm install @nepdatejs/holidays
 ```
 
 ```ts
-import { adDate } from '@nepdate/core';
-import { holidaysFor, holidaysOn, isHoliday } from '@nepdate/holidays';
+import { adDate } from '@nepdatejs/core';
+import { holidaysFor, holidaysOn, isHoliday } from '@nepdatejs/holidays';
 
 holidaysFor(2083).length; // → 7
 isHoliday(adDate(2026, 9, 19)); // → true
@@ -45,7 +45,7 @@ government notice. For leave and payroll, load each year's published list, as sh
 `holidaysFor` takes a BS year and returns its holidays in date order:
 
 ```ts
-import { holidaysFor } from '@nepdate/holidays';
+import { holidaysFor } from '@nepdatejs/holidays';
 
 const [first] = holidaysFor(2083);
 
@@ -59,8 +59,8 @@ first?.type; // → 'national'
 `holidaysOn` and `isHoliday` accept a date in either calendar:
 
 ```ts
-import { bsDate } from '@nepdate/core';
-import { holidaysOn, isHoliday } from '@nepdate/holidays';
+import { bsDate } from '@nepdatejs/core';
+import { holidaysOn, isHoliday } from '@nepdatejs/holidays';
 
 isHoliday(bsDate(2083, 6, 3)); // → true
 isHoliday(bsDate(2083, 6, 4)); // → false
@@ -72,8 +72,8 @@ holidaysOn(bsDate(2083, 6, 4)); // → []
 `holidaysBetween` crosses years, which is handy for fiscal-year reports:
 
 ```ts
-import { bsDate } from '@nepdate/core';
-import { holidaysBetween } from '@nepdate/holidays';
+import { bsDate } from '@nepdatejs/core';
+import { holidaysBetween } from '@nepdatejs/holidays';
 
 holidaysBetween(bsDate(2083, 6, 1), bsDate(2083, 11, 30)).map((holiday) => holiday.id).length; // → 4
 ```
@@ -83,7 +83,7 @@ holidaysBetween(bsDate(2083, 6, 1), bsDate(2083, 11, 30)).map((holiday) => holid
 Every lookup takes the same filter:
 
 ```ts
-import { holidaysFor } from '@nepdate/holidays';
+import { holidaysFor } from '@nepdatejs/holidays';
 
 holidaysFor(2083, { types: ['national'] }).length; // → 7
 holidaysFor(2083, { includeFixed: false }); // → []
@@ -97,7 +97,7 @@ holidaysFor(2083, { includeFixed: false }); // → []
 ### Names
 
 ```ts
-import { holidayName, holidaysFor } from '@nepdate/holidays';
+import { holidayName, holidaysFor } from '@nepdatejs/holidays';
 
 const [first] = holidaysFor(2083);
 
@@ -110,8 +110,8 @@ first && holidayName(first, 'ne'); // → 'नयाँ वर्ष'
 hear the name:
 
 ```tsx
-import { toCalendarHolidays } from '@nepdate/holidays';
-import { Calendar, DatePicker } from '@nepdate/react';
+import { toCalendarHolidays } from '@nepdatejs/holidays';
+import { Calendar, DatePicker } from '@nepdatejs/react';
 
 const holidays = toCalendarHolidays({ locale: 'ne' });
 
@@ -132,7 +132,7 @@ It takes the same `types` and `includeFixed` filter, plus `locale`.
 `registerHolidays` adds days for a year, such as school or company closures:
 
 ```ts
-import { holidaysFor, registerHolidays } from '@nepdate/holidays';
+import { holidaysFor, registerHolidays } from '@nepdatejs/holidays';
 
 registerHolidays(2083, [
   {
@@ -181,7 +181,7 @@ Then load it. The file is checked first:
 
 <!-- no-check -->
 ```ts
-import { loadHolidayFile } from '@nepdate/holidays';
+import { loadHolidayFile } from '@nepdatejs/holidays';
 
 const response = await fetch('/holidays/2083.json');
 
@@ -191,7 +191,7 @@ loadHolidayFile(await response.json());
 A bad file throws `HolidayDataError`, whose `path` shows where the problem is:
 
 ```ts
-import { HolidayDataError, parseHolidayFile } from '@nepdate/holidays';
+import { HolidayDataError, parseHolidayFile } from '@nepdatejs/holidays';
 
 try {
   parseHolidayFile({ year: 2083, source: 'notice', holidays: [{ id: '' }] });
@@ -207,7 +207,7 @@ try {
 ## Managing lists
 
 ```ts
-import { clearHolidays, registerHolidays, registeredYears } from '@nepdate/holidays';
+import { clearHolidays, registerHolidays, registeredYears } from '@nepdatejs/holidays';
 
 registerHolidays(2083, []);
 registeredYears(); // → [2083]

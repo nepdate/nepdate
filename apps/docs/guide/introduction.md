@@ -7,14 +7,14 @@
 nepdate is a set of JavaScript packages for working with **Bikram Sambat (BS)**, the
 official calendar of Nepal, alongside the Gregorian calendar (**AD**). It has two parts:
 
-- **A date engine.** `@nepdate/core` converts between BS and AD, formats and parses dates in
+- **A date engine.** `@nepdatejs/core` converts between BS and AD, formats and parses dates in
   English and Nepali, does date arithmetic, and knows Nepal's fiscal year. It depends on no
   other package and runs anywhere JavaScript runs.
 - **A calendar and date pickers.** Ready-made components for React and for plain HTML
   (Web Components), so they also work in Vue, Svelte, Angular and Laravel Blade.
 
 ```ts
-import { adDate, adToBs, formatDate } from '@nepdate/core';
+import { adDate, adToBs, formatDate } from '@nepdatejs/core';
 
 const bs = adToBs(adDate(2026, 10, 18));
 
@@ -41,40 +41,40 @@ nepdate is designed around these problems. See [How it works](./concepts) for th
 
 | You want to | Use |
 |---|---|
-| Convert, format or calculate dates | [`@nepdate/core`](./dates) |
-| Add a date picker in React | [`@nepdate/react`](/integrations/react) |
-| Add a date picker in HTML, Vue, Svelte, Angular or Blade | [`@nepdate/vanilla`](/integrations/web-components) |
-| Show Nepal's national holidays | [`@nepdate/holidays`](./holidays) |
-| Change how the components look | [`@nepdate/styles`](./theming) |
-| Build your own picker UI | [`@nepdate/calendar` and `@nepdate/datepicker`](/integrations/stores) |
+| Convert, format or calculate dates | [`@nepdatejs/core`](./dates) |
+| Add a date picker in React | [`@nepdatejs/react`](/integrations/react) |
+| Add a date picker in HTML, Vue, Svelte, Angular or Blade | [`@nepdatejs/vanilla`](/integrations/web-components) |
+| Show Nepal's national holidays | [`@nepdatejs/holidays`](./holidays) |
+| Change how the components look | [`@nepdatejs/styles`](./theming) |
+| Build your own picker UI | [`@nepdatejs/calendar` and `@nepdatejs/datepicker`](/integrations/stores) |
 
 ## The packages
 
 | Package | What it does | Depends on |
 |---|---|---|
-| `@nepdate/core` | Conversion, formatting, parsing, arithmetic, fiscal year, time | Nothing |
-| `@nepdate/calendar` | Calendar logic with no UI: grids, keyboard moves, day states | core |
-| `@nepdate/datepicker` | Picker logic with no UI: typed text, validation, BS/AD switch | core, calendar |
-| `@nepdate/react` | React components and hooks | calendar, datepicker, dom |
-| `@nepdate/vanilla` | Web Components and a plain JavaScript API | calendar, datepicker, dom |
-| `@nepdate/styles` | The stylesheet, with light and dark themes | Nothing |
-| `@nepdate/holidays` | National holidays and a loader for yearly lists | core |
-| `@nepdate/dom` | Small browser helpers the components share | Nothing |
+| `@nepdatejs/core` | Conversion, formatting, parsing, arithmetic, fiscal year, time | Nothing |
+| `@nepdatejs/calendar` | Calendar logic with no UI: grids, keyboard moves, day states | core |
+| `@nepdatejs/datepicker` | Picker logic with no UI: typed text, validation, BS/AD switch | core, calendar |
+| `@nepdatejs/react` | React components and hooks | calendar, datepicker, dom |
+| `@nepdatejs/vanilla` | Web Components and a plain JavaScript API | calendar, datepicker, dom |
+| `@nepdatejs/styles` | The stylesheet, with light and dark themes | Nothing |
+| `@nepdatejs/holidays` | National holidays and a loader for yearly lists | core |
+| `@nepdatejs/dom` | Small browser helpers the components share | Nothing |
 
-You only install what you need. Most apps install one of `@nepdate/react` or
-`@nepdate/vanilla`, plus `@nepdate/styles`.
+You only install what you need. Most apps install one of `@nepdatejs/react` or
+`@nepdatejs/vanilla`, plus `@nepdatejs/styles`.
 
 ## Size
 
-`@nepdate/core` is under 8 kB gzipped if you bundle all of it, and bundlers keep only what
+`@nepdatejs/core` is under 8 kB gzipped if you bundle all of it, and bundlers keep only what
 you import: a page that only uses `adToBs` ships about 2 kB. CI fails if a package grows past
 its budget.
 
 | Import | Gzipped |
 |---|---|
-| `{ adToBs }` from `@nepdate/core` | 2.1 kB |
-| All of `@nepdate/core` | 7.9 kB |
-| One Web Component, such as `@nepdate/vanilla/date-picker` | 6.6 kB, plus core and the stylesheet |
+| `{ adToBs }` from `@nepdatejs/core` | 2.1 kB |
+| All of `@nepdatejs/core` | 7.9 kB |
+| One Web Component, such as `@nepdatejs/vanilla/date-picker` | 6.6 kB, plus core and the stylesheet |
 | All the Web Components as one `<script>` file | 24.5 kB, including core |
 
 ## Browser and runtime support

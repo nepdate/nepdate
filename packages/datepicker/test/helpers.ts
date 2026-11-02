@@ -1,4 +1,4 @@
-import { fromIsoDate, parseDate, type AdDate, type BsDate } from '@nepdate/core';
+import { fromIsoDate, parseDate, type AdDate, type BsDate } from '@nepdatejs/core';
 
 export function bs(text: string): BsDate {
   const date = parseDate(text, 'BS');

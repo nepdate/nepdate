@@ -1,5 +1,5 @@
 {
-  "name": "@nepdate/calendar",
+  "name": "@nepdatejs/calendar",
   "version": "0.0.0",
   "description": "Framework-free BS/AD calendar view model: month/year grids, keyboard navigation, day states.",
   "keywords": [
@@ -27,7 +27,7 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "@nepdate/source": "./src/index.ts",
+      "@nepdatejs/source": "./src/index.ts",
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
@@ -60,7 +60,7 @@
     "check:package": "publint --strict && attw --pack"
   },
   "dependencies": {
-    "@nepdate/core": "workspace:^"
+    "@nepdatejs/core": "workspace:^"
   },
   "publishConfig": {
     "access": "public"

@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from 'vitest';
-import { adDate, bsDate, toIsoDate } from '@nepdate/core';
+import { adDate, bsDate, toIsoDate } from '@nepdatejs/core';
 import {
   createDatePicker,
   createDateRangePicker,
@@ -7,7 +7,7 @@ import {
   resolveSinglePreset,
   type PresetContext,
   type RangePresetId,
-} from '@nepdate/datepicker';
+} from '@nepdatejs/datepicker';
 import { TODAY } from './helpers';
 
 const bsContext: PresetContext = { today: TODAY, calendar: 'BS', weekStartsOn: 0 };

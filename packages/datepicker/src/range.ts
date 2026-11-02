@@ -10,8 +10,8 @@ import {
   type AdDate,
   type CalendarDate,
   type CalendarSystem,
-} from '@nepdate/core';
-import { createCalendar } from '@nepdate/calendar';
+} from '@nepdatejs/core';
+import { createCalendar } from '@nepdatejs/calendar';
 import {
   createEmitter,
   formatOf,

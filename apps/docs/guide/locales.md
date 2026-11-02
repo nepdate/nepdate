@@ -8,7 +8,7 @@ nepdate includes English (`en`) and Nepali (`ne`). A locale covers digits, month
 names, button labels, shortcut names and error messages.
 
 ```ts
-import { bsDate, formatDate } from '@nepdate/core';
+import { bsDate, formatDate } from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 1);
 
@@ -25,7 +25,7 @@ Pass the locale as an argument, as above.
 ### For the whole app
 
 ```ts
-import { configure } from '@nepdate/core';
+import { configure } from '@nepdatejs/core';
 
 configure({ defaultLocale: 'ne' });
 ```
@@ -71,7 +71,7 @@ To use different spellings, register a locale based on a built-in one, as shown 
 you need:
 
 ```ts
-import { bsDate, formatDate, getLocale, registerLocale } from '@nepdate/core';
+import { bsDate, formatDate, getLocale, registerLocale } from '@nepdatejs/core';
 
 const en = getLocale('en');
 
@@ -111,7 +111,7 @@ A locale that hasn't been registered falls back to English.
 Change any message the same way:
 
 ```ts
-import { getLocale, registerLocale } from '@nepdate/core';
+import { getLocale, registerLocale } from '@nepdatejs/core';
 
 const en = getLocale('en');
 

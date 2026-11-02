@@ -223,28 +223,28 @@ importers:
 
   apps/docs:
     dependencies:
-      '@nepdate/calendar':
+      '@nepdatejs/calendar':
         specifier: workspace:*
         version: link:../../packages/calendar
-      '@nepdate/core':
+      '@nepdatejs/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@nepdate/datepicker':
+      '@nepdatejs/datepicker':
         specifier: workspace:*
         version: link:../../packages/datepicker
-      '@nepdate/dom':
+      '@nepdatejs/dom':
         specifier: workspace:*
         version: link:../../packages/dom
-      '@nepdate/holidays':
+      '@nepdatejs/holidays':
         specifier: workspace:*
         version: link:../../packages/holidays
-      '@nepdate/react':
+      '@nepdatejs/react':
         specifier: workspace:*
         version: link:../../packages/react
-      '@nepdate/styles':
+      '@nepdatejs/styles':
         specifier: workspace:*
         version: link:../../packages/styles
-      '@nepdate/vanilla':
+      '@nepdatejs/vanilla':
         specifier: workspace:*
         version: link:../../packages/vanilla
     devDependencies:
@@ -266,22 +266,22 @@ importers:
 
   apps/playground:
     dependencies:
-      '@nepdate/calendar':
+      '@nepdatejs/calendar':
         specifier: workspace:*
         version: link:../../packages/calendar
-      '@nepdate/core':
+      '@nepdatejs/core':
         specifier: workspace:*
         version: link:../../packages/core
-      '@nepdate/datepicker':
+      '@nepdatejs/datepicker':
         specifier: workspace:*
         version: link:../../packages/datepicker
-      '@nepdate/react':
+      '@nepdatejs/react':
         specifier: workspace:*
         version: link:../../packages/react
-      '@nepdate/styles':
+      '@nepdatejs/styles':
         specifier: workspace:*
         version: link:../../packages/styles
-      '@nepdate/vanilla':
+      '@nepdatejs/vanilla':
         specifier: workspace:*
         version: link:../../packages/vanilla
       axe-core:
@@ -312,7 +312,7 @@ importers:
 
   packages/calendar:
     dependencies:
-      '@nepdate/core':
+      '@nepdatejs/core':
         specifier: workspace:^
         version: link:../core
 
@@ -320,10 +320,10 @@ importers:
 
   packages/datepicker:
     dependencies:
-      '@nepdate/calendar':
+      '@nepdatejs/calendar':
         specifier: workspace:^
         version: link:../calendar
-      '@nepdate/core':
+      '@nepdatejs/core':
         specifier: workspace:^
         version: link:../core
 
@@ -331,25 +331,25 @@ importers:
 
   packages/holidays:
     dependencies:
-      '@nepdate/core':
+      '@nepdatejs/core':
         specifier: workspace:^
         version: link:../core
 
   packages/react:
     dependencies:
-      '@nepdate/calendar':
+      '@nepdatejs/calendar':
         specifier: workspace:^
         version: link:../calendar
-      '@nepdate/core':
+      '@nepdatejs/core':
         specifier: workspace:^
         version: link:../core
-      '@nepdate/datepicker':
+      '@nepdatejs/datepicker':
         specifier: workspace:^
         version: link:../datepicker
-      '@nepdate/dom':
+      '@nepdatejs/dom':
         specifier: workspace:^
         version: link:../dom
-      '@nepdate/styles':
+      '@nepdatejs/styles':
         specifier: workspace:^
         version: link:../styles
     devDependencies:
@@ -373,19 +373,19 @@ importers:
 
   packages/vanilla:
     dependencies:
-      '@nepdate/calendar':
+      '@nepdatejs/calendar':
         specifier: workspace:^
         version: link:../calendar
-      '@nepdate/core':
+      '@nepdatejs/core':
         specifier: workspace:^
         version: link:../core
-      '@nepdate/datepicker':
+      '@nepdatejs/datepicker':
         specifier: workspace:^
         version: link:../datepicker
-      '@nepdate/dom':
+      '@nepdatejs/dom':
         specifier: workspace:^
         version: link:../dom
-      '@nepdate/styles':
+      '@nepdatejs/styles':
         specifier: workspace:^
         version: link:../styles
 

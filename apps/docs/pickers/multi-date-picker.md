@@ -24,7 +24,7 @@ The value is a list of AD strings, sorted, with no repeats.
 
 ```tsx [React]
 import { useState } from 'react';
-import { MultiDatePicker } from '@nepdate/react';
+import { MultiDatePicker } from '@nepdatejs/react';
 
 export function DaysOff() {
   const [days, setDays] = useState<readonly string[]>([]);

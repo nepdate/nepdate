@@ -2,7 +2,7 @@ import type { CSSProperties, ReactElement } from 'react';
 import type { CalendarBindings } from './bindings';
 import { Icon } from './icons';
 
-/** The calendar markup (@nepdate/styles contract) for any set of bindings. */
+/** The calendar markup (@nepdatejs/styles contract) for any set of bindings. */
 export function CalendarBody({
   bindings,
   className,

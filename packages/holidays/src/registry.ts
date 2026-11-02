@@ -1,4 +1,4 @@
-import { bsDate, isBsDate, parseDate, type BsDate } from '@nepdate/core';
+import { bsDate, isBsDate, parseDate, type BsDate } from '@nepdatejs/core';
 import { HolidayDataError } from './errors';
 import { FIXED_NATIONAL_DAYS } from './fixed';
 import type {

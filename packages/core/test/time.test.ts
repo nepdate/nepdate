@@ -9,7 +9,7 @@ import {
   parseTime,
   timeOfDay,
   toIsoDateTime,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import { ymd } from './helpers';
 
 describe('time of day (TIME-001)', () => {

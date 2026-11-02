@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest';
-import { deepEqual } from '@nepdate/react/headless';
+import { deepEqual } from '@nepdatejs/react/headless';
 
 describe('deepEqual (option syncing)', () => {
   test('compares plain data by value and everything else by identity', () => {

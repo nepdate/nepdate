@@ -1,5 +1,5 @@
 /**
- * @nepdate/holidays: Nepal's fixed-date national days, plus a validated loader
+ * @nepdatejs/holidays: Nepal's fixed-date national days, plus a validated loader
  * for each year's official holiday list (festivals change every year with the
  * lunar calendar, so they come from the published list, not from a rule).
  */

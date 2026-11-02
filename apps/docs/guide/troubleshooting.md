@@ -7,14 +7,14 @@
 You need the stylesheet once in your app:
 
 ```ts
-import '@nepdate/styles';
+import '@nepdatejs/styles';
 ```
 
 With a script tag, add the `<link>` shown in [Script tag (CDN)](/integrations/cdn).
 
 ## `<nep-date-picker>` shows nothing
 
-The element hasn't been registered. Import `@nepdate/vanilla/define`, or load the script. In Vue,
+The element hasn't been registered. Import `@nepdatejs/vanilla/define`, or load the script. In Vue,
 Svelte or a similar framework, also see the guide for your framework.
 
 Elements only exist in the browser, so with server rendering, register them on the client.
@@ -30,7 +30,7 @@ which can be the previous day locally. Don't pass dates through `Date`: use `fro
 stored dates, and `fromIsoTimestamp` for timestamps.
 
 ```ts
-import { fromIsoDate } from '@nepdate/core';
+import { fromIsoDate } from '@nepdatejs/core';
 
 fromIsoDate('2026-10-10')?.day; // → 10
 ```
@@ -55,7 +55,7 @@ work for any year.
 Check the month length: BS months vary from year to year.
 
 ```ts
-import { daysInMonth } from '@nepdate/core';
+import { daysInMonth } from '@nepdatejs/core';
 
 daysInMonth('BS', 2083, 7); // → 30
 ```

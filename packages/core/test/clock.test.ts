@@ -6,7 +6,7 @@ import {
   fromJsDate,
   resetConfig,
   today,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import { ymd } from './helpers';
 
 afterEach(() => {

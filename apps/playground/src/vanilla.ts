@@ -1,6 +1,6 @@
-import '@nepdate/styles/index.css';
+import '@nepdatejs/styles/index.css';
 import './playground.css';
-import '@nepdate/vanilla/define';
+import '@nepdatejs/vanilla/define';
 import { runAxe } from './axe';
 
 const form = document.querySelector<HTMLFormElement>('#form');

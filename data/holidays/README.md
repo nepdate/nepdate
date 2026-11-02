@@ -33,6 +33,6 @@ Add one file per BS year, `<year>.json`, in this format:
 Apps load a list with:
 
 ```ts
-import { loadHolidayFile } from '@nepdate/holidays';
+import { loadHolidayFile } from '@nepdatejs/holidays';
 loadHolidayFile(await (await fetch('/holidays/2083.json')).json());
 ```

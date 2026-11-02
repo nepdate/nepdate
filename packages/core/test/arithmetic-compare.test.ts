@@ -25,7 +25,7 @@ import {
   startOfMonth,
   startOfWeek,
   startOfYear,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import { ad, bs, ymd } from './helpers';
 
 describe('arithmetic (CORE-050..057)', () => {

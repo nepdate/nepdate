@@ -1,5 +1,5 @@
 /**
- * @nepdate/datepicker: BS/AD date picker behaviour, and nothing else. Typed
+ * @nepdatejs/datepicker: BS/AD date picker behaviour, and nothing else. Typed
  * text ⇄ value, validation messages, the BS/AD switch, open/close, single and
  * range values. Renders nothing; adapters do (docs/plan packages/datepicker).
  */

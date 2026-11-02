@@ -1,14 +1,14 @@
-# @nepdate/styles
+# @nepdatejs/styles
 
-The stylesheet for `@nepdate/react` and `@nepdate/vanilla`. It's plain CSS with no build step and no Tailwind, and follows the "Nepali Date Picker & Calendar" UI kit.
+The stylesheet for `@nepdatejs/react` and `@nepdatejs/vanilla`. It's plain CSS with no build step and no Tailwind, and follows the "Nepali Date Picker & Calendar" UI kit.
 
 ```bash
-npm install @nepdate/styles
+npm install @nepdatejs/styles
 ```
 
 ```js
-import '@nepdate/styles'; // tokens + components
-// or: import '@nepdate/styles/tokens.css'; to reuse the variables only
+import '@nepdatejs/styles'; // tokens + components
+// or: import '@nepdatejs/styles/tokens.css'; to reuse the variables only
 ```
 
 ## Theming

@@ -8,7 +8,7 @@ import {
   onOutsidePointer,
   prefersReducedMotion,
   restoreFocus,
-} from '@nepdate/dom';
+} from '@nepdatejs/dom';
 
 afterEach(() => {
   document.body.innerHTML = '';

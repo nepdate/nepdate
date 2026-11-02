@@ -1,5 +1,5 @@
 /**
- * Validates every data/holidays/<year>.json against @nepdate/holidays'
+ * Validates every data/holidays/<year>.json against @nepdatejs/holidays'
  * parseHolidayFile (HOL-003). Run after `pnpm build`.
  *
  * Run: node scripts/check-holidays.ts

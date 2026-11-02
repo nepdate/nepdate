@@ -5,18 +5,18 @@
   "fixed": [],
   "linked": [
     [
-      "@nepdate/calendar",
-      "@nepdate/core",
-      "@nepdate/datepicker",
-      "@nepdate/dom",
-      "@nepdate/holidays",
-      "@nepdate/react",
-      "@nepdate/styles",
-      "@nepdate/vanilla"
+      "@nepdatejs/calendar",
+      "@nepdatejs/core",
+      "@nepdatejs/datepicker",
+      "@nepdatejs/dom",
+      "@nepdatejs/holidays",
+      "@nepdatejs/react",
+      "@nepdatejs/styles",
+      "@nepdatejs/vanilla"
     ]
   ],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@nepdate/playground", "@nepdate/docs"]
+  "ignore": ["@nepdatejs/playground", "@nepdatejs/docs"]
 }

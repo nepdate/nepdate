@@ -4,7 +4,7 @@
 
 ## Introduction
 
-`@nepdate/vanilla` provides the pickers as custom elements, real HTML tags that work anywhere:
+`@nepdatejs/vanilla` provides the pickers as custom elements, real HTML tags that work anywhere:
 plain pages, server templates and every framework.
 
 ```html
@@ -27,12 +27,12 @@ browser autofill and testing libraries can see inside them.
 ### With a bundler
 
 ```bash
-npm install @nepdate/vanilla @nepdate/styles
+npm install @nepdatejs/vanilla @nepdatejs/styles
 ```
 
 ```js
-import '@nepdate/styles';
-import '@nepdate/vanilla/define';
+import '@nepdatejs/styles';
+import '@nepdatejs/vanilla/define';
 ```
 
 Importing `/define` registers every element. It's safe to import more than once, and it skips any
@@ -43,18 +43,18 @@ name that's already taken.
 Each element has its own entry, so a page that needs only one picker ships only that one:
 
 ```js
-import { defineDatePicker } from '@nepdate/vanilla/date-picker';
+import { defineDatePicker } from '@nepdatejs/vanilla/date-picker';
 
 defineDatePicker();
 ```
 
 | Entry | Register with |
 |---|---|
-| `@nepdate/vanilla/date-picker` | `defineDatePicker()` |
-| `@nepdate/vanilla/date-range-picker` | `defineDateRangePicker()` |
-| `@nepdate/vanilla/date-time-picker` | `defineDateTimePicker()` |
-| `@nepdate/vanilla/multi-date-picker` | `defineMultiDatePicker()` |
-| `@nepdate/vanilla/calendar` | `defineCalendar()` |
+| `@nepdatejs/vanilla/date-picker` | `defineDatePicker()` |
+| `@nepdatejs/vanilla/date-range-picker` | `defineDateRangePicker()` |
+| `@nepdatejs/vanilla/date-time-picker` | `defineDateTimePicker()` |
+| `@nepdatejs/vanilla/multi-date-picker` | `defineMultiDatePicker()` |
+| `@nepdatejs/vanilla/calendar` | `defineCalendar()` |
 
 ### With no build step
 
@@ -123,4 +123,4 @@ The elements use the same stylesheet as the React components. See [Theming](/gui
 
 ## Full reference
 
-Every attribute is listed in the [`@nepdate/vanilla` reference](/reference/vanilla).
+Every attribute is listed in the [`@nepdatejs/vanilla` reference](/reference/vanilla).

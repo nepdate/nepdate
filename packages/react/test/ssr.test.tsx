@@ -1,9 +1,9 @@
 // Plain Node: render on the server with no window or document (REACT-021, TEST-043).
 import { renderToString } from 'react-dom/server';
 import { describe, expect, test } from 'vitest';
-import type { CalendarDate } from '@nepdate/core';
-import { Calendar, DatePicker } from '@nepdate/react';
-import { DateText } from '@nepdate/react/server';
+import type { CalendarDate } from '@nepdatejs/core';
+import { Calendar, DatePicker } from '@nepdatejs/react';
+import { DateText } from '@nepdatejs/react/server';
 
 const TODAY: CalendarDate = { calendar: 'AD', year: 2026, month: 10, day: 18 };
 

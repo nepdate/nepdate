@@ -1,12 +1,12 @@
-# @nepdate/vanilla
+# @nepdatejs/vanilla
 
 The BS/AD date picker and calendar for plain JavaScript, as custom elements and a small imperative API. It works in plain HTML, Vue, Svelte, Solid, Laravel Blade, Django and Rails templates.
 
 ## From a CDN
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@nepdate/styles/index.css" />
-<script src="https://unpkg.com/@nepdate/vanilla/dist/nepdate-picker.global.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@nepdatejs/styles/index.css" />
+<script src="https://unpkg.com/@nepdatejs/vanilla/dist/nepdate-picker.global.js"></script>
 
 <form>
   <label for="dob">Date of birth</label>
@@ -17,12 +17,12 @@ The BS/AD date picker and calendar for plain JavaScript, as custom elements and 
 ## With a bundler
 
 ```bash
-npm install @nepdate/vanilla @nepdate/styles
+npm install @nepdatejs/vanilla @nepdatejs/styles
 ```
 
 ```js
-import '@nepdate/styles';
-import '@nepdate/vanilla/define'; // registers the elements
+import '@nepdatejs/styles';
+import '@nepdatejs/vanilla/define'; // registers the elements
 ```
 
 ### One element per page
@@ -30,7 +30,7 @@ import '@nepdate/vanilla/define'; // registers the elements
 Each element has its own entry, so you ship only what you use (the calendar alone is about 3.7 kB of vanilla code instead of 9 kB):
 
 ```js
-import { defineDatePicker } from '@nepdate/vanilla/date-picker';
+import { defineDatePicker } from '@nepdatejs/vanilla/date-picker';
 defineDatePicker();
 ```
 
@@ -110,7 +110,7 @@ Click days to add or remove them, or type them separated by commas. The form get
 ## Without custom elements
 
 ```js
-import { createDatePicker } from '@nepdate/vanilla';
+import { createDatePicker } from '@nepdatejs/vanilla';
 
 // Takes over an existing <input name="dob" value="2026-10-10">, keeping it in step:
 const picker = createDatePicker(document.querySelector('input[name="dob"]'), {

@@ -4,11 +4,11 @@
 
 ## Introduction
 
-`@nepdate/styles` is plain CSS: no Tailwind and no build step. Everything is drawn with `--ndp-*`
+`@nepdatejs/styles` is plain CSS: no Tailwind and no build step. Everything is drawn with `--ndp-*`
 CSS variables, so you can match your design by overriding a few of them.
 
 ```ts
-import '@nepdate/styles';
+import '@nepdatejs/styles';
 ```
 
 ## Your brand colour
@@ -136,5 +136,5 @@ them again, especially `--ndp-text-on-accent` on `--ndp-bg-accent`.
 To reuse the variables in your own CSS without the component styles:
 
 ```ts
-import '@nepdate/styles/tokens.css';
+import '@nepdatejs/styles/tokens.css';
 ```

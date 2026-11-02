@@ -1,7 +1,7 @@
 import { watchEffect } from 'vue';
 import { useData, type Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
-import '@nepdate/styles';
+import '@nepdatejs/styles';
 import './custom.css';
 import Converter from './Converter.vue';
 
@@ -11,7 +11,7 @@ export default {
     app.component('Converter', Converter);
     // Custom elements exist only in the browser.
     if (!import.meta.env.SSR) {
-      void import('@nepdate/vanilla/define');
+      void import('@nepdatejs/vanilla/define');
     }
   },
   setup() {

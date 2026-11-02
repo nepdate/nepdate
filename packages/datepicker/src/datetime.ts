@@ -13,8 +13,8 @@ import {
   type CalendarDate,
   type CalendarSystem,
   type TimeOfDay,
-} from '@nepdate/core';
-import type { CalendarState, CalendarStore } from '@nepdate/calendar';
+} from '@nepdatejs/core';
+import type { CalendarState, CalendarStore } from '@nepdatejs/calendar';
 import { createEmitter, localeOf } from './base';
 import { createDatePicker } from './picker';
 import type { PresetState, SinglePreset } from './presets';

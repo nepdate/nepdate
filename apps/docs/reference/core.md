@@ -1,4 +1,4 @@
-# @nepdate/core
+# @nepdatejs/core
 
 [[toc]]
 
@@ -6,7 +6,7 @@ The date engine. It depends on no package. See the [guide](/guide/dates) for exp
 examples.
 
 ```ts
-import { adDate, adToBs, formatDate } from '@nepdate/core';
+import { adDate, adToBs, formatDate } from '@nepdatejs/core';
 ```
 
 ## Creating and checking
@@ -141,7 +141,7 @@ All of these keep the date's calendar and return a new date.
 | `validateBsData(table)` | Throws `NepDateDataError` if it isn't valid |
 | `bsFirstYear()`, `bsLastYear()` | The table's limits |
 
-`@nepdate/core/data` exports the raw table as `BS_DATA`.
+`@nepdatejs/core/data` exports the raw table as `BS_DATA`.
 
 ## Errors
 

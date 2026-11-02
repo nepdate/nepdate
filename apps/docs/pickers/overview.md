@@ -46,7 +46,7 @@ Every React picker can work in two ways.
 
 ```tsx
 import { useState } from 'react';
-import { DatePicker } from '@nepdate/react';
+import { DatePicker } from '@nepdatejs/react';
 
 export function Controlled() {
   const [value, setValue] = useState('2026-10-18');
@@ -58,7 +58,7 @@ export function Controlled() {
 **Uncontrolled:** the picker holds it, and a plain form reads it through `name`.
 
 ```tsx
-import { DatePicker } from '@nepdate/react';
+import { DatePicker } from '@nepdatejs/react';
 
 export function Uncontrolled() {
   return <DatePicker name="date" defaultValue="2026-10-18" aria-label="Date" />;
@@ -67,10 +67,10 @@ export function Uncontrolled() {
 
 ## Using the stylesheet
 
-The components need `@nepdate/styles`. Import it once:
+The components need `@nepdatejs/styles`. Import it once:
 
 ```ts
-import '@nepdate/styles';
+import '@nepdatejs/styles';
 ```
 
 To change how they look, see [Theming](/guide/theming).

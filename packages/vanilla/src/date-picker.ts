@@ -1,5 +1,5 @@
-/** `@nepdate/vanilla/date-picker`: just the date picker (element, view and mount function). */
-import type { DatePickerState } from '@nepdate/datepicker';
+/** `@nepdatejs/vanilla/date-picker`: just the date picker (element, view and mount function). */
+import type { DatePickerState } from '@nepdatejs/datepicker';
 import { NepDatePickerElement } from './date-picker-element';
 import { DatePickerView, type DatePickerViewOptions } from './picker-view';
 import { defineElement, ELEMENT_NAMES } from './registry';

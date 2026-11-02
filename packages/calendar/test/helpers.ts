@@ -1,5 +1,5 @@
-import { fromIsoDate, parseDate, type AdDate, type BsDate } from '@nepdate/core';
-import type { CalendarState, DayCell } from '@nepdate/calendar';
+import { fromIsoDate, parseDate, type AdDate, type BsDate } from '@nepdatejs/core';
+import type { CalendarState, DayCell } from '@nepdatejs/calendar';
 
 export function bs(text: string): BsDate {
   const date = parseDate(text, 'BS');

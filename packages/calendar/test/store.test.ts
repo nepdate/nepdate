@@ -5,8 +5,8 @@ import {
   isSameDay,
   maxDate,
   type CalendarDate,
-} from '@nepdate/core';
-import { createCalendar, isDayList, type DateRange } from '@nepdate/calendar';
+} from '@nepdatejs/core';
+import { createCalendar, isDayList, type DateRange } from '@nepdatejs/calendar';
 import { ad, bs, cell, cells, TODAY, ymd } from './helpers';
 
 describe('defaults and navigation (CAL-001, CAL-002, CAL-007)', () => {

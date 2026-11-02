@@ -1,8 +1,8 @@
 import { defaultClientConditions, defaultServerConditions } from 'vite';
 import { defineConfig } from 'vitest/config';
 
-/** Resolve @nepdate/* to their TypeScript sources so tests never need a build first. */
-const SOURCE_CONDITION = '@nepdate/source';
+/** Resolve @nepdatejs/* to their TypeScript sources so tests never need a build first. */
+const SOURCE_CONDITION = '@nepdatejs/source';
 
 export default defineConfig({
   resolve: { conditions: [SOURCE_CONDITION, ...defaultClientConditions] },

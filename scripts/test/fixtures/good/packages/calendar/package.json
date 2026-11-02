@@ -1,6 +1,6 @@
 {
-  "name": "@nepdate/calendar",
+  "name": "@nepdatejs/calendar",
   "dependencies": {
-    "@nepdate/core": "workspace:^"
+    "@nepdatejs/core": "workspace:^"
   }
 }

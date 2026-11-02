@@ -5,14 +5,14 @@ import {
   type CalendarSystem,
   type LocaleCode,
   type Weekday,
-} from '@nepdate/core';
-import type { HolidayInput, HolidayLookup } from '@nepdate/calendar';
-import type { DateTimeDetail, SinglePreset } from '@nepdate/datepicker';
+} from '@nepdatejs/core';
+import type { HolidayInput, HolidayLookup } from '@nepdatejs/calendar';
+import type { DateTimeDetail, SinglePreset } from '@nepdatejs/datepicker';
 import { CalendarBody } from './calendar-body';
 import { popupProps, useDateTimePicker } from './hooks';
 import { Icon } from './icons';
 import { usePanel } from './panel';
-import type { PanelLayout } from '@nepdate/dom';
+import type { PanelLayout } from '@nepdatejs/dom';
 import {
   PANEL_WIDTH,
   PANEL_WIDTH_WITH_PRESETS,

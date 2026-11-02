@@ -1,4 +1,4 @@
-/** `@nepdate/vanilla/date-range-picker`: just the range picker. */
+/** `@nepdatejs/vanilla/date-range-picker`: just the range picker. */
 import { NepDateRangePickerElement } from './date-range-picker-element';
 import { DateRangePickerView, type DateRangePickerViewOptions } from './range-view';
 import { defineElement, ELEMENT_NAMES } from './registry';

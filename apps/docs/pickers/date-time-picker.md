@@ -22,7 +22,7 @@ default.
 
 ```tsx [React]
 import { useState } from 'react';
-import { DateTimePicker } from '@nepdate/react';
+import { DateTimePicker } from '@nepdatejs/react';
 
 export function Meeting() {
   const [startsAt, setStartsAt] = useState('');

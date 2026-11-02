@@ -6,7 +6,7 @@ import {
   startOfWeek,
   type CalendarDate,
   type Weekday,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import type { Limits } from './limits';
 import type { FocusKey } from './types';
 

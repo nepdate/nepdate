@@ -5,13 +5,13 @@
 ## Introduction
 
 If you'd rather not use custom elements, you can mount a picker with a function call. These
-functions come from `@nepdate/vanilla`, and they are also the way to enhance an input you already
+functions come from `@nepdatejs/vanilla`, and they are also the way to enhance an input you already
 have.
 
 ## Mounting into a container
 
 ```js
-import { createDatePicker } from '@nepdate/vanilla';
+import { createDatePicker } from '@nepdatejs/vanilla';
 
 const picker = createDatePicker(document.querySelector('#date'), {
   min: '2026-01-01',
@@ -51,7 +51,7 @@ the input's `value` up to date. Your form, validation and server code carry on a
 <input type="text" name="dob" value="2026-10-10" />
 
 <script type="module">
-  import { createDatePicker } from '@nepdate/vanilla';
+  import { createDatePicker } from '@nepdatejs/vanilla';
 
   const picker = createDatePicker(document.querySelector('input[name="dob"]'));
 
@@ -71,7 +71,7 @@ import {
   createDateRangePicker,
   createDateTimePicker,
   createMultiDatePicker,
-} from '@nepdate/vanilla';
+} from '@nepdatejs/vanilla';
 
 const range = createDateRangePicker(document.querySelector('#range'), { maxDays: 15 });
 

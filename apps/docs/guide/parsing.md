@@ -8,7 +8,7 @@ Parsing reads text and gives you a date. You say which calendar the text is in, 
 `2083-07-01` and `2026-07-01` look alike and nepdate won't guess.
 
 ```ts
-import { parseDate } from '@nepdate/core';
+import { parseDate } from '@nepdatejs/core';
 
 parseDate('2083-07-01', 'BS'); // → { calendar: 'BS', year: 2083, month: 7, day: 1 }
 parseDate('2026-10-18', 'AD'); // → { calendar: 'AD', year: 2026, month: 10, day: 18 }
@@ -21,7 +21,7 @@ The year always comes first. You can use dashes, slashes or dots, one or two dig
 month and day, ASCII or Devanagari digits, or eight digits in a row:
 
 ```ts
-import { parseDate } from '@nepdate/core';
+import { parseDate } from '@nepdatejs/core';
 
 parseDate('2083-07-01', 'BS')?.day; // → 1
 parseDate('2083/7/1', 'BS')?.day; // → 1
@@ -35,7 +35,7 @@ Other orders are rejected rather than guessed. `01-07-2083` could mean 1 July or
 it returns `null`.
 
 ```ts
-import { parseDate } from '@nepdate/core';
+import { parseDate } from '@nepdatejs/core';
 
 parseDate('01-07-2083', 'BS'); // → null
 parseDate('1 Kartik 2083', 'BS'); // → null
@@ -49,7 +49,7 @@ Use `parseDate` for anything a person typed or another system sent. It never thr
 only need to check for `null`:
 
 ```ts
-import { parseDate, toIsoDate } from '@nepdate/core';
+import { parseDate, toIsoDate } from '@nepdatejs/core';
 
 function readDate(input: string) {
   const date = parseDate(input, 'BS');
@@ -67,7 +67,7 @@ readDate('tomorrow'); // → 'Please enter a date as YYYY-MM-DD.'
 for example in a data import:
 
 ```ts
-import { parseDateStrict } from '@nepdate/core';
+import { parseDateStrict } from '@nepdatejs/core';
 
 parseDateStrict('2083-07-01', 'BS').day; // → 1
 parseDateStrict('tomorrow', 'BS'); // → throws INVALID_ARGUMENT
@@ -79,7 +79,7 @@ parseDateStrict('2083-02-33', 'BS'); // → throws INVALID_DATE
 `parseFiscalYear` reads the common ways of writing a fiscal year:
 
 ```ts
-import { parseFiscalYear } from '@nepdate/core';
+import { parseFiscalYear } from '@nepdatejs/core';
 
 parseFiscalYear('2083/84')?.startYear; // → 2083
 parseFiscalYear('2083/2084')?.startYear; // → 2083

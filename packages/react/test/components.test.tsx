@@ -2,7 +2,7 @@
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { useState, type ReactElement } from 'react';
 import { afterEach, describe, expect, test, vi } from 'vitest';
-import { bsDate, type CalendarDate } from '@nepdate/core';
+import { bsDate, type CalendarDate } from '@nepdatejs/core';
 import {
   bothDates,
   Calendar,
@@ -14,7 +14,7 @@ import {
   shortDate,
   ShortDate,
   type DatePickerProps,
-} from '@nepdate/react';
+} from '@nepdatejs/react';
 
 const TODAY: CalendarDate = { calendar: 'AD', year: 2026, month: 10, day: 18 };
 

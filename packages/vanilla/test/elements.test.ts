@@ -10,7 +10,7 @@ import {
   type NepCalendarElement,
   type NepDatePickerElement,
   type NepDateRangePickerElement,
-} from '@nepdate/vanilla';
+} from '@nepdatejs/vanilla';
 
 const TODAY = '2026-10-18'; // Kartik 1, 2083 BS
 

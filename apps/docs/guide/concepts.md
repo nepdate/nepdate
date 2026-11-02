@@ -24,7 +24,7 @@ Every conversion goes through that number. AD code never reads the BS table, and
 holds no AD dates. Correcting a BS year can't change any AD result.
 
 ```ts
-import { adDate, bsDate, toEpoch } from '@nepdate/core';
+import { adDate, bsDate, toEpoch } from '@nepdatejs/core';
 
 toEpoch(adDate(2026, 10, 18)); // → 20744
 toEpoch(bsDate(2083, 7, 1)); // → 20744
@@ -37,7 +37,7 @@ The same day has the same number, whichever calendar you start from.
 A date is a frozen plain object:
 
 ```ts
-import { bsDate } from '@nepdate/core';
+import { bsDate } from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 1);
 
@@ -68,7 +68,7 @@ saveBirthday(bsDate(2083, 7, 1)); // Type error
 If something isn't a real date, nepdate says so rather than guessing:
 
 ```ts
-import { adDate, bsDate } from '@nepdate/core';
+import { adDate, bsDate } from '@nepdatejs/core';
 
 bsDate(2083, 2, 33); // → throws INVALID_DATE
 adDate(2026, 2, 30); // → throws INVALID_DATE
@@ -97,7 +97,7 @@ through **2083** have been checked against published calendars. Later years are 
 which may change when official calendars come out, and `isProjected` tells you which is which.
 
 ```ts
-import { bsDate, isProjected } from '@nepdate/core';
+import { bsDate, isProjected } from '@nepdatejs/core';
 
 isProjected(bsDate(2083, 1, 1)); // → false
 isProjected(bsDate(2084, 1, 1)); // → true
@@ -112,13 +112,13 @@ correct or replace the table without waiting for a new release. See
 Each package has one job, and lower packages never import higher ones:
 
 ```text
-@nepdate/core            dates
+@nepdatejs/core            dates
       ↑
-@nepdate/calendar        calendar logic, no UI
+@nepdatejs/calendar        calendar logic, no UI
       ↑
-@nepdate/datepicker      picker logic, no UI
+@nepdatejs/datepicker      picker logic, no UI
       ↑
-@nepdate/react, @nepdate/vanilla        render it
+@nepdatejs/react, @nepdatejs/vanilla        render it
 ```
 
 `calendar` and `datepicker` hold no UI at all. They are small stores that you can read and

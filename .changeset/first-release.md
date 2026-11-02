@@ -1,12 +1,12 @@
 ---
-'@nepdate/calendar': minor
-'@nepdate/core': minor
-'@nepdate/datepicker': minor
-'@nepdate/dom': minor
-'@nepdate/holidays': minor
-'@nepdate/react': minor
-'@nepdate/styles': minor
-'@nepdate/vanilla': minor
+'@nepdatejs/calendar': minor
+'@nepdatejs/core': minor
+'@nepdatejs/datepicker': minor
+'@nepdatejs/dom': minor
+'@nepdatejs/holidays': minor
+'@nepdatejs/react': minor
+'@nepdatejs/styles': minor
+'@nepdatejs/vanilla': minor
 ---
 
 First public release: BS and AD dates, a calendar, and date pickers for React and Web Components.

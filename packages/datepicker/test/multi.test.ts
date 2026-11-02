@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from 'vitest';
-import { createMultiDatePicker } from '@nepdate/datepicker';
+import { createMultiDatePicker } from '@nepdatejs/datepicker';
 import { bs, TODAY } from './helpers';
 
 const make = (options: Parameters<typeof createMultiDatePicker>[0] = {}) =>

@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Security fixes go into the latest published minor version of each `@nepdate/*` package.
+Security fixes go into the latest published minor version of each `@nepdatejs/*` package.
 
 ## Reporting a vulnerability
 

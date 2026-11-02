@@ -15,7 +15,7 @@ import {
   type CalendarDate,
   type EpochDay,
   type MonthNumber,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 
 // TEST-014: the type system keeps AD and BS apart.
 describe('AD and BS dates cannot be swapped', () => {

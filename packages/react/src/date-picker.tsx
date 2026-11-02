@@ -6,15 +6,15 @@ import {
   type DateFormatPattern,
   type LocaleCode,
   type Weekday,
-} from '@nepdate/core';
-import type { EventMarker, HolidayInput, HolidayLookup } from '@nepdate/calendar';
-import type { DateDetail, SinglePreset } from '@nepdate/datepicker';
-import { restoreFocus } from '@nepdate/dom';
+} from '@nepdatejs/core';
+import type { EventMarker, HolidayInput, HolidayLookup } from '@nepdatejs/calendar';
+import type { DateDetail, SinglePreset } from '@nepdatejs/datepicker';
+import { restoreFocus } from '@nepdatejs/dom';
 import { CalendarBody } from './calendar-body';
 import { useDatePicker } from './hooks';
 import { Icon } from './icons';
 import { usePanel } from './panel';
-import type { PanelLayout } from '@nepdate/dom';
+import type { PanelLayout } from '@nepdatejs/dom';
 import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PanelBody } from './presets';
 
 export interface DatePickerProps {

@@ -1,2 +1,2 @@
-import { b } from '@nepdate/core';
+import { b } from '@nepdatejs/core';
 export const c: number = b;

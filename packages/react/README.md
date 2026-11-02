@@ -1,15 +1,15 @@
-# @nepdate/react
+# @nepdatejs/react
 
 The BS/AD date picker and calendar for React 18 and 19. It provides styled components, plus headless hooks for your own markup, and works with server rendering and React Server Components.
 
 ```bash
-npm install @nepdate/react @nepdate/styles
+npm install @nepdatejs/react @nepdatejs/styles
 ```
 
 ```tsx
-import '@nepdate/styles';
+import '@nepdatejs/styles';
 import { useState } from 'react';
-import { DatePicker } from '@nepdate/react';
+import { DatePicker } from '@nepdatejs/react';
 
 export function Form() {
   const [dob, setDob] = useState('');
@@ -33,7 +33,7 @@ export function Form() {
 | `<DateRangePicker>`                         | `value={{ start, end }}`, `minDays`, `maxDays`, `startName`/`endName` for forms.                                         |
 | `<MultiDatePicker>`                         | Several separate days: `value={['2026-10-18', …]}`, `maxDates`, `name` (one hidden input per day). Clicks toggle days.   |
 | `<Calendar>`                                | A standalone month view: `selected`, `onSelect`, `month`/`onMonthChange`, `selectionMode="range"`, `holidays`, `events`. |
-| `<DateText value="2026-09-26" />`           | "10 Ashwin 2083 · 26 Sep 2026". It has no hooks, so it's safe in server components (`@nepdate/react/server`).            |
+| `<DateText value="2026-09-26" />`           | "10 Ashwin 2083 · 26 Sep 2026". It has no hooks, so it's safe in server components (`@nepdatejs/react/server`).          |
 | `<ShortDate>`, `shortDate()`, `bothDates()` | Short text for tables and documents.                                                                                     |
 
 **`<DatePicker>` props:**
@@ -54,7 +54,7 @@ The panel opens in the browser's top layer, so dialogs and scrolling containers 
 ## Headless hooks
 
 ```tsx
-import { useDatePicker } from '@nepdate/react/headless';
+import { useDatePicker } from '@nepdatejs/react/headless';
 
 const picker = useDatePicker({ min: '2026-01-01' });
 <input {...picker.getInputProps()} />

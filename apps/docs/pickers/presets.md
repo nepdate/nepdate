@@ -66,8 +66,8 @@ A custom shortcut has an `id`, a `label` and a `resolve` function that returns t
 ranges `{ start, end }`.
 
 ```tsx
-import { addDays, bsDate } from '@nepdate/core';
-import { DatePicker, DateRangePicker } from '@nepdate/react';
+import { addDays, bsDate } from '@nepdatejs/core';
+import { DatePicker, DateRangePicker } from '@nepdatejs/react';
 
 export function Filters() {
   return (
@@ -118,7 +118,7 @@ document.querySelector('nep-date-picker').presets = [
 With a store, list them from state and apply one by ID:
 
 ```ts
-import { createDateRangePicker } from '@nepdate/datepicker';
+import { createDateRangePicker } from '@nepdatejs/datepicker';
 
 const picker = createDateRangePicker({
   presets: ['thisFiscalYear'],

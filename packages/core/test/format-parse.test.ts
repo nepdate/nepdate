@@ -9,7 +9,7 @@ import {
   parseDate,
   parseDateStrict,
   parseFiscalYear,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import { bs, ymd } from './helpers';
 
 describe('formatting (TEST-009)', () => {

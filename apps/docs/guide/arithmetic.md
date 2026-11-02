@@ -8,7 +8,7 @@ These functions work in the date's **own** calendar and return a new date. Addin
 BS date gives the next BS month, not 30 days later and not the next AD month.
 
 ```ts
-import { addDays, addMonths, bsDate, formatDate } from '@nepdate/core';
+import { addDays, addMonths, bsDate, formatDate } from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 1);
 
@@ -25,7 +25,7 @@ Your original date is never changed.
 Use a negative number to go back:
 
 ```ts
-import { addDays, bsDate, formatDate } from '@nepdate/core';
+import { addDays, bsDate, formatDate } from '@nepdatejs/core';
 
 formatDate(addDays(bsDate(2083, 7, 1), -1)); // → '2083-06-31'
 formatDate(addDays(bsDate(2083, 12, 30), 1)); // → '2084-01-01'
@@ -37,7 +37,7 @@ BS months have different lengths, so a day might not exist in the target month. 
 the day is **capped** to the end of the month:
 
 ```ts
-import { addMonths, addYears, adDate, bsDate, formatDate } from '@nepdate/core';
+import { addMonths, addYears, adDate, bsDate, formatDate } from '@nepdatejs/core';
 
 formatDate(addMonths(bsDate(2083, 3, 32), 1)); // → '2083-04-31'
 formatDate(addMonths(adDate(2026, 1, 31), 1)); // → '2026-02-28'
@@ -56,7 +56,7 @@ import {
   startOfMonth,
   startOfWeek,
   startOfYear,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 15);
 
@@ -73,7 +73,7 @@ Weeks start on Sunday in Nepal, which is the default. Pass a day from `0` (Sunda
 [`configure`](./configuration).
 
 ```ts
-import { bsDate, formatDate, startOfWeek } from '@nepdate/core';
+import { bsDate, formatDate, startOfWeek } from '@nepdatejs/core';
 
 formatDate(startOfWeek(bsDate(2083, 7, 15), 1)); // → '2083-07-09'
 ```
@@ -84,7 +84,7 @@ formatDate(startOfWeek(bsDate(2083, 7, 15), 1)); // → '2083-07-09'
 later, and the two dates may be in different calendars.
 
 ```ts
-import { adDate, bsDate, differenceInDays } from '@nepdate/core';
+import { adDate, bsDate, differenceInDays } from '@nepdatejs/core';
 
 differenceInDays(bsDate(2083, 7, 10), bsDate(2083, 7, 1)); // → 9
 differenceInDays(bsDate(2083, 7, 1), adDate(2026, 10, 18)); // → 0
@@ -93,7 +93,7 @@ differenceInDays(bsDate(2083, 7, 1), adDate(2026, 10, 18)); // → 0
 To count a range including both ends, as for leave days, add one:
 
 ```ts
-import { bsDate, differenceInDays } from '@nepdate/core';
+import { bsDate, differenceInDays } from '@nepdatejs/core';
 
 const start = bsDate(2083, 7, 1);
 const end = bsDate(2083, 7, 5);
@@ -108,7 +108,7 @@ differenceInDays(end, start) + 1; // → 5
 Every day of a date's month, as a list:
 
 ```ts
-import { bsDate, eachDayOfMonth } from '@nepdate/core';
+import { bsDate, eachDayOfMonth } from '@nepdatejs/core';
 
 eachDayOfMonth(bsDate(2083, 7, 15)).length; // → 30
 ```
@@ -119,7 +119,7 @@ Every day from `start` to `end`, including both. It's a generator, so it stays c
 ranges. Use `for...of`, or spread it into a list:
 
 ```ts
-import { bsDate, eachDayOfInterval, formatDate, isWeekend } from '@nepdate/core';
+import { bsDate, eachDayOfInterval, formatDate, isWeekend } from '@nepdatejs/core';
 
 const start = bsDate(2083, 7, 1);
 const end = bsDate(2083, 7, 10);
@@ -143,7 +143,7 @@ formatDate(start); // → '2083-07-01'
 weekend, which is Saturday by default:
 
 ```ts
-import { bsDate, dayOfWeek, isWeekend } from '@nepdate/core';
+import { bsDate, dayOfWeek, isWeekend } from '@nepdatejs/core';
 
 const date = bsDate(2083, 7, 7);
 

@@ -4,21 +4,21 @@ import {
   createCalendar,
   defineCalendar,
   NepCalendarElement,
-} from '@nepdate/vanilla/calendar';
+} from '@nepdatejs/vanilla/calendar';
 import {
   createDatePicker,
   defineDatePicker,
   NepDatePickerElement,
-} from '@nepdate/vanilla/date-picker';
+} from '@nepdatejs/vanilla/date-picker';
 import {
   createDateRangePicker,
   defineDateRangePicker,
-} from '@nepdate/vanilla/date-range-picker';
+} from '@nepdatejs/vanilla/date-range-picker';
 import {
   createDateTimePicker,
   defineDateTimePicker,
-} from '@nepdate/vanilla/date-time-picker';
-import * as all from '@nepdate/vanilla';
+} from '@nepdatejs/vanilla/date-time-picker';
+import * as all from '@nepdatejs/vanilla';
 
 describe('per-element entries', () => {
   test('each entry defines only its own element, into any registry', () => {

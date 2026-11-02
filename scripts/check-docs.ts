@@ -6,7 +6,7 @@
  *     need no import in the sample; they are added here.
  *   - ts: runs it when it has `expression; // → value` lines, and compares the
  *     real result with the value. `// → throws CODE` expects that error code.
- *   - js/ts/tsx: every name imported from @nepdate must really be exported.
+ *   - js/ts/tsx: every name imported from @nepdatejs must really be exported.
  *   - html/vue/svelte/blade: every attribute on a <nep-*> element must exist.
  *
  * Also, every name a package exports must appear on its reference page.
@@ -27,31 +27,31 @@ const scratch = join(docs, '.check');
 
 /** Import path → file under packages/. Earlier modules win when two export a name. */
 const MODULES: Record<string, string> = {
-  '@nepdate/core': 'core/dist/index.js',
-  '@nepdate/calendar': 'calendar/dist/index.js',
-  '@nepdate/datepicker': 'datepicker/dist/index.js',
-  '@nepdate/holidays': 'holidays/dist/index.js',
-  '@nepdate/react': 'react/dist/index.js',
-  '@nepdate/react/headless': 'react/dist/headless.js',
-  '@nepdate/react/server': 'react/dist/server.js',
-  '@nepdate/dom': 'dom/dist/index.js',
-  '@nepdate/core/data': 'core/dist/data.js',
-  '@nepdate/vanilla': 'vanilla/dist/index.js',
-  '@nepdate/vanilla/define': 'vanilla/dist/auto-define.js',
-  '@nepdate/vanilla/date-picker': 'vanilla/dist/date-picker.js',
-  '@nepdate/vanilla/calendar': 'vanilla/dist/calendar.js',
-  '@nepdate/vanilla/date-range-picker': 'vanilla/dist/date-range-picker.js',
-  '@nepdate/vanilla/date-time-picker': 'vanilla/dist/date-time-picker.js',
-  '@nepdate/vanilla/multi-date-picker': 'vanilla/dist/multi-date-picker.js',
+  '@nepdatejs/core': 'core/dist/index.js',
+  '@nepdatejs/calendar': 'calendar/dist/index.js',
+  '@nepdatejs/datepicker': 'datepicker/dist/index.js',
+  '@nepdatejs/holidays': 'holidays/dist/index.js',
+  '@nepdatejs/react': 'react/dist/index.js',
+  '@nepdatejs/react/headless': 'react/dist/headless.js',
+  '@nepdatejs/react/server': 'react/dist/server.js',
+  '@nepdatejs/dom': 'dom/dist/index.js',
+  '@nepdatejs/core/data': 'core/dist/data.js',
+  '@nepdatejs/vanilla': 'vanilla/dist/index.js',
+  '@nepdatejs/vanilla/define': 'vanilla/dist/auto-define.js',
+  '@nepdatejs/vanilla/date-picker': 'vanilla/dist/date-picker.js',
+  '@nepdatejs/vanilla/calendar': 'vanilla/dist/calendar.js',
+  '@nepdatejs/vanilla/date-range-picker': 'vanilla/dist/date-range-picker.js',
+  '@nepdatejs/vanilla/date-time-picker': 'vanilla/dist/date-time-picker.js',
+  '@nepdatejs/vanilla/multi-date-picker': 'vanilla/dist/multi-date-picker.js',
 };
 /** Modules whose names a sample may use without importing them. */
 const AUTO_IMPORT = [
-  '@nepdate/core',
-  '@nepdate/calendar',
-  '@nepdate/datepicker',
-  '@nepdate/holidays',
+  '@nepdatejs/core',
+  '@nepdatejs/calendar',
+  '@nepdatejs/datepicker',
+  '@nepdatejs/holidays',
 ];
-const AUTO_IMPORT_TSX = ['@nepdate/react'];
+const AUTO_IMPORT_TSX = ['@nepdatejs/react'];
 
 /** Attributes any element may have. */
 const GLOBAL_ATTRIBUTES = new Set(['id', 'class', 'style', 'hidden', 'slot', 'title']);
@@ -136,7 +136,7 @@ function importedNames(code: string): { from: string; names: string[] }[] {
 function checkImports(fence: Fence, exportsOf: Map<string, Set<string>>): void {
   const where = `${fence.page}:${fence.line}`;
   for (const { from, names } of importedNames(fence.code)) {
-    if (!from.startsWith('@nepdate/')) {
+    if (!from.startsWith('@nepdatejs/')) {
       continue;
     }
     const known = exportsOf.get(from);
@@ -253,7 +253,7 @@ declare function render(state: unknown): void;
         target: 'ES2022',
         module: 'ESNext',
         moduleResolution: 'bundler',
-        customConditions: ['@nepdate/source'],
+        customConditions: ['@nepdatejs/source'],
         lib: ['ES2022', 'DOM', 'DOM.Iterable'],
         jsx: 'react-jsx',
         strict: true,
@@ -315,7 +315,7 @@ function runnable(fence: Fence, exportsOf: Map<string, Set<string>>): string {
     },
   });
 
-  return outputText.replace(/from '(@nepdate\/[^']+)'/g, (whole, name: string) => {
+  return outputText.replace(/from '(@nepdatejs\/[^']+)'/g, (whole, name: string) => {
     const file = MODULES[name];
     return file ? `from '${fileUrl(file)}'` : whole;
   });
@@ -325,11 +325,11 @@ async function runSamples(
   fences: readonly Fence[],
   exportsOf: Map<string, Set<string>>,
 ): Promise<number> {
-  const core = (await import(fileUrl(MODULES['@nepdate/core'] ?? ''))) as {
+  const core = (await import(fileUrl(MODULES['@nepdatejs/core'] ?? ''))) as {
     resetConfig(): void;
     resetBsData(): void;
   };
-  const holidays = (await import(fileUrl(MODULES['@nepdate/holidays'] ?? ''))) as {
+  const holidays = (await import(fileUrl(MODULES['@nepdatejs/holidays'] ?? ''))) as {
     clearHolidays(): void;
   };
   const scope = globalThis as unknown as Record<string, unknown>;
@@ -374,13 +374,13 @@ async function runSamples(
 /** Every public export has to be documented. */
 function checkReference(exportsOf: Map<string, Set<string>>): void {
   const pages: Record<string, readonly string[]> = {
-    core: ['@nepdate/core'],
-    calendar: ['@nepdate/calendar'],
-    datepicker: ['@nepdate/datepicker'],
-    holidays: ['@nepdate/holidays'],
-    dom: ['@nepdate/dom'],
-    react: ['@nepdate/react', '@nepdate/react/headless', '@nepdate/react/server'],
-    vanilla: ['@nepdate/vanilla'],
+    core: ['@nepdatejs/core'],
+    calendar: ['@nepdatejs/calendar'],
+    datepicker: ['@nepdatejs/datepicker'],
+    holidays: ['@nepdatejs/holidays'],
+    dom: ['@nepdatejs/dom'],
+    react: ['@nepdatejs/react', '@nepdatejs/react/headless', '@nepdatejs/react/server'],
+    vanilla: ['@nepdatejs/vanilla'],
   };
   for (const [page, modules] of Object.entries(pages)) {
     const text = readFileSync(join(docs, 'reference', `${page}.md`), 'utf8');
@@ -393,7 +393,7 @@ function checkReference(exportsOf: Map<string, Set<string>>): void {
 }
 
 async function elementAttributes(): Promise<Map<string, ReadonlySet<string>>> {
-  const vanilla = (await import(fileUrl(MODULES['@nepdate/vanilla'] ?? ''))) as Record<
+  const vanilla = (await import(fileUrl(MODULES['@nepdatejs/vanilla'] ?? ''))) as Record<
     string,
     { observedAttributes?: readonly string[] }
   >;

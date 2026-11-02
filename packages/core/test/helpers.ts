@@ -1,4 +1,4 @@
-import { fromIsoDate, parseDate, type AdDate, type BsDate } from '@nepdate/core';
+import { fromIsoDate, parseDate, type AdDate, type BsDate } from '@nepdatejs/core';
 
 /** "2083-06-24" → BsDate (throws in tests if the fixture is wrong). */
 export function bs(text: string): BsDate {

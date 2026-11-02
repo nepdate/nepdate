@@ -5,11 +5,11 @@
 ## Introduction
 
 All the behaviour of the pickers lives in two packages that have no UI at all:
-`@nepdate/calendar` and `@nepdate/datepicker`. The React and Web Component versions are thin layers
+`@nepdatejs/calendar` and `@nepdatejs/datepicker`. The React and Web Component versions are thin layers
 on these stores, and you can use them to support any other framework.
 
 ```bash
-npm install @nepdate/datepicker
+npm install @nepdatejs/datepicker
 ```
 
 ## How a store works
@@ -17,7 +17,7 @@ npm install @nepdate/datepicker
 A store has four parts:
 
 ```ts
-import { createDatePicker } from '@nepdate/datepicker';
+import { createDatePicker } from '@nepdatejs/datepicker';
 
 const picker = createDatePicker({ today: adDate(2026, 10, 18) });
 
@@ -49,7 +49,7 @@ stores work directly with tools that compare by reference, such as `useSyncExter
 `createCalendar` builds everything you need to draw a month:
 
 ```ts
-import { createCalendar } from '@nepdate/calendar';
+import { createCalendar } from '@nepdatejs/calendar';
 
 const calendar = createCalendar({
   calendar: 'BS',
@@ -79,7 +79,7 @@ need, plus `state`, one word for styling. See the
 the cell whose `isFocusTarget` is true:
 
 ```ts
-import { createCalendar } from '@nepdate/calendar';
+import { createCalendar } from '@nepdatejs/calendar';
 
 const calendar = createCalendar({ today: adDate(2026, 10, 18) });
 
@@ -95,7 +95,7 @@ A date picker in about 20 lines of Solid:
 
 <!-- no-check -->
 ```tsx
-import { createDatePicker } from '@nepdate/datepicker';
+import { createDatePicker } from '@nepdatejs/datepicker';
 import { createSignal, onCleanup } from 'solid-js';
 
 export function DateField() {
@@ -127,13 +127,13 @@ exported:
 
 | Function | Package |
 |---|---|
-| `buildMonthGrid`, `buildWeekdays` | `@nepdate/calendar` |
-| `buildMonthTiles`, `buildYearTiles` | `@nepdate/calendar` |
-| `nextFocus`, `computeLimits`, `isInLimits` | `@nepdate/calendar` |
-| `parseInput`, `checkDate`, `formatInput`, `equivalentText` | `@nepdate/datepicker` |
-| `maskDateText` | `@nepdate/datepicker` |
+| `buildMonthGrid`, `buildWeekdays` | `@nepdatejs/calendar` |
+| `buildMonthTiles`, `buildYearTiles` | `@nepdatejs/calendar` |
+| `nextFocus`, `computeLimits`, `isInLimits` | `@nepdatejs/calendar` |
+| `parseInput`, `checkDate`, `formatInput`, `equivalentText` | `@nepdatejs/datepicker` |
+| `maskDateText` | `@nepdatejs/datepicker` |
 
 ## Reference
 
-- [`@nepdate/calendar`](/reference/calendar)
-- [`@nepdate/datepicker`](/reference/datepicker)
+- [`@nepdatejs/calendar`](/reference/calendar)
+- [`@nepdatejs/datepicker`](/reference/datepicker)

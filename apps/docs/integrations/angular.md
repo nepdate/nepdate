@@ -9,21 +9,21 @@ In Angular, use the [Web Components](./web-components). They need one schema set
 ## Setting up
 
 ```bash
-npm install @nepdate/vanilla @nepdate/styles
+npm install @nepdatejs/vanilla @nepdatejs/styles
 ```
 
 Add the stylesheet to `angular.json`:
 
 ```json
 {
-  "styles": ["node_modules/@nepdate/styles/index.css", "src/styles.css"]
+  "styles": ["node_modules/@nepdatejs/styles/index.css", "src/styles.css"]
 }
 ```
 
 Register the elements in `main.ts`:
 
 ```js
-import '@nepdate/vanilla/define';
+import '@nepdatejs/vanilla/define';
 ```
 
 Allow custom elements in your component with `CUSTOM_ELEMENTS_SCHEMA`:
@@ -103,12 +103,12 @@ export class NepDateValueAccessor implements ControlValueAccessor {
 
 ## Dates only
 
-`@nepdate/core` needs no setup, and works well in a service or a pipe:
+`@nepdatejs/core` needs no setup, and works well in a service or a pipe:
 
 <!-- no-check -->
 ```ts
 import { Pipe, PipeTransform } from '@angular/core';
-import { formatDate, fromIsoDate, toCalendar } from '@nepdate/core';
+import { formatDate, fromIsoDate, toCalendar } from '@nepdatejs/core';
 
 @Pipe({ name: 'bsDate', standalone: true })
 export class BsDatePipe implements PipeTransform {

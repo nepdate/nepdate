@@ -1,5 +1,5 @@
 {
-  "name": "@nepdate/playground",
+  "name": "@nepdatejs/playground",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,12 +8,12 @@
     "typecheck": "tsc -p tsconfig.json"
   },
   "dependencies": {
-    "@nepdate/calendar": "workspace:*",
-    "@nepdate/core": "workspace:*",
-    "@nepdate/datepicker": "workspace:*",
-    "@nepdate/react": "workspace:*",
-    "@nepdate/styles": "workspace:*",
-    "@nepdate/vanilla": "workspace:*",
+    "@nepdatejs/calendar": "workspace:*",
+    "@nepdatejs/core": "workspace:*",
+    "@nepdatejs/datepicker": "workspace:*",
+    "@nepdatejs/react": "workspace:*",
+    "@nepdatejs/styles": "workspace:*",
+    "@nepdatejs/vanilla": "workspace:*",
     "axe-core": "^4.14.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1"

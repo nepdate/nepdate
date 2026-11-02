@@ -1,13 +1,13 @@
-# @nepdate/core
+# @nepdatejs/core
 
 The Bikram Sambat (BS) ⇄ AD date engine: conversion, formatting, parsing, arithmetic, Nepal's fiscal year, and English/Nepali names. It depends on no package, and runs in Node (ESM and CJS), browsers and a plain `<script>` tag.
 
 ```bash
-npm install @nepdate/core
+npm install @nepdatejs/core
 ```
 
 ```ts
-import { adDate, adToBs, bsDate, bsToAd, formatDate, toIsoDate } from '@nepdate/core';
+import { adDate, adToBs, bsDate, bsToAd, formatDate, toIsoDate } from '@nepdatejs/core';
 
 const bs = adToBs(adDate(2026, 10, 18)); // { calendar: 'BS', year: 2083, month: 7, day: 1 }
 formatDate(bs, 'long'); // "1 Kartik 2083"
@@ -101,7 +101,7 @@ now(); // { date, time } in the configured zone
 ## Locales and config
 
 ```ts
-import { configure, getLocale, monthNames, registerLocale } from '@nepdate/core';
+import { configure, getLocale, monthNames, registerLocale } from '@nepdatejs/core';
 
 configure({
   timeZone: 'Asia/Kathmandu',
@@ -121,13 +121,13 @@ BS month lengths come from a table keyed by BS year (1970–2099), verified thro
 isProjected(bsDate(2084, 1, 1)); // true: after the last verified year
 patchBsYear(2090, [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30]); // correct one year
 setBsData(table); // replace the whole table (validated)
-import { BS_DATA } from '@nepdate/core/data'; // the raw bundled table
+import { BS_DATA } from '@nepdatejs/core/data'; // the raw bundled table
 ```
 
 ## In a `<script>` tag
 
 ```html
-<script src="https://unpkg.com/@nepdate/core"></script>
+<script src="https://unpkg.com/@nepdatejs/core"></script>
 <script>
   NepDate.formatDate(NepDate.today('BS'), 'long');
 </script>

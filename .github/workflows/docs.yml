@@ -28,7 +28,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       # The docs read the packages' sources, so the packages need no build first.
-      - run: pnpm --filter @nepdate/docs build
+      - run: pnpm --filter @nepdatejs/docs build
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
         with:

@@ -10,7 +10,7 @@ them alone.
 ## Setting up
 
 ```bash
-npm install @nepdate/vanilla @nepdate/styles
+npm install @nepdatejs/vanilla @nepdatejs/styles
 ```
 
 Tell Vue that tags starting with `nep-` are custom elements:
@@ -34,8 +34,8 @@ export default defineConfig({
 Register the elements once, in `main.js`:
 
 ```js
-import '@nepdate/styles';
-import '@nepdate/vanilla/define';
+import '@nepdatejs/styles';
+import '@nepdatejs/vanilla/define';
 ```
 
 ## Using a picker
@@ -109,5 +109,5 @@ pickers in `<ClientOnly>` if you see hydration warnings.
 
 ## Dates only
 
-`@nepdate/core` is plain JavaScript and needs no setup, so it works in `computed` values, stores
+`@nepdatejs/core` is plain JavaScript and needs no setup, so it works in `computed` values, stores
 and server routes alike.

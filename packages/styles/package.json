@@ -1,7 +1,7 @@
 {
-  "name": "@nepdate/styles",
+  "name": "@nepdatejs/styles",
   "version": "0.0.0",
-  "description": "CSS variables and classes for the @nepdate calendar and date picker. No JavaScript.",
+  "description": "CSS variables and classes for the @nepdatejs calendar and date picker. No JavaScript.",
   "keywords": [
     "nepali",
     "bikram-sambat",

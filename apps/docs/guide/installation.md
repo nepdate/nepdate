@@ -23,15 +23,15 @@ For a Node service, a script, or any code that only needs conversion and formatt
 ::: code-group
 
 ```bash [npm]
-npm install @nepdate/core
+npm install @nepdatejs/core
 ```
 
 ```bash [pnpm]
-pnpm add @nepdate/core
+pnpm add @nepdatejs/core
 ```
 
 ```bash [yarn]
-yarn add @nepdate/core
+yarn add @nepdatejs/core
 ```
 
 :::
@@ -41,15 +41,15 @@ yarn add @nepdate/core
 ::: code-group
 
 ```bash [npm]
-npm install @nepdate/react @nepdate/styles
+npm install @nepdatejs/react @nepdatejs/styles
 ```
 
 ```bash [pnpm]
-pnpm add @nepdate/react @nepdate/styles
+pnpm add @nepdatejs/react @nepdatejs/styles
 ```
 
 ```bash [yarn]
-yarn add @nepdate/react @nepdate/styles
+yarn add @nepdatejs/react @nepdatejs/styles
 ```
 
 :::
@@ -57,10 +57,10 @@ yarn add @nepdate/react @nepdate/styles
 Import the stylesheet once, usually in your app's entry file:
 
 ```ts
-import '@nepdate/styles';
+import '@nepdatejs/styles';
 ```
 
-`@nepdate/react` needs React 18 or 19 as a peer dependency. It installs `@nepdate/core`
+`@nepdatejs/react` needs React 18 or 19 as a peer dependency. It installs `@nepdatejs/core`
 for you, but add it to your own `package.json` if you import from it directly.
 
 ### Vue, Svelte, Angular, or plain JavaScript with a bundler
@@ -70,15 +70,15 @@ These all use the Web Components:
 ::: code-group
 
 ```bash [npm]
-npm install @nepdate/vanilla @nepdate/styles
+npm install @nepdatejs/vanilla @nepdatejs/styles
 ```
 
 ```bash [pnpm]
-pnpm add @nepdate/vanilla @nepdate/styles
+pnpm add @nepdatejs/vanilla @nepdatejs/styles
 ```
 
 ```bash [yarn]
-yarn add @nepdate/vanilla @nepdate/styles
+yarn add @nepdatejs/vanilla @nepdatejs/styles
 ```
 
 :::
@@ -86,8 +86,8 @@ yarn add @nepdate/vanilla @nepdate/styles
 Then register the elements once:
 
 ```js
-import '@nepdate/styles';
-import '@nepdate/vanilla/define';
+import '@nepdatejs/styles';
+import '@nepdatejs/vanilla/define';
 ```
 
 ### A script tag, with no build step
@@ -95,8 +95,8 @@ import '@nepdate/vanilla/define';
 For plain HTML, Laravel Blade, Django or Rails templates, add two lines to your page:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@nepdate/styles/index.css" />
-<script src="https://unpkg.com/@nepdate/vanilla/dist/nepdate-picker.global.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@nepdatejs/styles/index.css" />
+<script src="https://unpkg.com/@nepdatejs/vanilla/dist/nepdate-picker.global.js"></script>
 ```
 
 See [Script tag (CDN)](/integrations/cdn) for more, including pinning a version.
@@ -104,18 +104,18 @@ See [Script tag (CDN)](/integrations/cdn) for more, including pinning a version.
 ### Optional packages
 
 ```bash
-npm install @nepdate/holidays
+npm install @nepdatejs/holidays
 ```
 
-[`@nepdate/holidays`](./holidays) adds Nepal's national holidays. To build your own UI, install
-[`@nepdate/calendar` or `@nepdate/datepicker`](/integrations/stores) directly.
+[`@nepdatejs/holidays`](./holidays) adds Nepal's national holidays. To build your own UI, install
+[`@nepdatejs/calendar` or `@nepdatejs/datepicker`](/integrations/stores) directly.
 
 ## Check that it works
 
-Run this in Node, or anywhere you can import from `@nepdate/core`:
+Run this in Node, or anywhere you can import from `@nepdatejs/core`:
 
 ```ts
-import { formatDate, today } from '@nepdate/core';
+import { formatDate, today } from '@nepdatejs/core';
 
 console.log(formatDate(today('BS'), 'full'));
 ```

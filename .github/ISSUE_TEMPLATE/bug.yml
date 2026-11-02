@@ -6,7 +6,7 @@ body:
     id: packages
     attributes:
       label: Package(s) and version(s)
-      placeholder: '@nepdate/react 0.1.0'
+      placeholder: '@nepdatejs/react 0.1.0'
     validations:
       required: true
   - type: textarea

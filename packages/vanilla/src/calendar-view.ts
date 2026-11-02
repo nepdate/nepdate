@@ -1,11 +1,11 @@
-import { getLocale, type CalendarDate, type LocaleCode } from '@nepdate/core';
+import { getLocale, type CalendarDate, type LocaleCode } from '@nepdatejs/core';
 import type {
   CalendarState,
   CalendarStore,
   DayCell,
   FocusKey,
   PickerCell,
-} from '@nepdate/calendar';
+} from '@nepdatejs/calendar';
 import { el, icon, setAttrs, setText } from './dom';
 
 const FOCUS_KEYS: ReadonlySet<string> = new Set([
@@ -27,7 +27,7 @@ export interface CalendarViewOptions {
 }
 
 /**
- * Renders a calendar store into `root` with the @nepdate/styles markup and
+ * Renders a calendar store into `root` with the @nepdatejs/styles markup and
  * keeps it in step. Elements are updated in place, so a click or focus never
  * lands on a replaced button; only switching view or row count rebuilds the body.
  */

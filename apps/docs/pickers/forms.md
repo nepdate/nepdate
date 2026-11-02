@@ -42,7 +42,7 @@ dob=2026-10-10
 With `name`, the component renders a hidden input, so `FormData` and server actions work:
 
 ```tsx
-import { DatePicker } from '@nepdate/react';
+import { DatePicker } from '@nepdatejs/react';
 
 export function Profile() {
   return (
@@ -67,7 +67,7 @@ Use `Controller`, since the value doesn't come from a native input change:
 <!-- no-check -->
 ```tsx
 import { Controller, useForm } from 'react-hook-form';
-import { DatePicker } from '@nepdate/react';
+import { DatePicker } from '@nepdatejs/react';
 
 export function Profile() {
   const { control, handleSubmit } = useForm({ defaultValues: { dob: '' } });

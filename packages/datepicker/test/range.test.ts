@@ -3,7 +3,7 @@ import {
   createDateRangePicker,
   type RangeDetail,
   type RangeValue,
-} from '@nepdate/datepicker';
+} from '@nepdatejs/datepicker';
 import { bs, TODAY } from './helpers';
 
 const make = (options: Parameters<typeof createDateRangePicker>[0] = {}) =>

@@ -1,4 +1,4 @@
-/** @nepdate/react/server: components without hooks, safe in React Server Components. */
+/** @nepdatejs/react/server: components without hooks, safe in React Server Components. */
 export {
   bothDates,
   DateText,

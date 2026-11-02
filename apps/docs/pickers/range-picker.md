@@ -24,7 +24,7 @@ The value is an object with `start` and `end`, both AD strings.
 
 ```tsx [React]
 import { useState } from 'react';
-import { DateRangePicker } from '@nepdate/react';
+import { DateRangePicker } from '@nepdatejs/react';
 
 export function Leave() {
   const [range, setRange] = useState({ start: '', end: '' });

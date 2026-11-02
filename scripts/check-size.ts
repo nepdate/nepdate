@@ -1,6 +1,6 @@
 /**
  * Size budgets (docs/plan/03-tooling.md, TOOL-012). Each package's built ESM
- * entry is bundled and minified with its @nepdate dependencies and framework
+ * entry is bundled and minified with its @nepdatejs dependencies and framework
  * peers left external, then gzipped. Run after `pnpm build`.
  *
  * Run: node scripts/check-size.ts
@@ -65,7 +65,7 @@ export const BUDGETS: Record<string, Budget[]> = {
   ],
 };
 
-const EXTERNAL = [/^@nepdate\//, /^react(?:-dom)?(?:\/|$)/];
+const EXTERNAL = [/^@nepdatejs\//, /^react(?:-dom)?(?:\/|$)/];
 
 const VIRTUAL_ENTRY = '\0nepdate-size-entry';
 
@@ -115,7 +115,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       const path = resolve(root, 'packages', pkg, budget.file);
       if (!existsSync(path) || !statSync(path).isFile()) {
         console.error(
-          `✖ @nepdate/${pkg} ${budget.file} is missing. Run \`pnpm build\` first.`,
+          `✖ @nepdatejs/${pkg} ${budget.file} is missing. Run \`pnpm build\` first.`,
         );
         failed = true;
         continue;
@@ -124,7 +124,7 @@ if (process.argv[1] === fileURLToPath(import.meta.url)) {
       const ok = bytes <= budget.maxGzipBytes;
       failed ||= !ok;
       console.log(
-        `${ok ? '✔' : '✖'} @nepdate/${pkg} ${budget.only ? `{ ${budget.only.join(', ')} }` : budget.file}: ${(bytes / KB).toFixed(2)} kB gzip (budget ${(budget.maxGzipBytes / KB).toFixed(1)} kB)`,
+        `${ok ? '✔' : '✖'} @nepdatejs/${pkg} ${budget.only ? `{ ${budget.only.join(', ')} }` : budget.file}: ${(bytes / KB).toFixed(2)} kB gzip (budget ${(budget.maxGzipBytes / KB).toFixed(1)} kB)`,
       );
     }
   }

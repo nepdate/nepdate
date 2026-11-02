@@ -1,14 +1,14 @@
-# @nepdate/holidays
+# @nepdatejs/holidays
 
-Nepal's fixed-date national days, plus a validated loader for each year's official holiday list. It works with `@nepdate/calendar` and both pickers.
+Nepal's fixed-date national days, plus a validated loader for each year's official holiday list. It works with `@nepdatejs/calendar` and both pickers.
 
 ```bash
-npm install @nepdate/holidays
+npm install @nepdatejs/holidays
 ```
 
 ```ts
-import { holidaysFor, isHoliday, toCalendarHolidays } from '@nepdate/holidays';
-import { adDate } from '@nepdate/core';
+import { holidaysFor, isHoliday, toCalendarHolidays } from '@nepdatejs/holidays';
+import { adDate } from '@nepdatejs/core';
 
 holidaysFor(2083); // [{ id: 'new-year', date: 2083-01-01 BS, name: { en, ne }, type: 'national' }, …]
 isHoliday(adDate(2026, 9, 19)); // true: Constitution Day (3 Asoj 2083)
@@ -31,7 +31,7 @@ isHoliday(adDate(2026, 9, 19)); // true: Constitution Day (3 Asoj 2083)
 **Festivals are not bundled.** Dashain, Tihar, Chhath and other festivals follow the lunar calendar, so their BS dates change every year and can't be computed. Whether each national day is a public holiday can also change by government notice. For leave and payroll, load each year's published list:
 
 ```ts
-import { loadHolidayFile } from '@nepdate/holidays';
+import { loadHolidayFile } from '@nepdatejs/holidays';
 
 loadHolidayFile(await (await fetch('/holidays/2083.json')).json()); // validated; throws HolidayDataError with a path
 ```

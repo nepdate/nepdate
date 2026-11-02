@@ -1,5 +1,5 @@
 {
-  "name": "@nepdate/docs",
+  "name": "@nepdatejs/docs",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,14 +9,14 @@
     "preview": "vitepress preview --port 5181"
   },
   "dependencies": {
-    "@nepdate/calendar": "workspace:*",
-    "@nepdate/core": "workspace:*",
-    "@nepdate/datepicker": "workspace:*",
-    "@nepdate/dom": "workspace:*",
-    "@nepdate/holidays": "workspace:*",
-    "@nepdate/react": "workspace:*",
-    "@nepdate/styles": "workspace:*",
-    "@nepdate/vanilla": "workspace:*"
+    "@nepdatejs/calendar": "workspace:*",
+    "@nepdatejs/core": "workspace:*",
+    "@nepdatejs/datepicker": "workspace:*",
+    "@nepdatejs/dom": "workspace:*",
+    "@nepdatejs/holidays": "workspace:*",
+    "@nepdatejs/react": "workspace:*",
+    "@nepdatejs/styles": "workspace:*",
+    "@nepdatejs/vanilla": "workspace:*"
   },
   "devDependencies": {
     "@testing-library/react": "^16.3.3",

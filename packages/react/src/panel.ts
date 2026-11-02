@@ -6,7 +6,7 @@ import {
   restoreFocus,
   trackPosition,
   type PanelLayout,
-} from '@nepdate/dom';
+} from '@nepdatejs/dom';
 import { useIsomorphicLayoutEffect } from './use-store';
 
 /**

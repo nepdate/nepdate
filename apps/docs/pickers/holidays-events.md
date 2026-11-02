@@ -15,8 +15,8 @@ Neither one stops a day being picked. To do that, use
 The easy way is a list of dates, with or without a label:
 
 ```tsx
-import { bsDate } from '@nepdate/core';
-import { DatePicker } from '@nepdate/react';
+import { bsDate } from '@nepdatejs/core';
+import { DatePicker } from '@nepdatejs/react';
 
 const holidays = [
   { date: bsDate(2083, 6, 3), label: 'Constitution Day' },
@@ -47,12 +47,12 @@ document.querySelector('nep-date-picker').holidays = [
 
 ## Nepal's national holidays
 
-[`@nepdate/holidays`](/guide/holidays) has the fixed-date national days, and can load each
+[`@nepdatejs/holidays`](/guide/holidays) has the fixed-date national days, and can load each
 year's official list. `toCalendarHolidays` turns them into the function above:
 
 ```tsx
-import { toCalendarHolidays } from '@nepdate/holidays';
-import { DatePicker } from '@nepdate/react';
+import { toCalendarHolidays } from '@nepdatejs/holidays';
+import { DatePicker } from '@nepdatejs/react';
 
 const holidays = toCalendarHolidays({ locale: 'ne' });
 
@@ -67,7 +67,7 @@ export function Booking() {
 dot under the day number.
 
 ```tsx
-import { Calendar } from '@nepdate/react';
+import { Calendar } from '@nepdatejs/react';
 
 export function Schedule() {
   return (

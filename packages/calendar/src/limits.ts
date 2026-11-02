@@ -10,7 +10,7 @@ import {
   toCalendar,
   type CalendarDate,
   type CalendarSystem,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 
 /** The days and months the calendar may show and select, all in `calendar`. */
 export interface Limits {

@@ -5,8 +5,8 @@ import {
   toIsoDate,
   type AdDate,
   type CalendarSystem,
-} from '@nepdate/core';
-import { createCalendar, isDayList } from '@nepdate/calendar';
+} from '@nepdatejs/core';
+import { createCalendar, isDayList } from '@nepdatejs/calendar';
 import { createEmitter, inputLimits, localeOf, panelOptions } from './base';
 import { formatInput, parseInput, placeholderText, readIso } from './input';
 import { maskDateText } from './mask';

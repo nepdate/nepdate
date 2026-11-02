@@ -16,7 +16,7 @@ import {
   type CalendarSystem,
   type LocaleCode,
   type Weekday,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 
 /** Built-in shortcuts for a single date. */
 export type SinglePresetId = 'today' | 'yesterday' | 'tomorrow';

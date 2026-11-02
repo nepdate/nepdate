@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test } from 'vitest';
-import { adDate, bsDate, formatDate, toIsoDate } from '@nepdate/core';
+import { adDate, bsDate, formatDate, toIsoDate } from '@nepdatejs/core';
 import {
   clearHolidays,
   FIXED_NATIONAL_DAYS,
@@ -15,7 +15,7 @@ import {
   registerHolidays,
   registeredYears,
   toCalendarHolidays,
-} from '@nepdate/holidays';
+} from '@nepdatejs/holidays';
 
 afterEach(() => {
   clearHolidays();

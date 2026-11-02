@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest';
-import { daysInMonth, getLocale } from '@nepdate/core';
-import { buildMonthGrid, computeLimits, createCalendar } from '@nepdate/calendar';
+import { daysInMonth, getLocale } from '@nepdatejs/core';
+import { buildMonthGrid, computeLimits, createCalendar } from '@nepdatejs/calendar';
 import { ad, bs, cell, cells, TODAY, ymd } from './helpers';
 
 describe('grid shapes (TEST-020)', () => {

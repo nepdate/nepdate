@@ -1,13 +1,13 @@
-# @nepdate/calendar
+# @nepdatejs/calendar
 
-A framework-free BS/AD calendar view model. It builds the month grid (with the other calendar's day under each day), the month and year tile views, keyboard navigation and every day state: today, selected, range, disabled, outside, weekend, holiday and events. It renders nothing. `@nepdate/react` and `@nepdate/vanilla` render it, and you can render it yourself in any framework.
+A framework-free BS/AD calendar view model. It builds the month grid (with the other calendar's day under each day), the month and year tile views, keyboard navigation and every day state: today, selected, range, disabled, outside, weekend, holiday and events. It renders nothing. `@nepdatejs/react` and `@nepdatejs/vanilla` render it, and you can render it yourself in any framework.
 
 ```bash
-npm install @nepdate/calendar
+npm install @nepdatejs/calendar
 ```
 
 ```ts
-import { createCalendar } from '@nepdate/calendar';
+import { createCalendar } from '@nepdatejs/calendar';
 
 const calendar = createCalendar({
   calendar: 'BS',

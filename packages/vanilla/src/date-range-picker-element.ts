@@ -1,4 +1,4 @@
-import type { RangePreset } from '@nepdate/datepicker';
+import type { RangePreset } from '@nepdatejs/datepicker';
 import { DateRangePickerView, type DateRangePickerViewOptions } from './range-view';
 import {
   Base,

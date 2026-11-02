@@ -5,10 +5,10 @@ import {
   type CalendarSystem,
   type LocaleCode,
   type Weekday,
-} from '@nepdate/core';
-import type { EventMarker, HolidayInput, HolidayLookup } from '@nepdate/calendar';
-import type { DateDetail } from '@nepdate/datepicker';
-import { restoreFocus, type PanelLayout } from '@nepdate/dom';
+} from '@nepdatejs/core';
+import type { EventMarker, HolidayInput, HolidayLookup } from '@nepdatejs/calendar';
+import type { DateDetail } from '@nepdatejs/datepicker';
+import { restoreFocus, type PanelLayout } from '@nepdatejs/dom';
 import { CalendarBody } from './calendar-body';
 import { useMultiDatePicker } from './hooks';
 import { Icon } from './icons';

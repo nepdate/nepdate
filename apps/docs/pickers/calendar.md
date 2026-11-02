@@ -21,7 +21,7 @@ Click the month or year in the header to jump through month and year tiles.
 ::: code-group
 
 ```tsx [React]
-import { Calendar } from '@nepdate/react';
+import { Calendar } from '@nepdatejs/react';
 
 export function Schedule() {
   return <Calendar onSelect={(selection) => console.log(selection)} />;
@@ -48,8 +48,8 @@ selection:
 
 ```tsx
 import { useState } from 'react';
-import { bsDate, type CalendarDate } from '@nepdate/core';
-import { Calendar } from '@nepdate/react';
+import { bsDate, type CalendarDate } from '@nepdatejs/core';
+import { Calendar } from '@nepdatejs/react';
 
 export function Picker() {
   const [selected, setSelected] = useState<CalendarDate>(bsDate(2083, 7, 1));
@@ -85,8 +85,8 @@ The calendar opens on the selected day's month, or else today's. To control the 
 
 ```tsx
 import { useState } from 'react';
-import { bsDate, type CalendarDate } from '@nepdate/core';
-import { Calendar } from '@nepdate/react';
+import { bsDate, type CalendarDate } from '@nepdatejs/core';
+import { Calendar } from '@nepdatejs/react';
 
 export function Controlled() {
   const [month, setMonth] = useState<CalendarDate>(bsDate(2083, 1, 1));

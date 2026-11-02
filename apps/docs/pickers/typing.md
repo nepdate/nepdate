@@ -74,7 +74,7 @@ month names through `displayFormat`, people can still type a date in `YYYY-MM-DD
 and the previous text:
 
 ```ts
-import { maskDateText } from '@nepdate/datepicker';
+import { maskDateText } from '@nepdatejs/datepicker';
 
 maskDateText('2083', '208'); // → '2083-'
 maskDateText('2083-06', '2083-0'); // → '2083-06-'

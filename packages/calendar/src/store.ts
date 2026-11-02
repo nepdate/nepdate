@@ -21,7 +21,7 @@ import {
   type CalendarSystem,
   type LocaleCode,
   type Weekday,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import { nextFocus } from './focus';
 import { buildMonthGrid, buildWeekdays, isDayList, type HolidayResolver } from './grid';
 import { computeLimits, isInLimits, type Limits } from './limits';

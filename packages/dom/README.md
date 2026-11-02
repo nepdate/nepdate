@@ -1,9 +1,9 @@
-# @nepdate/dom
+# @nepdatejs/dom
 
-Small browser helpers shared by the `@nepdate` adapters. It knows nothing about dates and depends on no package. Every helper is a safe no-op during server rendering, and the ones that listen return a cleanup function.
+Small browser helpers shared by the `@nepdatejs` adapters. It knows nothing about dates and depends on no package. Every helper is a safe no-op during server rendering, and the ones that listen return a cleanup function.
 
 ```ts
-import { onEscape, onOutsidePointer, trackPosition } from '@nepdate/dom';
+import { onEscape, onOutsidePointer, trackPosition } from '@nepdatejs/dom';
 
 const stop = [
   trackPosition(input, panel), // top layer when supported; flips and stays on screen

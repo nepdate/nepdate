@@ -1,11 +1,11 @@
-# @nepdate/calendar
+# @nepdatejs/calendar
 
 [[toc]]
 
 Calendar logic with no UI. See [Framework-free stores](/integrations/stores) for how to use it.
 
 ```ts
-import { createCalendar } from '@nepdate/calendar';
+import { createCalendar } from '@nepdatejs/calendar';
 ```
 
 ## `createCalendar`

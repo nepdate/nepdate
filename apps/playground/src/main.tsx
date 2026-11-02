@@ -1,8 +1,8 @@
-import '@nepdate/styles/index.css';
+import '@nepdatejs/styles/index.css';
 import './playground.css';
 import { StrictMode, useState, type ReactElement, type SyntheticEvent } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import type { CalendarSystem, LocaleCode } from '@nepdate/core';
+import type { CalendarSystem, LocaleCode } from '@nepdatejs/core';
 import {
   Calendar,
   DatePicker,
@@ -10,7 +10,7 @@ import {
   DateText,
   DateTimePicker,
   MultiDatePicker,
-} from '@nepdate/react';
+} from '@nepdatejs/react';
 import { runAxe } from './axe';
 
 type Theme = 'light' | 'dark';
@@ -45,7 +45,7 @@ function App(): ReactElement {
       style={{ minHeight: '100vh', background: 'var(--page-bg)' }}
     >
       <header>
-        <h1>@nepdate playground</h1>
+        <h1>@nepdatejs playground</h1>
         <nav>
           <a href="/index.html">React</a>
           <a href="/vanilla.html">Web Components</a>

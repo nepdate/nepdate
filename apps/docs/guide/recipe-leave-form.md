@@ -13,8 +13,8 @@ Start with a plain function, so it's easy to test. It counts every day in the ra
 and holidays:
 
 ```ts
-import { eachDayOfInterval, fromIsoDate, isWeekend } from '@nepdate/core';
-import { isHoliday } from '@nepdate/holidays';
+import { eachDayOfInterval, fromIsoDate, isWeekend } from '@nepdatejs/core';
+import { isHoliday } from '@nepdatejs/holidays';
 
 export function workingDays(start: string, end: string) {
   const from = fromIsoDate(start);
@@ -43,8 +43,8 @@ That week has one Saturday and no fixed holidays, so it counts six days.
 
 ```tsx
 import { useState } from 'react';
-import { toCalendarHolidays } from '@nepdate/holidays';
-import { DateRangePicker } from '@nepdate/react';
+import { toCalendarHolidays } from '@nepdatejs/holidays';
+import { DateRangePicker } from '@nepdatejs/react';
 
 declare function workingDays(start: string, end: string): number;
 
@@ -80,7 +80,7 @@ Check again on the server, with the same function:
 
 <!-- no-check -->
 ```ts
-import { fromIsoDate, isBefore, today } from '@nepdate/core';
+import { fromIsoDate, isBefore, today } from '@nepdatejs/core';
 
 export function checkLeave(start: string, end: string) {
   const from = fromIsoDate(start);

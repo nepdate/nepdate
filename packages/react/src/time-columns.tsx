@@ -1,6 +1,6 @@
 import { useEffect, useRef, type ReactElement } from 'react';
-import { getLocale, type LocaleCode } from '@nepdate/core';
-import type { TimeCell } from '@nepdate/datepicker';
+import { getLocale, type LocaleCode } from '@nepdatejs/core';
+import type { TimeCell } from '@nepdatejs/datepicker';
 
 /** Hour and minute columns (Figma "Time Item"); the selected items scroll into view. */
 export function TimeColumns({

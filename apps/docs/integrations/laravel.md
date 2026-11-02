@@ -12,14 +12,14 @@ validation and Eloquent queries don't change at all. BS only exists in the brows
 ### With Vite
 
 ```bash
-npm install @nepdate/vanilla @nepdate/styles
+npm install @nepdatejs/vanilla @nepdatejs/styles
 ```
 
 In `resources/js/app.js`:
 
 ```js
-import '@nepdate/styles';
-import '@nepdate/vanilla/define';
+import '@nepdatejs/styles';
+import '@nepdatejs/vanilla/define';
 ```
 
 Make sure your layout loads it:
@@ -33,8 +33,8 @@ Make sure your layout loads it:
 Add these to your layout's `<head>`:
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@nepdate/styles/index.css" />
-<script src="https://unpkg.com/@nepdate/vanilla/dist/nepdate-picker.global.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@nepdatejs/styles/index.css" />
+<script src="https://unpkg.com/@nepdatejs/vanilla/dist/nepdate-picker.global.js"></script>
 ```
 
 ## A form
@@ -149,7 +149,7 @@ when it loads:
 ```
 
 ```js
-import { formatDate, fromIsoDate, toCalendar } from '@nepdate/core';
+import { formatDate, fromIsoDate, toCalendar } from '@nepdatejs/core';
 
 for (const element of document.querySelectorAll('[data-bs]')) {
   const date = fromIsoDate(element.dataset.bs);
@@ -191,12 +191,12 @@ $startsAt = Carbon::parse($request->input('starts_at'));
 
 ## Inertia and React
 
-With Inertia, use [`@nepdate/react`](./react) and bind it to the form helper:
+With Inertia, use [`@nepdatejs/react`](./react) and bind it to the form helper:
 
 <!-- no-check -->
 ```tsx
 import { useForm } from '@inertiajs/react';
-import { DatePicker } from '@nepdate/react';
+import { DatePicker } from '@nepdatejs/react';
 
 export default function Create() {
   const { data, setData, post, errors } = useForm({ dob: '' });

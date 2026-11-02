@@ -1,9 +1,9 @@
 /*
- * @nepdate/styles: component classes. Uses only --ndp-* tokens (tokens.css).
+ * @nepdatejs/styles: component classes. Uses only --ndp-* tokens (tokens.css).
  * Class names, data-* attributes and the markup below are public API:
  * renaming one is a breaking change (docs/plan STY rules).
  *
- * Markup contract (shared by @nepdate/vanilla and @nepdate/react):
+ * Markup contract (shared by @nepdatejs/vanilla and @nepdatejs/react):
  *
  *   .ndp-field
  *     .ndp-input [data-invalid] [data-disabled]

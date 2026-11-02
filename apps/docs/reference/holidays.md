@@ -1,4 +1,4 @@
-# @nepdate/holidays
+# @nepdatejs/holidays
 
 [[toc]]
 

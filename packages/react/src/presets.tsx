@@ -1,5 +1,5 @@
 import type { ReactElement, ReactNode } from 'react';
-import type { PresetState } from '@nepdate/datepicker';
+import type { PresetState } from '@nepdatejs/datepicker';
 
 /** Panel widths: calendar alone, plus presets column, plus time columns. */
 export const PANEL_WIDTH = 320;

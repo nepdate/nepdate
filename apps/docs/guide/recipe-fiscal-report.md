@@ -13,7 +13,7 @@ The range picker gives people a one-click fiscal year:
 
 ```tsx
 import { useState } from 'react';
-import { DateRangePicker } from '@nepdate/react';
+import { DateRangePicker } from '@nepdatejs/react';
 
 export function ReportFilter() {
   const [range, setRange] = useState({ start: '', end: '' });
@@ -42,7 +42,7 @@ SELECT sum(amount) FROM payments WHERE paid_on BETWEEN :start AND :end;
 If your URL or filter holds a label such as `2083/84`, read it and get the AD limits:
 
 ```ts
-import { parseFiscalYear, toIsoDate } from '@nepdate/core';
+import { parseFiscalYear, toIsoDate } from '@nepdatejs/core';
 
 function limits(label: string) {
   const fy = parseFiscalYear(label);
@@ -59,7 +59,7 @@ limits('nonsense'); // → null
 Group by the fiscal year of each record's date:
 
 ```ts
-import { fiscalYear, fromIsoDate } from '@nepdate/core';
+import { fiscalYear, fromIsoDate } from '@nepdatejs/core';
 
 const payments = [
   { paidOn: '2026-07-16', amount: 100 },
@@ -89,7 +89,7 @@ Note how one day makes the difference: 16 July 2026 is the last day of Asar, and
 For a monthly table, start at Shrawan and step twelve times:
 
 ```ts
-import { addMonths, fiscalYearRange, formatDate } from '@nepdate/core';
+import { addMonths, fiscalYearRange, formatDate } from '@nepdatejs/core';
 
 const fy = fiscalYearRange(2083);
 const months = Array.from({ length: 12 }, (_, index) =>

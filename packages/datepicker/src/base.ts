@@ -4,14 +4,14 @@ import {
   type CalendarDate,
   type DateFormatPattern,
   type LocaleCode,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 import {
   isDayList,
   type CalendarOptions,
   type CalendarSelection,
   type CalendarStore,
   type DateRange,
-} from '@nepdate/calendar';
+} from '@nepdatejs/calendar';
 import { readIso, type InputLimits } from './input';
 import type { PickerBaseOptions } from './types';
 

@@ -10,7 +10,7 @@ haven't installed anything yet, start with [Installation](./installation).
 Create an AD date, convert it to BS, and show it:
 
 ```ts
-import { adDate, adToBs, formatDate } from '@nepdate/core';
+import { adDate, adToBs, formatDate } from '@nepdatejs/core';
 
 const ad = adDate(2026, 10, 18);
 const bs = adToBs(ad);
@@ -26,7 +26,7 @@ mistaken for an AD one.
 Going the other way works the same:
 
 ```ts
-import { bsDate, bsToAd, toIsoDate } from '@nepdate/core';
+import { bsDate, bsToAd, toIsoDate } from '@nepdatejs/core';
 
 const ad = bsToAd(bsDate(2083, 6, 24));
 
@@ -41,9 +41,9 @@ toIsoDate(ad); // → '2026-10-10'
 ### In React
 
 ```tsx
-import '@nepdate/styles';
+import '@nepdatejs/styles';
 import { useState } from 'react';
-import { DatePicker } from '@nepdate/react';
+import { DatePicker } from '@nepdatejs/react';
 
 export function BirthDate() {
   const [value, setValue] = useState('');
@@ -60,8 +60,8 @@ export function BirthDate() {
 ### In plain HTML
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@nepdate/styles/index.css" />
-<script src="https://unpkg.com/@nepdate/vanilla/dist/nepdate-picker.global.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@nepdatejs/styles/index.css" />
+<script src="https://unpkg.com/@nepdatejs/vanilla/dist/nepdate-picker.global.js"></script>
 
 <form action="/save" method="post">
   <label for="dob">Date of birth</label>
@@ -91,7 +91,7 @@ So nothing about your back end has to change. Keep your `date` column, keep your
 and convert only when you show a date to someone:
 
 ```ts
-import { formatDate, fromIsoDate, toCalendar } from '@nepdate/core';
+import { formatDate, fromIsoDate, toCalendar } from '@nepdatejs/core';
 
 const stored = '2026-10-10'; // from your database
 const date = fromIsoDate(stored);

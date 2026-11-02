@@ -1,4 +1,4 @@
-import type { PresetState } from '@nepdate/datepicker';
+import type { PresetState } from '@nepdatejs/datepicker';
 import { el, setAttrs, setText } from './dom';
 
 /** Panel width with and without the presets column. */

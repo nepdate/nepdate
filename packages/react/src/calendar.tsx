@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react';
-import type { CalendarDate } from '@nepdate/core';
-import type { CalendarOptions, CalendarSelection } from '@nepdate/calendar';
+import type { CalendarDate } from '@nepdatejs/core';
+import type { CalendarOptions, CalendarSelection } from '@nepdatejs/calendar';
 import { CalendarBody } from './calendar-body';
 import { useCalendar } from './hooks';
 

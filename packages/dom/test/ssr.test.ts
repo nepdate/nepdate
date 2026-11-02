@@ -9,7 +9,7 @@ import {
   prefersReducedMotion,
   supportsPopover,
   trackPosition,
-} from '@nepdate/dom';
+} from '@nepdatejs/dom';
 
 describe('server rendering (SSR-safe)', () => {
   test('every helper is a no-op without a DOM', () => {

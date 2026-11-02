@@ -3,7 +3,7 @@ import {
   createDatePicker,
   createDateRangePicker,
   maskDateText,
-} from '@nepdate/datepicker';
+} from '@nepdatejs/datepicker';
 import { TODAY } from './helpers';
 
 /** Type text one character at a time, as a keyboard would. */

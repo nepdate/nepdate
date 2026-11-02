@@ -9,7 +9,7 @@ import {
   parseDate,
   today,
   type AdDate,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 
 const ad = ref<AdDate>(today('AD'));
 const adText = ref(formatDate(ad.value, 'iso'));

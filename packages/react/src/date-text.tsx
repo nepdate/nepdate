@@ -7,7 +7,7 @@ import {
   type CalendarSystem,
   type DateFormatPattern,
   type LocaleCode,
-} from '@nepdate/core';
+} from '@nepdatejs/core';
 
 export interface DateTextProps {
   /** An AD date or timestamp from the server ("2026-09-26" or an ISO timestamp). */

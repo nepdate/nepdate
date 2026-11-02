@@ -20,7 +20,7 @@ pnpm install
 | `pnpm dev` | Runs the playground at `http://localhost:5180` |
 | `pnpm test` | Runs the tests |
 | `pnpm verify` | Runs everything CI runs: format, lint, types, tests, build, package and size checks |
-| `pnpm --filter @nepdate/docs dev` | Runs these docs at `http://localhost:5181` |
+| `pnpm --filter @nepdatejs/docs dev` | Runs these docs at `http://localhost:5181` |
 | `pnpm check:docs` | Checks every code sample in the docs against the packages |
 
 Run `pnpm verify` before you open a pull request.
@@ -39,7 +39,7 @@ Code samples are tested. `pnpm check:docs` type-checks each sample, and a line e
 `// → value` is run and compared with the real result, so write expected results that way:
 
 ```ts
-import { bsDate, formatDate } from '@nepdate/core';
+import { bsDate, formatDate } from '@nepdatejs/core';
 
 formatDate(bsDate(2083, 7, 1), 'long'); // → '1 Kartik 2083'
 ```

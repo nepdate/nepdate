@@ -1,5 +1,5 @@
 {
-  "$comment": "Which @nepdate packages each package may import, and which other packages it may use. Read by eslint.config.js and scripts/check-boundaries.ts. See docs/plan/01-architecture.md.",
+  "$comment": "Which @nepdatejs packages each package may import, and which other packages it may use. Read by eslint.config.js and scripts/check-boundaries.ts. See docs/plan/01-architecture.md.",
   "packages": {
     "core": {
       "internal": [],

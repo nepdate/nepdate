@@ -1,5 +1,5 @@
 /**
- * @nepdate/calendar: the calendar view model, and nothing else. Builds month,
+ * @nepdatejs/calendar: the calendar view model, and nothing else. Builds month,
  * month-tile and year-tile grids in BS or AD, tracks navigation and focus, and
  * marks day states. Renders nothing; adapters do (docs/plan packages/calendar).
  */

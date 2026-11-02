@@ -4,25 +4,25 @@
 
 ## Introduction
 
-`@nepdate/react` has styled components and, if you want your own markup,
+`@nepdatejs/react` has styled components and, if you want your own markup,
 [headless hooks](./headless-react). It works with React 18 and 19, and with
 [server rendering](./nextjs).
 
 ```bash
-npm install @nepdate/react @nepdate/styles
+npm install @nepdatejs/react @nepdatejs/styles
 ```
 
 Import the stylesheet once, in your app's entry file:
 
 ```ts
-import '@nepdate/styles';
+import '@nepdatejs/styles';
 ```
 
 ## A first component
 
 ```tsx
 import { useState } from 'react';
-import { DatePicker } from '@nepdate/react';
+import { DatePicker } from '@nepdatejs/react';
 
 export function Profile() {
   const [dob, setDob] = useState('');
@@ -56,7 +56,7 @@ Your server sends AD dates. These helpers show them in BS.
 ### `<DateText>`
 
 ```tsx
-import { DateText } from '@nepdate/react';
+import { DateText } from '@nepdatejs/react';
 
 export function Row() {
   return <DateText value="2026-09-26" />;
@@ -81,7 +81,7 @@ ISO timestamp.
 For a table cell or list row. It shows the BS date and keeps the AD date as a hover hint:
 
 ```tsx
-import { ShortDate } from '@nepdate/react';
+import { ShortDate } from '@nepdatejs/react';
 
 export function Cell() {
   return <ShortDate value="2026-09-26" />;
@@ -93,7 +93,7 @@ export function Cell() {
 The same as plain text, for places that need a string, such as an export or a chart label:
 
 ```ts
-import { bothDates, shortDate } from '@nepdate/react';
+import { bothDates, shortDate } from '@nepdatejs/react';
 
 shortDate('2026-09-26'); // → '10 Ashwin 2083'
 shortDate('2026-09-26T09:00:00Z'); // → '10 Ashwin 2083, 14:45'
@@ -122,7 +122,7 @@ has `<html lang="ne">`.
 Each component exports its props type, such as `DatePickerProps`:
 
 ```tsx
-import { DatePicker, type DatePickerProps } from '@nepdate/react';
+import { DatePicker, type DatePickerProps } from '@nepdatejs/react';
 
 export function MyDateField(props: DatePickerProps) {
   return <DatePicker clearable={false} {...props} />;

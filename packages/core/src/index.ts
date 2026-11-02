@@ -1,5 +1,5 @@
 /**
- * @nepdate/core: the source of truth for Bikram Sambat (BS) and AD dates.
+ * @nepdatejs/core: the source of truth for Bikram Sambat (BS) and AD dates.
  * No package dependencies; built-ins only (docs/plan D-004).
  */
 export type {

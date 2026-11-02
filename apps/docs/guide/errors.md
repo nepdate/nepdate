@@ -28,7 +28,7 @@ Check `code`, not the message. Messages may be reworded, but codes won't change.
 | `INVALID_ARGUMENT` | A value of the wrong kind: not a whole number, an unknown time zone, unreadable text |
 
 ```ts
-import { adDate, adToBs, NepDateRangeError } from '@nepdate/core';
+import { adDate, adToBs, NepDateRangeError } from '@nepdatejs/core';
 
 function toBsText(year: number, month: number, day: number) {
   try {
@@ -61,7 +61,7 @@ it can name them.
 | `BAD_ANCHOR` | `firstYear`, `epochStart` or `verifiedThrough` isn't a whole number |
 
 ```ts
-import { NepDateDataError, patchBsYear } from '@nepdate/core';
+import { NepDateDataError, patchBsYear } from '@nepdatejs/core';
 
 try {
   patchBsYear(2090, [31, 31, 40, 31, 31, 31, 30, 29, 30, 29, 30, 30]);

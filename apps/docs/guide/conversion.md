@@ -8,7 +8,7 @@ Converting takes a date in one calendar and gives you the same day in the other.
 is a normal date object you can format or calculate with.
 
 ```ts
-import { adDate, adToBs, bsDate, bsToAd } from '@nepdate/core';
+import { adDate, adToBs, bsDate, bsToAd } from '@nepdatejs/core';
 
 adToBs(adDate(2026, 10, 18)); // → { calendar: 'BS', year: 2083, month: 7, day: 1 }
 bsToAd(bsDate(2083, 7, 1)); // → { calendar: 'AD', year: 2026, month: 10, day: 18 }
@@ -27,7 +27,7 @@ Use `toCalendar` when you don't know which calendar a date is in, or when the ta
 variable. If the date is already in that calendar, you get it back unchanged.
 
 ```ts
-import { adDate, bsDate, toCalendar } from '@nepdate/core';
+import { adDate, bsDate, toCalendar } from '@nepdatejs/core';
 
 toCalendar(adDate(2026, 10, 18), 'BS').year; // → 2083
 toCalendar(bsDate(2083, 7, 1), 'BS').year; // → 2083
@@ -39,7 +39,7 @@ Conversion works from **13 April 1913** to **13 April 2043** AD, which is BS 197
 Outside that, conversion throws an error with the code `OUT_OF_TABLE`.
 
 ```ts
-import { adDate, adToBs, isConvertible } from '@nepdate/core';
+import { adDate, adToBs, isConvertible } from '@nepdatejs/core';
 
 adToBs(adDate(1900, 1, 1)); // → throws OUT_OF_TABLE
 isConvertible(adDate(1900, 1, 1)); // → false
@@ -56,7 +56,7 @@ Check first with `isConvertible` when the date comes from outside your code.
 the form to store or send.
 
 ```ts
-import { adDate, bsDate, toIsoDate } from '@nepdate/core';
+import { adDate, bsDate, toIsoDate } from '@nepdatejs/core';
 
 toIsoDate(bsDate(2083, 6, 24)); // → '2026-10-10'
 toIsoDate(adDate(2026, 10, 10)); // → '2026-10-10'
@@ -68,7 +68,7 @@ toIsoDate(adDate(2026, 10, 10)); // → '2026-10-10'
 as written. It returns `null` for anything else, so check the result:
 
 ```ts
-import { fromIsoDate } from '@nepdate/core';
+import { fromIsoDate } from '@nepdatejs/core';
 
 fromIsoDate('2026-10-18'); // → { calendar: 'AD', year: 2026, month: 10, day: 18 }
 fromIsoDate('2026-10-18T14:30:00Z')?.day; // → 18
@@ -89,7 +89,7 @@ fromIsoDate(null); // → null
 default:
 
 ```ts
-import { fromJsDate } from '@nepdate/core';
+import { fromJsDate } from '@nepdatejs/core';
 
 const instant = new Date('2026-10-18T20:00:00Z');
 
@@ -103,7 +103,7 @@ An epoch day is the number of days since 1 January 1970. It's the one thing the 
 share, and it's handy for storing a date as a number or for your own calculations.
 
 ```ts
-import { adDate, fromEpoch, toEpoch } from '@nepdate/core';
+import { adDate, fromEpoch, toEpoch } from '@nepdatejs/core';
 
 const day = toEpoch(adDate(2026, 10, 18));
 

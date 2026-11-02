@@ -17,8 +17,8 @@ export default defineConfig({
   },
   vite: {
     // Use the packages' sources, so the docs need no build of them first.
-    resolve: { conditions: ['@nepdate/source'] },
-    ssr: { resolve: { conditions: ['@nepdate/source'] } },
+    resolve: { conditions: ['@nepdatejs/source'] },
+    ssr: { resolve: { conditions: ['@nepdatejs/source'] } },
   },
   themeConfig: {
     nav: [
@@ -159,14 +159,14 @@ export default defineConfig({
         {
           text: 'API Reference',
           items: [
-            { text: '@nepdate/core', link: '/reference/core' },
-            { text: '@nepdate/calendar', link: '/reference/calendar' },
-            { text: '@nepdate/datepicker', link: '/reference/datepicker' },
-            { text: '@nepdate/react', link: '/reference/react' },
-            { text: '@nepdate/vanilla', link: '/reference/vanilla' },
-            { text: '@nepdate/holidays', link: '/reference/holidays' },
-            { text: '@nepdate/styles', link: '/reference/styles' },
-            { text: '@nepdate/dom', link: '/reference/dom' },
+            { text: '@nepdatejs/core', link: '/reference/core' },
+            { text: '@nepdatejs/calendar', link: '/reference/calendar' },
+            { text: '@nepdatejs/datepicker', link: '/reference/datepicker' },
+            { text: '@nepdatejs/react', link: '/reference/react' },
+            { text: '@nepdatejs/vanilla', link: '/reference/vanilla' },
+            { text: '@nepdatejs/holidays', link: '/reference/holidays' },
+            { text: '@nepdatejs/styles', link: '/reference/styles' },
+            { text: '@nepdatejs/dom', link: '/reference/dom' },
           ],
         },
       ],

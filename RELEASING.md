@@ -10,7 +10,7 @@ Do this once. Steps 1 to 3 need your npm account, so they can't be automated. Ke
 
 - [ ] Sign in at [npmjs.com](https://www.npmjs.com/), or create an account.
 - [ ] Turn on two-factor authentication, using a security key or passkey if you can.
-- [ ] [Create an organization](https://www.npmjs.com/org/create) named `nepdate`, with the free plan for public packages.
+- [ ] [Create an organization](https://www.npmjs.com/org/create) named `nepdatejs`, with the free plan for public packages.
 
 ### 2. Set up GitHub and log in to npm
 
@@ -72,9 +72,9 @@ The workflow opens a pull request titled **chore: version packages**, which sets
 
 ### 6. Check the result
 
-- [ ] Each package on [npm](https://www.npmjs.com/org/nepdate) shows 0.1.0 and a provenance badge.
-- [ ] A fresh project can install and use them: `npm install @nepdate/react @nepdate/styles`
-- [ ] The script build loads: `https://unpkg.com/@nepdate/vanilla/dist/nepdate-picker.global.js`
+- [ ] Each package on [npm](https://www.npmjs.com/org/nepdatejs) shows 0.1.0 and a provenance badge.
+- [ ] A fresh project can install and use them: `npm install @nepdatejs/react @nepdatejs/styles`
+- [ ] The script build loads: `https://unpkg.com/@nepdatejs/vanilla/dist/nepdate-picker.global.js`
 - [ ] Remove the "Not on npm yet" warning from `apps/docs/guide/installation.md`, and the "not yet released" note from `apps/docs/guide/release-notes.md`.
 
 ### 7. Lock it down
@@ -94,14 +94,14 @@ While the version is `0.x`:
 - A breaking change bumps the **minor** version, and its changeset must say so and explain what to change.
 - Everything else bumps the **patch** version.
 
-Exports, type names, `ndp-*` class names, custom element names, attributes and events, and `--ndp-*` CSS variables are all public API. All `@nepdate/*` packages are linked, so they move to the same version together when they change.
+Exports, type names, `ndp-*` class names, custom element names, attributes and events, and `--ndp-*` CSS variables are all public API. All `@nepdatejs/*` packages are linked, so they move to the same version together when they change.
 
 ## When publishing fails
 
-| Problem                                                   | Likely cause                                                                                                                                                          |
-| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `404` or `ENEEDAUTH` when publishing                      | The trusted publisher doesn't match. Repository, workflow file and environment must match exactly, and are case-sensitive. Check with `npm trust list @nepdate/core`. |
-| It worked in setup, but fails days later on the first run | The trust expired after 2 days without a publish. Revoke it with `npm trust revoke`, then run `pnpm npm:bootstrap` again.                                             |
-| No version pull request appears                           | `NPM_PUBLISH_ENABLED` isn't `true`, or **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests** is off.                            |
-| The version pull request has no CI checks                 | Normal. GitHub doesn't run workflows for pull requests opened by Actions. The Release workflow runs `pnpm verify` before publishing.                                  |
-| One package published but the rest failed                 | Re-run the workflow. It skips versions that are already on npm.                                                                                                       |
+| Problem                                                   | Likely cause                                                                                                                                                            |
+| --------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `404` or `ENEEDAUTH` when publishing                      | The trusted publisher doesn't match. Repository, workflow file and environment must match exactly, and are case-sensitive. Check with `npm trust list @nepdatejs/core`. |
+| It worked in setup, but fails days later on the first run | The trust expired after 2 days without a publish. Revoke it with `npm trust revoke`, then run `pnpm npm:bootstrap` again.                                               |
+| No version pull request appears                           | `NPM_PUBLISH_ENABLED` isn't `true`, or **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests** is off.                              |
+| The version pull request has no CI checks                 | Normal. GitHub doesn't run workflows for pull requests opened by Actions. The Release workflow runs `pnpm verify` before publishing.                                    |
+| One package published but the rest failed                 | Re-run the workflow. It skips versions that are already on npm.                                                                                                         |

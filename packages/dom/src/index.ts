@@ -1,5 +1,5 @@
 /**
- * @nepdate/dom: small browser helpers shared by the DOM adapters (vanilla,
+ * @nepdatejs/dom: small browser helpers shared by the DOM adapters (vanilla,
  * react, angular). Knows nothing about dates. Every helper is safe to call
  * during server rendering and returns a cleanup function where it listens.
  */

@@ -28,7 +28,7 @@ export default defineConfig([
     sourcemap: true,
     dts: false,
     clean: false,
-    deps: { alwaysBundle: [/^@nepdate\//] },
+    deps: { alwaysBundle: [/^@nepdatejs\//] },
     outputOptions: { entryFileNames: '[name].global.js' },
   },
 ]);

@@ -1,4 +1,4 @@
-/** @nepdate/react/headless: hooks only; no markup, no CSS. */
+/** @nepdatejs/react/headless: hooks only; no markup, no CSS. */
 export {
   useCalendar,
   useDatePicker,

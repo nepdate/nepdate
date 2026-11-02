@@ -1,4 +1,4 @@
-# @nepdate/datepicker
+# @nepdatejs/datepicker
 
 Framework-free BS/AD date picker behaviour:
 
@@ -9,14 +9,14 @@ Framework-free BS/AD date picker behaviour:
 - open/close
 - single and range values
 
-It renders nothing; the adapters (`@nepdate/react`, `@nepdate/vanilla`) do.
+It renders nothing; the adapters (`@nepdatejs/react`, `@nepdatejs/vanilla`) do.
 
 ```bash
-npm install @nepdate/datepicker
+npm install @nepdatejs/datepicker
 ```
 
 ```ts
-import { createDatePicker } from '@nepdate/datepicker';
+import { createDatePicker } from '@nepdatejs/datepicker';
 
 const picker = createDatePicker({
   defaultCalendar: 'BS',
@@ -69,7 +69,7 @@ A preset is disabled when its range falls outside `min`/`max` or breaks `minDays
 ## Range picker
 
 ```ts
-import { createDateRangePicker } from '@nepdate/datepicker';
+import { createDateRangePicker } from '@nepdatejs/datepicker';
 
 const range = createDateRangePicker({ minDays: 1, maxDays: 15 });
 range.actions.select(start); // a click in the panel
@@ -80,7 +80,7 @@ range.getState().value; // { start: '2026-10-22', end: '2026-10-25' }
 ## Date and time
 
 ```ts
-import { createDateTimePicker } from '@nepdate/datepicker';
+import { createDateTimePicker } from '@nepdatejs/datepicker';
 
 const picker = createDateTimePicker({
   minuteStep: 15,
@@ -98,7 +98,7 @@ Use `timeZone` to show and store another zone. Values without an offset are take
 ## Multiple dates
 
 ```ts
-import { createMultiDatePicker } from '@nepdate/datepicker';
+import { createMultiDatePicker } from '@nepdatejs/datepicker';
 
 const picker = createMultiDatePicker({ maxDates: 5 });
 picker.actions.select(bsDate(2083, 7, 8)); // a click adds a day, a second click removes it
@@ -106,6 +106,6 @@ picker.actions.type('2083-07-01, 2083-07-05'); // or type them, separated by com
 picker.getState().value; // ['2026-10-18', '2026-10-22']: sorted AD days
 ```
 
-Every store exposes the panel's calendar store as `.calendar` (see `@nepdate/calendar`). The pure helpers `parseInput`, `checkDate`, `formatInput` and `equivalentText` are exported too.
+Every store exposes the panel's calendar store as `.calendar` (see `@nepdatejs/calendar`). The pure helpers `parseInput`, `checkDate`, `formatInput` and `equivalentText` are exported too.
 
 MIT © Shishir Rai
