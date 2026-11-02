@@ -2,9 +2,10 @@
  * One-time setup for publishing without a token (see RELEASING.md).
  *
  * npm can only trust a workflow for a package that already exists, so a new
- * package needs one publish by hand. For each package this publishes an empty,
- * deprecated placeholder, then trusts .github/workflows/release.yml to publish
- * the real versions. It is safe to run again: finished steps are skipped.
+ * package needs one publish by hand. This publishes an empty placeholder for
+ * each package, waits for npm to process them, deprecates the placeholders, then
+ * trusts .github/workflows/release.yml to publish the real versions. It is safe
+ * to run again: finished steps are skipped.
  *
  *   npm login
  *   pnpm npm:bootstrap --dry-run   show what would happen
@@ -19,12 +20,16 @@ import { fileURLToPath } from 'node:url';
 const REPOSITORY = 'nepdate/nepdate';
 const WORKFLOW = 'release.yml';
 const ENVIRONMENT = 'npm';
+const SCOPE = '@nepdatejs';
 const PLACEHOLDER = '0.0.0-bootstrap';
+const WAIT_MINUTES = 15;
 /** `npm trust` needs this version or later. */
 const MIN_NPM = [11, 15];
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dryRun = process.argv.includes('--dry-run');
+
+const pause = (ms: number): Promise<void> => new Promise((done) => setTimeout(done, ms));
 
 function capture(args: string[]): string | null {
   const result = spawnSync('npm', args, { encoding: 'utf8' });
@@ -98,13 +103,56 @@ if (!user && !dryRun) {
 }
 console.log(`${dryRun ? 'Dry run' : 'Publishing'} as ${user ?? '(not logged in)'}\n`);
 
-for (const name of packageNames()) {
-  if (capture(['view', name, 'name'])) {
+/** Packages this account owns. Unlike `npm view`, it sees ones npm is still processing. */
+function ownedPackages(): string {
+  return capture(['access', 'list', 'packages', SCOPE]) ?? '';
+}
+
+function isVisible(name: string): boolean {
+  return capture(['view', name, 'name']) === name;
+}
+
+/** npm processes a new package in the background, which can take a few minutes. */
+async function waitUntilVisible(names: readonly string[]): Promise<void> {
+  const deadline = Date.now() + WAIT_MINUTES * 60_000;
+  let waiting = names.filter((name) => !isVisible(name));
+  while (waiting.length > 0) {
+    if (Date.now() > deadline) {
+      throw new Error(
+        `npm is still processing ${waiting.join(', ')}. Wait a few minutes and run this again.`,
+      );
+    }
+    console.log(`  waiting for npm to process ${waiting.length} package(s)...`);
+    await pause(15_000);
+    waiting = waiting.filter((name) => !isVisible(name));
+  }
+}
+
+const names = packageNames();
+
+// Publish everything first, so the two-factor approval only has to cover this.
+const owned = dryRun ? '' : ownedPackages();
+for (const name of names) {
+  if (owned.includes(`${name}:`) || isVisible(name)) {
     console.log(`✔ ${name} exists`);
   } else {
     console.log(`→ ${name}: publishing the placeholder`);
     publishPlaceholder(name);
-    if (!dryRun) {
+  }
+}
+
+if (dryRun) {
+  console.log(`\nWould trust ${REPOSITORY} ${WORKFLOW} (environment ${ENVIRONMENT}).`);
+  process.exit(0);
+}
+
+await waitUntilVisible(names);
+
+for (const name of names) {
+  if (capture(['view', `${name}@${PLACEHOLDER}`, 'version'])) {
+    if (capture(['view', `${name}@${PLACEHOLDER}`, 'deprecated'])) {
+      console.log(`✔ ${name} placeholder is deprecated`);
+    } else {
       run([
         'deprecate',
         `${name}@${PLACEHOLDER}`,
@@ -112,9 +160,7 @@ for (const name of packageNames()) {
       ]);
     }
   }
-  if (dryRun) {
-    console.log(`  would trust ${REPOSITORY} ${WORKFLOW} (environment ${ENVIRONMENT})`);
-  } else if (capture(['trust', 'list', name])?.includes(WORKFLOW)) {
+  if (capture(['trust', 'list', name])?.includes(WORKFLOW)) {
     console.log(`✔ ${name} already trusts ${WORKFLOW}`);
   } else {
     run([
@@ -131,7 +177,7 @@ for (const name of packageNames()) {
       '--yes',
     ]);
     // npm asks for a pause between trust calls, to stay under its rate limit.
-    await new Promise((done) => setTimeout(done, 2000));
+    await pause(2000);
   }
 }
 

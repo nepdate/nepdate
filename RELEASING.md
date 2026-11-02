@@ -14,7 +14,9 @@ Do this once. Steps 1 to 3 need your npm account, so they can't be automated. Ke
 
 ### 2. Set up GitHub and log in to npm
 
-Let Actions open the version pull request, and create the `npm` environment, limited to `main`, that the publish job runs in:
+First, in the [organization's Actions settings](https://github.com/organizations/nepdate/settings/actions), tick **Allow GitHub Actions to create and approve pull requests** and save. The repository can't turn this on until the organization has.
+
+Then let Actions open the version pull request, and create the `npm` environment, limited to `main`, that the publish job runs in:
 
 ```bash
 gh api -X PUT repos/nepdate/nepdate/actions/permissions/workflow -f default_workflow_permissions=read -F can_approve_pull_request_reviews=true
@@ -54,7 +56,9 @@ Each package now trusts:
 | Workflow    | `release.yml`     |
 | Environment | `npm`             |
 
-If the script stops, fix the problem and run it again. It skips what's already done.
+npm processes new packages in the background, so the script may wait a few minutes before it can finish. If it stops, fix the problem and run it again. It skips what's already done.
+
+If `pnpm` isn't installed in your terminal, run `node scripts/npm-bootstrap.ts` instead.
 
 ### 4. Turn on the workflow
 
