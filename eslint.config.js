@@ -62,6 +62,7 @@ export default tseslint.config(
       '**/dist/**',
       '**/coverage/**',
       'docs/**',
+      'apps/docs/**',
       'scripts/test/fixtures/**',
       'packages/core/src/bs/data/years.ts',
     ],

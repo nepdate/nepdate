@@ -43,6 +43,8 @@ export class NepDateRangePickerElement extends Base {
     'inline',
     'start-label',
     'end-label',
+    'presets',
+    'fiscal-years',
   ];
 
   view: DateRangePickerView | null = null;

@@ -4,3 +4,7 @@ pnpm-lock.yaml
 packages/core/src/bs/data/years.ts
 .changeset/*.md
 docs/plan
+apps/docs/.vitepress/dist
+apps/docs/.vitepress/cache
+apps/docs/.check
+apps/docs/**/*.md

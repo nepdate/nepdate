@@ -1,0 +1,28 @@
+{
+  "name": "@nepdate/docs",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev --port 5181",
+    "build": "vitepress build",
+    "preview": "vitepress preview --port 5181"
+  },
+  "dependencies": {
+    "@nepdate/calendar": "workspace:*",
+    "@nepdate/core": "workspace:*",
+    "@nepdate/datepicker": "workspace:*",
+    "@nepdate/dom": "workspace:*",
+    "@nepdate/holidays": "workspace:*",
+    "@nepdate/react": "workspace:*",
+    "@nepdate/styles": "workspace:*",
+    "@nepdate/vanilla": "workspace:*"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "^19.3.0",
+    "react": "^19.3.1",
+    "vitepress": "^1.5.0",
+    "vue": "^3.5.0"
+  }
+}

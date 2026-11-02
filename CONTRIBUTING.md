@@ -62,3 +62,9 @@ Pick the packages and the bump (0.x: a breaking change is a minor bump; say so i
 Use short, imperative messages with a scope, e.g. `fix(core): …`, `feat(react): …`.
 
 By contributing you agree to follow the [Code of Conduct](CODE_OF_CONDUCT.md), and that your contribution is licensed under the MIT licence.
+
+## Documentation
+
+The docs site is in `apps/docs` (VitePress). Run it with `pnpm --filter @nepdate/docs dev`.
+
+`pnpm check:docs` is part of `pnpm verify`. It type-checks every code sample, runs each line that ends in `// → value` and compares the real result, checks `<nep-*>` attributes, and fails if a public export is missing from its reference page. Put `<!-- no-check -->` on the line before a fence that can't stand alone.

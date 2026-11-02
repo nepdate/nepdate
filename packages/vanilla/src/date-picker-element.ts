@@ -48,6 +48,7 @@ export class NepDatePickerElement extends Base {
     'label',
     'close-on-select',
     'input-id',
+    'presets',
   ];
 
   /** The view, once connected. */

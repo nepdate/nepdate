@@ -1,0 +1,128 @@
+:root {
+  --vp-c-brand-1: #2563eb;
+  --vp-c-brand-2: #1d4ed8;
+  --vp-c-brand-3: #2563eb;
+  --vp-c-brand-soft: rgb(37 99 235 / 0.14);
+}
+
+.dark {
+  --vp-c-brand-1: #60a5fa;
+  --vp-c-brand-2: #93c5fd;
+  --vp-c-brand-3: #3b82f6;
+  --vp-c-brand-soft: rgb(96 165 250 / 0.16);
+}
+
+/* A live example: the real component. */
+.demo {
+  max-width: 100%;
+  margin: 16px 0;
+  padding: 20px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft);
+}
+
+/* The docs style every table and paragraph; give the components their own look back. */
+.vp-doc .ndp-grid {
+  display: table;
+  margin: 0;
+  overflow: visible;
+}
+
+.vp-doc .ndp-grid tr,
+.vp-doc .ndp-grid tr:nth-child(2n) {
+  border: 0;
+  background: transparent;
+}
+
+.vp-doc .ndp-grid th,
+.vp-doc .ndp-grid td {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-size: inherit;
+  text-align: center;
+}
+
+.vp-doc .ndp-grid td {
+  padding-top: 2px;
+}
+
+.vp-doc .ndp-grid .ndp-weekday {
+  color: var(--ndp-text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.vp-doc .ndp-grid .ndp-weekday[data-weekend] {
+  color: var(--ndp-text-holiday);
+}
+
+.vp-doc .ndp-hint {
+  margin: var(--ndp-space-4) 0 0;
+  line-height: 16px;
+}
+
+.demo nep-calendar {
+  display: block;
+  max-width: 360px;
+}
+
+.demo__label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.converter {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.converter label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.converter input {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  font-size: 16px;
+}
+
+.converter__facts {
+  margin-top: 16px;
+}
+
+.converter__facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 6px 0;
+  border-top: 1px solid var(--vp-c-divider);
+  font-size: 14px;
+}
+
+.converter__facts dt {
+  color: var(--vp-c-text-2);
+}
+
+.converter__facts dd {
+  margin: 0;
+  text-align: right;
+}
+
+.converter__error {
+  margin-top: 12px;
+  color: var(--vp-c-danger-1);
+  font-size: 14px;
+}

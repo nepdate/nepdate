@@ -1,6 +1,8 @@
 # nepdate
 
-Bikram Sambat (BS) ⇄ AD dates for JavaScript: a dependency-free date engine, plus a calendar and date picker for React, plain HTML (Web Components) and any framework. Written in strict TypeScript.
+Bikram Sambat (BS) ⇄ AD dates for JavaScript: a dependency-free date engine, plus a calendar and date pickers for React, plain HTML (Web Components) and any framework. Written in strict TypeScript.
+
+**[Read the documentation](https://nepdate.github.io/nepdate/)** for guides, recipes and the full API reference.
 
 ```ts
 import { adDate, adToBs, formatDate } from '@nepdate/core';
@@ -12,21 +14,22 @@ formatDate(adToBs(adDate(2026, 10, 18)), 'long'); // "1 Kartik 2083"
 - **AD and BS never mix:** a BS year spans two AD years, so the two calendars share only a day count. `AdDate` and `BsDate` are different types, so one can't be passed where the other is expected.
 - **The stored value is always AD `YYYY-MM-DD`:** pickers show and accept BS, but forms, APIs and databases receive the AD date.
 - **Works everywhere:** Node (ESM and CJS), browsers, a plain `<script>` tag, React 18/19 (including server rendering) and Web Components.
-- **Small:** the core is about 6.6 kB gzipped, or about 2 kB if you only import a converter. `@nepdate/core` depends on no package.
+- **Small:** the core is under 8 kB gzipped, or about 2 kB if you only import a converter. `@nepdate/core` depends on no package.
 - **Bilingual:** English and Nepali (`ne`) names, digits and messages, with more languages via `registerLocale`.
 - **Accessible:** a keyboard-driven ARIA grid, a combobox input, screen-reader labels in both calendars, and colours checked with axe.
 
 ## Packages
 
-| Package                                      | What it does                                                                                                     |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| [`@nepdate/core`](packages/core)             | The date engine: conversion, formatting, parsing, arithmetic, fiscal year. No dependencies.                      |
-| [`@nepdate/calendar`](packages/calendar)     | A framework-free calendar view model: month, month-tile and year-tile grids, keyboard navigation, day states.    |
-| [`@nepdate/datepicker`](packages/datepicker) | Framework-free date picker and range picker behaviour: typed input, validation, BS/AD switch.                    |
-| [`@nepdate/react`](packages/react)           | React hooks and styled components.                                                                               |
-| [`@nepdate/vanilla`](packages/vanilla)       | `<nep-date-picker>`, `<nep-calendar>` and `<nep-date-range-picker>` custom elements, and a plain JavaScript API. |
-| [`@nepdate/styles`](packages/styles)         | The stylesheet: `--ndp-*` CSS variables and `ndp-*` classes, with light and dark themes.                         |
-| [`@nepdate/dom`](packages/dom)               | Small browser helpers the adapters share (popover placement, outside click, Escape).                             |
+| Package                                      | What it does                                                                                                           |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| [`@nepdate/core`](packages/core)             | The date engine: conversion, formatting, parsing, arithmetic, fiscal year. No dependencies.                            |
+| [`@nepdate/calendar`](packages/calendar)     | A framework-free calendar view model: month, month-tile and year-tile grids, keyboard navigation, day states.          |
+| [`@nepdate/datepicker`](packages/datepicker) | Framework-free picker behaviour (single, range, date and time, multiple dates): typed input, validation, BS/AD switch. |
+| [`@nepdate/react`](packages/react)           | React hooks and styled components.                                                                                     |
+| [`@nepdate/vanilla`](packages/vanilla)       | Custom elements for every picker and the calendar, and a plain JavaScript API.                                         |
+| [`@nepdate/styles`](packages/styles)         | The stylesheet: `--ndp-*` CSS variables and `ndp-*` classes, with light and dark themes.                               |
+| [`@nepdate/holidays`](packages/holidays)     | Nepal's national days and a loader for each year's official list.                                                      |
+| [`@nepdate/dom`](packages/dom)               | Small browser helpers the adapters share (popover placement, outside click, Escape).                                   |
 
 Each package does one job, and lower packages never import higher ones. `core` ← `calendar` ← `datepicker` ← `react` / `vanilla`. CI checks these rules.
 
@@ -107,8 +110,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). In short:
 ```bash
 corepack enable
 pnpm install
-pnpm verify    # format, lint, package rules, typecheck, tests, build, package checks, size
+pnpm verify    # format, lint, package rules, typecheck, tests, build, package checks, size, docs samples
 pnpm dev       # playground at http://localhost:5180
+pnpm --filter @nepdate/docs dev   # docs at http://localhost:5181
 ```
 
 ## Licence

@@ -13,3 +13,8 @@ docs/plan/
 
 # scripts/consumer.ts output in CI
 /consumer/
+
+# VitePress output and scripts/check-docs.ts scratch files
+apps/docs/.vitepress/dist
+apps/docs/.vitepress/cache
+apps/docs/.check/
