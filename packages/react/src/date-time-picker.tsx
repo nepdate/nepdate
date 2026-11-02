@@ -11,6 +11,7 @@ import type { DateTimeDetail, SinglePreset } from '@nepdatejs/datepicker';
 import { CalendarBody } from './calendar-body';
 import { popupProps, useDateTimePicker } from './hooks';
 import { Icon } from './icons';
+import { usePageLocale } from './page-locale';
 import { usePanel } from './panel';
 import type { PanelLayout } from '@nepdatejs/dom';
 import {
@@ -74,9 +75,10 @@ export function DateTimePicker({
   timeLabel,
   ...options
 }: DateTimePickerProps): ReactElement {
-  const picker = useDateTimePicker(options);
+  const locale = usePageLocale(options.locale);
+  const picker = useDateTimePicker({ ...options, locale });
   const { state, store, calendar, ids } = picker;
-  const labels = getLocale(options.locale);
+  const labels = getLocale(locale);
   const field = useRef<HTMLDivElement | null>(null);
   const row = useRef<HTMLDivElement | null>(null);
   const panel = useRef<HTMLDivElement | null>(null);

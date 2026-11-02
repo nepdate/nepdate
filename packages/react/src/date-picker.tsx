@@ -13,6 +13,7 @@ import { restoreFocus } from '@nepdatejs/dom';
 import { CalendarBody } from './calendar-body';
 import { useDatePicker } from './hooks';
 import { Icon } from './icons';
+import { usePageLocale } from './page-locale';
 import { usePanel } from './panel';
 import type { PanelLayout } from '@nepdatejs/dom';
 import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PanelBody } from './presets';
@@ -95,7 +96,7 @@ export function DatePicker(props: DatePickerProps): ReactElement {
     onCalendarChange,
     ...options
   } = props;
-  const locale = localeProp ?? pageLocale();
+  const locale = usePageLocale(localeProp);
   const picker = useDatePicker({
     ...options,
     locale,
@@ -316,14 +317,6 @@ export function DatePicker(props: DatePickerProps): ReactElement {
       )}
     </div>
   );
-}
-
-/** Nepali names and digits when the page language is Nepali. */
-function pageLocale(): LocaleCode {
-  return typeof document !== 'undefined' &&
-    document.documentElement.lang.toLowerCase().startsWith('ne')
-    ? 'ne'
-    : 'en';
 }
 
 function read(key: string | undefined): CalendarSystem | null {

@@ -178,17 +178,40 @@ describe('placePopover and trackPosition (DOM-001, DOM-002)', () => {
     stop();
   });
 
-  test('re-places on resize and scroll until stopped', () => {
+  test('re-places on resize at once, and on scroll once per frame, until stopped', () => {
     const { anchor, panel, rectSpy } = setup();
+    const frames: FrameRequestCallback[] = [];
+    vi.stubGlobal('requestAnimationFrame', (callback: FrameRequestCallback) =>
+      frames.push(callback),
+    );
     const stop = trackPosition(anchor, panel);
     rectSpy.mockReturnValue(DOMRect.fromRect({ x: 40, y: 200, width: 260, height: 36 }));
     window.dispatchEvent(new Event('resize'));
     expect(panel.style.top).toBe('242px');
+
     rectSpy.mockReturnValue(DOMRect.fromRect({ x: 40, y: 150, width: 260, height: 36 }));
     document.body.dispatchEvent(new Event('scroll'));
+    document.body.dispatchEvent(new Event('scroll'));
+    expect(frames).toHaveLength(1);
+    expect(panel.style.top).toBe('242px');
+    frames[0]?.(0);
     expect(panel.style.top).toBe('192px');
+
     stop();
     window.dispatchEvent(new Event('resize'));
     expect(panel.style.top).toBe('192px');
+    vi.unstubAllGlobals();
+  });
+
+  test('stopping cancels a waiting frame', () => {
+    const { anchor, panel } = setup();
+    const cancel = vi.fn();
+    vi.stubGlobal('requestAnimationFrame', () => 7);
+    vi.stubGlobal('cancelAnimationFrame', cancel);
+    const stop = trackPosition(anchor, panel);
+    document.body.dispatchEvent(new Event('scroll'));
+    stop();
+    expect(cancel).toHaveBeenCalledWith(7);
+    vi.unstubAllGlobals();
   });
 });

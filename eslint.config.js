@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs';
 import js from '@eslint/js';
 import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 /** @type {{ packages: Record<string, { internal: string[]; external: string[]; mayUseDate?: boolean }> }} */
@@ -129,6 +130,11 @@ export default tseslint.config(
         },
       ],
     },
+  },
+  {
+    files: ['packages/react/src/**/*.{ts,tsx}'],
+    plugins: { 'react-hooks': reactHooks },
+    rules: { 'react-hooks/rules-of-hooks': 'error' },
   },
   {
     files: ['**/*.js'],

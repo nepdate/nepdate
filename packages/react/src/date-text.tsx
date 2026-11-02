@@ -31,7 +31,7 @@ export function DateText({
   calendar = 'BS',
   withEquivalent = true,
   format = 'long',
-  locale = 'en',
+  locale,
   fallback = '—',
   className,
 }: DateTextProps): ReactElement {

@@ -27,7 +27,7 @@ import '@nepdatejs/vanilla/define'; // registers the elements
 
 ### One element per page
 
-Each element has its own entry, so you ship only what you use (the calendar alone is about 3.7 kB of vanilla code instead of 9 kB):
+Each element has its own entry, so you ship only what you use (the calendar alone is about 4 kB of vanilla code instead of 10 kB):
 
 ```js
 import { defineDatePicker } from '@nepdatejs/vanilla/date-picker';

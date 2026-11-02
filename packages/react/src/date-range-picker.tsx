@@ -12,6 +12,7 @@ import { restoreFocus } from '@nepdatejs/dom';
 import { CalendarBody } from './calendar-body';
 import { useDateRangePicker } from './hooks';
 import { Icon } from './icons';
+import { usePageLocale } from './page-locale';
 import { usePanel } from './panel';
 import type { PanelLayout } from '@nepdatejs/dom';
 import { PANEL_WIDTH, PANEL_WIDTH_WITH_PRESETS, PanelBody } from './presets';
@@ -66,9 +67,10 @@ export function DateRangePicker({
   className,
   ...options
 }: DateRangePickerProps): ReactElement {
-  const picker = useDateRangePicker(options);
+  const locale = usePageLocale(options.locale);
+  const picker = useDateRangePicker({ ...options, locale });
   const { state, store, calendar } = picker;
-  const labels = getLocale(options.locale);
+  const labels = getLocale(locale);
   const field = useRef<HTMLDivElement | null>(null);
   const row = useRef<HTMLDivElement | null>(null);
   const panel = useRef<HTMLDivElement | null>(null);

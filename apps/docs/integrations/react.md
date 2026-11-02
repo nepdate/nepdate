@@ -72,7 +72,7 @@ ISO timestamp.
 | `calendar` | `'BS'` | The calendar shown first |
 | `withEquivalent` | `true` | Also show the other calendar |
 | `format` | `'long'` | A [format](/guide/formatting) |
-| `locale` | `'en'` | Names and digits |
+| `locale` | configured | Names and digits |
 | `fallback` | `'—'` | Shown when there's no date |
 | `className` | | Class for the element |
 
@@ -114,7 +114,7 @@ new arrays and functions on each render don't cause extra work or re-render loop
 
 ## Language
 
-`locale` sets the language. The `<DatePicker>` also follows the page: it uses Nepali when the page
+`locale` sets the language. The pickers also follow the page: they use Nepali when the page
 has `<html lang="ne">`.
 
 ## TypeScript

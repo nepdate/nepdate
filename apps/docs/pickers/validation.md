@@ -68,7 +68,8 @@ On an element, set it as a property:
 document.querySelector('nep-date-picker').isDateDisabled = (date) => date.day === 1;
 ```
 
-It's called for every visible day, so keep it fast.
+It's called for every visible day, so keep it fast. In React, the calendar redraws when its answers
+change, so it can depend on state.
 
 ## Required fields
 

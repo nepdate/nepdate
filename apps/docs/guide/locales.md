@@ -42,7 +42,7 @@ Components take a `locale` option:
 <nep-date-picker locale="ne"></nep-date-picker>
 ```
 
-The React `<DatePicker>` also picks Nepali by itself when the page has `<html lang="ne">`.
+The React pickers also pick Nepali by themselves when the page has `<html lang="ne">`.
 
 ## Month names
 

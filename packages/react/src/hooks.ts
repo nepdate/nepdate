@@ -346,7 +346,8 @@ export function useDateTimePicker(
     DateTimePickerState,
     DateTimePickerStore
   >(createDateTimePicker, storeOptions);
-  const base = givenId ?? `ndp${useId().replace(/:/g, '')}`;
+  const generated = useId();
+  const base = givenId ?? `ndp${generated.replace(/:/g, '')}`;
   const calendar = useCalendarBindings(
     state.calendarState,
     store.calendar.actions,
@@ -396,7 +397,8 @@ export function useMultiDatePicker(
     MultiDatePickerState,
     MultiDatePickerStore
   >(createMultiDatePicker, storeOptions);
-  const input = givenId ?? `ndp${useId().replace(/:/g, '')}`;
+  const generated = useId();
+  const input = givenId ?? `ndp${generated.replace(/:/g, '')}`;
   const ids = { input, panel: `${input}-panel`, hint: `${input}-hint` };
   const labels = getLocale(options.locale);
   const calendar = useCalendarBindings(
