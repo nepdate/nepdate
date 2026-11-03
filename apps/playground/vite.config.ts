@@ -12,7 +12,7 @@ export default defineConfig({
   resolve: { conditions: ['@nepdatejs/source', ...defaultClientConditions] },
   server: { fs: { allow: [repo] } },
   build: {
-    rollupOptions: {
+    rolldownOptions: {
       input: {
         react: `${root}index.html`,
         vanilla: `${root}vanilla.html`,
