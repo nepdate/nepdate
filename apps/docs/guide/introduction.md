@@ -72,10 +72,10 @@ its budget.
 
 | Import | Gzipped |
 |---|---|
-| `{ adToBs }` from `@nepdatejs/core` | 2.1 kB |
-| All of `@nepdatejs/core` | 7.9 kB |
-| One Web Component, such as `@nepdatejs/vanilla/date-picker` | 6.6 kB, plus core and the stylesheet |
-| All the Web Components as one `<script>` file | 24.5 kB, including core |
+| `{ adToBs }` from `@nepdatejs/core` | About 2 kB |
+| All of `@nepdatejs/core` | Under 8 kB |
+| One Web Component, such as `@nepdatejs/vanilla/date-picker` | About 7 kB, plus core and the stylesheet |
+| All the Web Components as one `<script>` file | About 25 kB, including core |
 
 ## Browser and runtime support
 

@@ -1,4 +1,4 @@
-import { getLocale, type CalendarSystem } from '@nepdatejs/core';
+import { getLocale } from '@nepdatejs/core';
 import {
   createDateTimePicker,
   type DateTimePickerOptions,
@@ -6,15 +6,9 @@ import {
   type DateTimePickerStore,
   type TimeCell,
 } from '@nepdatejs/datepicker';
-import {
-  onBackdropPointer,
-  onEscape,
-  onOutsidePointer,
-  restoreFocus,
-  trackPosition,
-  type PanelLayout,
-} from '@nepdatejs/dom';
+import type { PanelLayout } from '@nepdatejs/dom';
 import { CalendarView } from './calendar-view';
+import { openPanel, renderSegment } from './panel';
 import { el, icon, setAttrs, setPopupMode, setText, uid } from './dom';
 import type { Theme } from './picker-view';
 import {
@@ -297,15 +291,7 @@ export class DateTimePickerView {
     setText(this.hint, hint ?? '');
     setAttrs(this.hint, { 'data-error': state.error !== null });
 
-    this.segment.hidden = !state.canSwitchCalendar;
-    setAttrs(this.segment, { 'aria-label': locale.labels.calendar });
-    for (const button of this.segment.querySelectorAll<HTMLButtonElement>('button')) {
-      const calendar = button.dataset['calendar'] as CalendarSystem;
-      setText(button, locale.calendarNames[calendar]);
-      setAttrs(button, {
-        'aria-pressed': calendar === state.calendar ? 'true' : 'false',
-      });
-    }
+    renderSegment(this.segment, state, locale);
     setText(this.nowButton, locale.labels.now);
     setText(this.doneButton, locale.labels.done);
     setAttrs(this.time, { 'aria-label': locale.labels.time });
@@ -343,28 +329,17 @@ export class DateTimePickerView {
     this.wasOpen = open;
     this.options.onOpenChange?.(open);
     if (open) {
-      this.panel.hidden = false;
-      const stopTracking = trackPosition(this.row, this.panel, {
+      this.closePanel = openPanel({
+        panel: this.panel,
+        anchor: this.row,
+        inside: [this.field],
         width: this.panelWidth(),
         layout: this.options.panelLayout,
+        close: () => {
+          this.store.actions.close();
+        },
+        returnFocus: this.dateInput,
       });
-      const stopOutside = onOutsidePointer([this.field], () => {
-        this.store.actions.close();
-      });
-      const stopBackdrop = onBackdropPointer(this.panel, () => {
-        this.store.actions.close();
-      });
-      const stopEscape = onEscape(() => {
-        this.store.actions.close();
-        restoreFocus(this.dateInput);
-      });
-      this.closePanel = () => {
-        stopTracking();
-        stopOutside();
-        stopBackdrop();
-        stopEscape();
-        this.panel.hidden = true;
-      };
       for (const item of this.time.querySelectorAll<HTMLElement>(
         '[aria-pressed="true"]',
       )) {

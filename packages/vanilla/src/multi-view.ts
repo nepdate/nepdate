@@ -5,15 +5,9 @@ import {
   type MultiDatePickerState,
   type MultiDatePickerStore,
 } from '@nepdatejs/datepicker';
-import {
-  onBackdropPointer,
-  onEscape,
-  onOutsidePointer,
-  restoreFocus,
-  trackPosition,
-  type PanelLayout,
-} from '@nepdatejs/dom';
+import { restoreFocus, type PanelLayout } from '@nepdatejs/dom';
 import { CalendarView } from './calendar-view';
+import { openPanel, renderSegment } from './panel';
 import { el, icon, setAttrs, setPopupMode, setText, uid } from './dom';
 import type { Theme } from './picker-view';
 import { PANEL_WIDTH } from './preset-list';
@@ -235,13 +229,7 @@ export class MultiDatePickerView {
     this.hint.hidden = state.error === null;
     setText(this.hint, state.error?.message ?? '');
 
-    this.segment.hidden = !state.canSwitchCalendar;
-    setAttrs(this.segment, { 'aria-label': locale.labels.calendar });
-    for (const button of this.segment.querySelectorAll<HTMLButtonElement>('button')) {
-      const calendar = button.dataset['calendar'] === 'AD' ? 'AD' : 'BS';
-      setText(button, locale.calendarNames[calendar]);
-      setAttrs(button, { 'aria-pressed': String(calendar === state.calendar) });
-    }
+    renderSegment(this.segment, state, locale);
     setText(this.doneButton, locale.labels.done);
     this.doneButton.hidden = state.inline;
 
@@ -270,27 +258,17 @@ export class MultiDatePickerView {
     this.wasOpen = open;
     this.options.onOpenChange?.(open);
     if (open) {
-      this.panel.hidden = false;
-      const stopTracking = trackPosition(this.box, this.panel, {
+      this.closePanel = openPanel({
+        panel: this.panel,
+        anchor: this.box,
+        inside: [this.field, this.panel],
         width: PANEL_WIDTH,
         layout: this.options.panelLayout,
+        close: () => {
+          this.store.actions.close();
+        },
+        returnFocus: this.input,
       });
-      const close = (): void => {
-        this.store.actions.close();
-      };
-      const stopOutside = onOutsidePointer([this.field, this.panel], close);
-      const stopBackdrop = onBackdropPointer(this.panel, close);
-      const stopEscape = onEscape(() => {
-        close();
-        restoreFocus(this.input);
-      });
-      this.closePanel = () => {
-        stopTracking();
-        stopOutside();
-        stopBackdrop();
-        stopEscape();
-        this.panel.hidden = true;
-      };
       this.calendarView.focusGrid();
     } else {
       this.closePanel?.();

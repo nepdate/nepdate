@@ -12,6 +12,7 @@ import { restoreFocus, type PanelLayout } from '@nepdatejs/dom';
 import { CalendarBody } from './calendar-body';
 import { useMultiDatePicker } from './hooks';
 import { Icon } from './icons';
+import { usePageLocale } from './page-locale';
 import { usePanel } from './panel';
 import { PANEL_WIDTH } from './presets';
 
@@ -74,9 +75,10 @@ export function MultiDatePicker({
   'aria-label': ariaLabel,
   ...options
 }: MultiDatePickerProps): ReactElement {
-  const picker = useMultiDatePicker(options);
+  const locale = usePageLocale(options.locale);
+  const picker = useMultiDatePicker({ ...options, locale });
   const { state, store, calendar } = picker;
-  const labels = getLocale(options.locale);
+  const labels = getLocale(locale);
   const field = useRef<HTMLDivElement | null>(null);
   const box = useRef<HTMLDivElement | null>(null);
   const panel = useRef<HTMLDivElement | null>(null);

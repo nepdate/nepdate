@@ -55,6 +55,10 @@ export function Controlled() {
 }
 ```
 
+If your `onChange` keeps the old value, for example to refuse a date, the picker goes back to the
+value you hold, as a controlled input does. Text that's still being typed isn't a date yet, so it's
+left alone, and so is a range with one end still to pick.
+
 **Uncontrolled:** the picker holds it, and a plain form reads it through `name`.
 
 ```tsx

@@ -162,15 +162,26 @@ export function trackPosition(
     return noop;
   }
   let hide = placePopover(anchor, panel, options);
+  let frame: number | null = null;
   const place = (): void => {
     hide = placePopover(anchor, panel, options);
   };
+  // Scroll events can outnumber frames, and each placement measures the page.
+  const placeOnNextFrame = (): void => {
+    frame ??= requestAnimationFrame(() => {
+      frame = null;
+      place();
+    });
+  };
   window.addEventListener('resize', place);
-  window.addEventListener('scroll', place, true);
+  window.addEventListener('scroll', placeOnNextFrame, true);
 
   return () => {
     window.removeEventListener('resize', place);
-    window.removeEventListener('scroll', place, true);
+    window.removeEventListener('scroll', placeOnNextFrame, true);
+    if (frame !== null) {
+      cancelAnimationFrame(frame);
+    }
     hide();
   };
 }

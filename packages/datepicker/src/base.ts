@@ -106,12 +106,17 @@ export function createEmitter(rebuild: () => void): {
       try {
         change();
       } finally {
+        // Even after a throw: part of the change may have happened.
         depth--;
-      }
-      if (depth === 0) {
-        notify();
-        for (const callback of queued.splice(0)) {
-          callback();
+        if (depth === 0) {
+          const callbacks = queued.splice(0);
+          try {
+            notify();
+          } finally {
+            for (const callback of callbacks) {
+              callback();
+            }
+          }
         }
       }
     },

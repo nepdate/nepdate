@@ -1,8 +1,10 @@
 // @vitest-environment happy-dom
 import { act, cleanup, fireEvent, render, screen, within } from '@testing-library/react';
 import { useState, type ReactElement } from 'react';
+import { hydrateRoot, type Root } from 'react-dom/client';
+import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, test, vi } from 'vitest';
-import { bsDate, type CalendarDate } from '@nepdatejs/core';
+import { bsDate, configure, resetConfig, type CalendarDate } from '@nepdatejs/core';
 import {
   bothDates,
   Calendar,
@@ -15,6 +17,7 @@ import {
   ShortDate,
   type DatePickerProps,
 } from '@nepdatejs/react';
+import { useMultiDatePicker } from '@nepdatejs/react/headless';
 
 const TODAY: CalendarDate = { calendar: 'AD', year: 2026, month: 10, day: 18 };
 
@@ -542,6 +545,207 @@ describe('inline mode (PICK-004)', () => {
     const panel = screen.getByRole('group', { name: 'Choose a date' });
     expect(panel.style.getPropertyValue('--ndp-panel-width')).toBe('456px');
     expect(screen.queryByRole('button', { name: 'Open calendar' })).toBeNull();
+  });
+});
+
+describe('regressions', () => {
+  test('hydrates on a Nepali page, then shows Nepali', async () => {
+    document.documentElement.lang = 'ne';
+    const onError = vi.fn();
+    const server = renderToString(<DatePicker today={TODAY} aria-label="Date" />);
+    expect(server).toContain('YYYY-MM-DD (BS)');
+    const box = document.createElement('div');
+    box.innerHTML = server;
+    document.body.append(box);
+    let root: Root | undefined;
+    await act(async () => {
+      await Promise.resolve();
+      root = hydrateRoot(box, <DatePicker today={TODAY} aria-label="Date" />, {
+        onRecoverableError: onError,
+      });
+    });
+    expect(onError).not.toHaveBeenCalled();
+    expect(box.querySelector('input')?.placeholder).toContain('वि.सं.');
+    act(() => {
+      root?.unmount();
+    });
+    box.remove();
+    document.documentElement.lang = '';
+  });
+
+  test('redraws when day functions give new answers, without looping', () => {
+    let renders = 0;
+    let setClosed: (closed: boolean) => void = () => undefined;
+    function Schedule() {
+      const [closed, set] = useState(false);
+      setClosed = set;
+      renders++;
+      return (
+        <Calendar
+          today={TODAY}
+          isDateDisabled={(date) => closed && date.day === 5}
+          holidays={(date) => closed && date.day === 6}
+          events={(date) => (closed && date.day === 7 ? [{ color: 'red' }] : [])}
+        />
+      );
+    }
+    const { container } = render(<Schedule />);
+    const day = () => screen.getByRole('button', { name: /^Thursday, 5 Kartik/ });
+    expect(day().getAttribute('data-state')).not.toBe('disabled');
+
+    act(() => {
+      setClosed(true);
+    });
+    expect(day().getAttribute('data-state')).toBe('disabled');
+    expect(container.querySelectorAll('[data-state="holiday"]')).toHaveLength(1);
+    expect(renders).toBeLessThan(6);
+  });
+
+  test('a day function works the same in a picker, and through months', () => {
+    let setClosed: (closed: boolean) => void = () => undefined;
+    function Booking() {
+      const [closed, set] = useState(false);
+      setClosed = set;
+      return (
+        <DatePicker
+          today={TODAY}
+          aria-label="Date"
+          isDateDisabled={(date) => closed && date.day === 5}
+        />
+      );
+    }
+    render(<Booking />);
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    act(() => {
+      setClosed(true);
+    });
+    expect(
+      screen
+        .getByRole('button', { name: /^Thursday, 5 Kartik/ })
+        .getAttribute('data-state'),
+    ).toBe('disabled');
+    fireEvent.click(screen.getByRole('button', { name: 'Next month' }));
+    expect(screen.getByRole('dialog')).toBeDefined();
+  });
+
+  test('goes back to the value the parent holds', () => {
+    const onChange = vi.fn();
+    const { container } = render(
+      <DatePicker
+        name="date"
+        value="2026-10-10"
+        onChange={onChange}
+        today={TODAY}
+        aria-label="Date"
+      />,
+    );
+    fireEvent.change(field(), { target: { value: '2083-07-01' } });
+    expect(onChange).toHaveBeenCalledOnce();
+    expect(field().value).toBe('2083-06-24');
+    expect(container.querySelector<HTMLInputElement>('input[name="date"]')?.value).toBe(
+      '2026-10-10',
+    );
+  });
+
+  test('leaves unfinished input alone when the parent keeps its value', () => {
+    function OnlyDates() {
+      const [value, setValue] = useState('2026-10-10');
+      return (
+        <DatePicker
+          value={value}
+          onChange={(next) => {
+            if (next) {
+              setValue(next);
+            }
+          }}
+          today={TODAY}
+          aria-label="Date"
+        />
+      );
+    }
+    render(<OnlyDates />);
+    fireEvent.change(field(), { target: { value: '2083-0' } });
+    expect(field().value).toBe('2083-0');
+    fireEvent.change(field(), { target: { value: '2083-07-01' } });
+    expect(field().value).toBe('2083-07-01');
+  });
+
+  test('a range with one end picked stays while the parent waits for both', () => {
+    function WholeRanges() {
+      const [range, setRange] = useState({ start: '', end: '' });
+      return (
+        <DateRangePicker
+          value={range}
+          onChange={(next) => {
+            if (next.start && next.end) {
+              setRange(next);
+            }
+          }}
+          today={TODAY}
+          startName="from"
+          endName="to"
+        />
+      );
+    }
+    const { container } = render(<WholeRanges />);
+    fireEvent.click(screen.getByRole('button', { name: 'Open calendar' }));
+    fireEvent.click(screen.getByRole('button', { name: /^Thursday, 5 Kartik/ }));
+    fireEvent.click(screen.getByRole('button', { name: /^Sunday, 8 Kartik/ }));
+    const hidden = container.querySelectorAll<HTMLInputElement>('input[type="hidden"]');
+    expect([...hidden].map((input) => input.value)).toEqual(['2026-10-22', '2026-10-25']);
+  });
+
+  test('a normalised value does not loop', () => {
+    const onChange = vi.fn();
+    render(
+      <MultiDatePicker
+        value={['2026-10-25', '2026-10-22']}
+        onChange={onChange}
+        today={TODAY}
+        aria-label="Days"
+      />,
+    );
+    expect(screen.getByRole<HTMLInputElement>('combobox').value).toBe(
+      '2083-07-05, 2083-07-08',
+    );
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  test('every picker follows the page language', () => {
+    document.documentElement.lang = 'ne';
+    render(
+      <>
+        <DatePicker today={TODAY} aria-label="One" />
+        <DateRangePicker today={TODAY} startLabel="From" endLabel="To" />
+        <DateTimePicker today={TODAY} aria-label="When" />
+        <MultiDatePicker today={TODAY} aria-label="Days" />
+      </>,
+    );
+    const dates = [
+      ...document.querySelectorAll<HTMLInputElement>('input.ndp-input__control'),
+    ]
+      .map((input) => input.placeholder)
+      .filter((placeholder) => placeholder.startsWith('YYYY'));
+    expect(dates).toHaveLength(5);
+    expect(dates.every((placeholder) => placeholder.includes('वि.सं.'))).toBe(true);
+    document.documentElement.lang = '';
+  });
+
+  test('DateText uses the configured language', () => {
+    configure({ defaultLocale: 'ne' });
+    render(<DateText value="2026-10-18" withEquivalent={false} />);
+    expect(screen.getByText('१ कार्तिक २०८३')).toBeDefined();
+    resetConfig();
+  });
+
+  test('id can be added after the first render', () => {
+    function Headless({ id }: { id?: string }) {
+      const picker = useMultiDatePicker({ id, today: TODAY });
+      return <input {...picker.getInputProps()} aria-label="Days" />;
+    }
+    const { rerender } = render(<Headless />);
+    rerender(<Headless id="days" />);
+    expect(screen.getByRole('combobox').id).toBe('days');
   });
 });
 

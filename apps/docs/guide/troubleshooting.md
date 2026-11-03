@@ -103,4 +103,4 @@ They aren't bundled, because their dates change every year. See
 ## Numbers show as Devanagari, or don't
 
 Digits follow the locale. Set `locale`, or [`defaultLocale`](./configuration#language). The React
-`<DatePicker>` also follows `<html lang="ne">`.
+pickers also follow `<html lang="ne">`.
