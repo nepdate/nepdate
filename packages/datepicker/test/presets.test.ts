@@ -6,6 +6,7 @@ import {
   resolveRangePreset,
   resolveSinglePreset,
   type PresetContext,
+  type SinglePreset,
   type RangePresetId,
 } from '@nepdatejs/datepicker';
 import { TODAY } from './helpers';
@@ -158,5 +159,16 @@ describe('presets in the range picker (PRE-004)', () => {
     picker.actions.switchCalendar('AD');
     picker.actions.applyPreset('thisMonth');
     expect(picker.getState().value).toEqual({ start: '2026-10-01', end: '2026-10-31' });
+  });
+});
+
+describe('unknown preset ids', () => {
+  test.each(['constructor', 'toString', '__proto__'])('%s keeps a text label', (id) => {
+    const picker = createDatePicker({ presets: [id as SinglePreset] });
+    expect(picker.getState().presets[0]).toMatchObject({
+      id,
+      label: id,
+      isDisabled: true,
+    });
   });
 });

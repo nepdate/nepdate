@@ -45,5 +45,7 @@ export function formatNumber(value: string | number, locale?: LocaleCode): strin
 
 /** Fill {name} placeholders in a locale message. */
 export function formatMessage(template: string, values: Record<string, string>): string {
-  return template.replace(/\{(\w+)\}/g, (whole, name: string) => values[name] ?? whole);
+  return template.replace(/\{(\w+)\}/g, (whole, name: string) =>
+    Object.prototype.hasOwnProperty.call(values, name) ? (values[name] ?? whole) : whole,
+  );
 }

@@ -3,3 +3,6 @@ packages:
   - 'apps/*'
 allowBuilds:
   esbuild: true
+overrides:
+  # VitePress 1 still asks for Vite 5, which has dev-server advisories.
+  'vitepress>vite': ^6.4.5
