@@ -15,3 +15,7 @@ updates:
     groups:
       development:
         dependency-type: development
+    ignore:
+      # typescript-eslint doesn't support TypeScript 7 yet (it needs < 6.1).
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
