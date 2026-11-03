@@ -5,6 +5,7 @@ import {
   DATE_FORMATS,
   fiscalYear,
   formatDate,
+  formatMessage,
   formatFiscalYear,
   parseDate,
   parseDateStrict,
@@ -128,5 +129,25 @@ describe('parsing (CORE-090..093)', () => {
   test('a century rollover label works', () => {
     expect(parseFiscalYear('2099/00')).toBeNull(); // 2100 is outside the table
     expect(parseFiscalYear('1999/00')?.startYear).toBe(1999);
+  });
+});
+
+describe('names every object inherits', () => {
+  const date = bsDate(2083, 7, 1);
+
+  test.each(['constructor', 'hasOwnProperty', 'toString', 'valueOf', '__proto__'])(
+    '%s is a pattern, not a named format',
+    (pattern) => {
+      expect(formatDate(date, pattern)).toBe(
+        formatDate(date, `${pattern}\u200b`).slice(0, -1),
+      );
+    },
+  );
+
+  test('formatMessage leaves unknown placeholders alone', () => {
+    expect(formatMessage('{constructor} {toString}', {})).toBe(
+      '{constructor} {toString}',
+    );
+    expect(formatMessage('{min}', { min: '1' })).toBe('1');
   });
 });

@@ -137,7 +137,10 @@ export function describePreset<R, Id extends string>(
 
     return {
       id: preset,
-      label: labels[preset] ?? preset,
+      // Unknown ids show as themselves, even ones like "constructor" that objects inherit.
+      label: Object.prototype.hasOwnProperty.call(labels, preset)
+        ? (labels[preset] ?? preset)
+        : preset,
       resolve: (context) => resolveBuiltIn(preset, context),
     };
   }

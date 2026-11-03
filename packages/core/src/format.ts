@@ -34,8 +34,10 @@ export function formatDate(
   pattern: DateFormatPattern = 'iso',
   locale?: LocaleCode,
 ): string {
-  const tokens: string =
-    pattern in DATE_FORMATS ? DATE_FORMATS[pattern as NamedFormat] : pattern;
+  // An own-key check: `in` would also match inherited names such as "constructor".
+  const tokens: string = Object.prototype.hasOwnProperty.call(DATE_FORMATS, pattern)
+    ? DATE_FORMATS[pattern as NamedFormat]
+    : pattern;
   const data = getLocale(locale);
   const months = data.months[date.calendar];
   const digits = (value: string | number): string => formatNumber(value, locale);
