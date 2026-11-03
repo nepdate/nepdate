@@ -1,6 +1,6 @@
 {
   "name": "@nepdatejs/dom",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Tiny browser helpers for @nepdatejs adapters: popover placement, outside click, Escape, focus.",
   "keywords": [
     "nepali",

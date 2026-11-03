@@ -1,6 +1,6 @@
 {
   "name": "@nepdatejs/vanilla",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Nepali BS/AD date picker and calendar as Web Components and a plain JavaScript API.",
   "keywords": [
     "nepali",

@@ -1,6 +1,6 @@
 {
   "name": "@nepdatejs/react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Nepali BS/AD date picker and calendar for React: headless hooks and styled components.",
   "keywords": [
     "nepali",
