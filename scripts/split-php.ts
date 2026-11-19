@@ -19,7 +19,9 @@ const REMOTE = 'git@github.com:nepdate/nepdate-php.git';
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const fromIndex = args.indexOf('--from');
-const version = args.find((arg, i) => !arg.startsWith('--') && i !== fromIndex + 1);
+const version = args.find(
+  (arg, i) => !arg.startsWith('--') && (fromIndex < 0 || i !== fromIndex + 1),
+);
 
 if (!version || !/^\d+\.\d+\.\d+(-[\w.]+)?$/.test(version)) {
   console.error('Usage: node scripts/split-php.ts <version> [--from <ref>] [--dry-run]');
@@ -38,19 +40,37 @@ function git(...gitArgs: string[]): string {
 
 const tag = `v${version}`;
 git('fetch', '--quiet', '--tags', 'origin');
-const source = git('rev-parse', '--verify', `${from}^{commit}`);
-const composer = JSON.parse(git('show', `${source}:php/composer.json`)) as {
-  name?: string;
-};
-if (composer.name !== 'nepdatejs/nepdate') {
+let source: string;
+try {
+  source = git('rev-parse', '--verify', '--quiet', `${from}^{commit}`);
+} catch {
+  console.error(
+    fromIndex < 0
+      ? `✖ There is no ${from} tag: @nepdatejs/core ${version} hasn't been released yet. Run this after the Release workflow has published it.`
+      : `✖ ${from} is not a commit.`,
+  );
+  process.exit(1);
+}
+function readJson(path: string): { name?: string; version?: string } | null {
+  try {
+    return JSON.parse(
+      execFileSync('git', ['show', `${source}:${path}`], {
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'ignore'],
+      }),
+    ) as { name?: string; version?: string };
+  } catch {
+    return null;
+  }
+}
+
+if (readJson('php/composer.json')?.name !== 'nepdatejs/nepdate') {
   console.error(`✖ ${from} has no php/composer.json for nepdatejs/nepdate.`);
   process.exit(1);
 }
-const coreVersion = (
-  JSON.parse(git('show', `${source}:packages/core/package.json`)) as { version: string }
-).version;
+const coreVersion = readJson('packages/core/package.json')?.version;
 if (coreVersion !== version) {
-  console.error(`✖ ${from} has @nepdatejs/core ${coreVersion}, not ${version}.`);
+  console.error(`✖ ${from} has @nepdatejs/core ${String(coreVersion)}, not ${version}.`);
   process.exit(1);
 }
 
