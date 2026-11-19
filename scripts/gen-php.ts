@@ -6,7 +6,9 @@
  * - php/tests/Conformance/fixtures/*.json: core's answers for every BS day
  *   1970–2099 and for arithmetic, fiscal-year, format and parse cases. The PHP
  *   conformance tests must give the same answers.
- * - php/tests/Conformance/fixtures/SHA256SUMS: checksums of all of the above.
+ * - php/tests/Conformance/fixtures/SHA256SUMS: checksums of all of the above,
+ *   with paths relative to php/.
+ * - php/LICENSE: a copy of the repository licence.
  *
  * Run after `pnpm build` (it loads packages/core/dist):
  *   node scripts/gen-php.ts          write the files
@@ -61,7 +63,11 @@ function writeText(relative: string, text: string): void {
 function write(relative: string, value: unknown): void {
   const text = JSON.stringify(value) + '\n';
   writeText(relative, text);
-  written.push([relative, createHash('sha256').update(text).digest('hex')]);
+  // Paths in SHA256SUMS are relative to php/, the root of the split nepdate-php repository.
+  written.push([
+    relative.replace(/^php\//, ''),
+    createHash('sha256').update(text).digest('hex'),
+  ]);
 }
 
 /** The error code when `fn` throws, otherwise null. */
@@ -301,7 +307,10 @@ for (const calendar of ['AD', 'BS'] as const) {
 }
 write(`${fixtures}/parse.json`, parse);
 
-// 8. Checksums and the version they came from.
+// 8. The licence, so the split nepdate-php repository carries it.
+writeText('php/LICENSE', readFileSync(resolve(root, 'LICENSE'), 'utf8'));
+
+// 9. Checksums and the version they came from.
 writeText(
   `${fixtures}/SHA256SUMS`,
   `# @nepdatejs/core@${version}\n` +

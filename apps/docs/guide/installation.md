@@ -104,6 +104,14 @@ npm install @nepdatejs/holidays
 [`@nepdatejs/holidays`](./holidays) adds Nepal's national holidays. To build your own UI, install
 [`@nepdatejs/calendar` or `@nepdatejs/datepicker`](/integrations/stores) directly.
 
+### PHP
+
+```bash
+composer require nepdatejs/nepdate
+```
+
+The PHP port of `core` for servers: see [PHP (Composer)](/integrations/php).
+
 ## Check that it works
 
 Run this in Node, or anywhere you can import from `@nepdatejs/core`:

@@ -62,7 +62,7 @@ export default tseslint.config(
     ignores: [
       '**/dist/**',
       '**/coverage/**',
-      'vendor/**',
+      'php/vendor/**',
       'docs/**',
       'apps/docs/**',
       'scripts/test/fixtures/**',

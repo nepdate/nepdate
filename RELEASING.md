@@ -120,24 +120,27 @@ Exports, type names, `ndp-*` class names, custom element names, attributes and e
 
 ## PHP package
 
-`nepdatejs/nepdate` is published on [Packagist](https://packagist.org/) from this repository's root `composer.json`. Packagist reads versions from git tags, and the changesets tags (`@nepdatejs/core@0.1.1`) aren't valid Composer versions, so each release also gets a plain tag with the same version as `@nepdatejs/core`. `.gitattributes` keeps everything except the PHP package out of the archive Composer downloads.
+`nepdatejs/nepdate` is published on [Packagist](https://packagist.org/packages/nepdatejs/nepdate) from [github.com/nepdate/nepdate-php](https://github.com/nepdate/nepdate-php), a read-only copy of `php/` made with `git subtree split`. Packagist shows that repository's README and installs only the PHP package. Never commit to it directly: work happens here in `php/`, and pull requests sent there are closed.
 
-### First release
-
-- [ ] Sign in at [packagist.org](https://packagist.org/) with GitHub and turn on two-factor authentication.
-- [ ] **Submit** `https://github.com/nepdate/nepdate`. Packagist installs the GitHub hook itself; check that the package page says it is auto-updated.
-- [ ] Tag the first version on the commit that added `composer.json` (the `@nepdatejs/core@0.1.1` commit has none): `git tag -s v0.1.1 -m "nepdatejs/nepdate 0.1.1" origin/main`, then `git push origin v0.1.1`. From the next release on, follow the steps below.
+Packagist reads versions from git tags, and the changesets tags (`@nepdatejs/core@0.1.1`) aren't valid Composer versions, so each release also gets a plain tag in `nepdate-php` with the same version as `@nepdatejs/core`.
 
 ### Each release
 
-After the **Release** workflow has published `@nepdatejs/core`, tag the same commit with core's version and push the tag:
+After the **Release** workflow has published `@nepdatejs/core`, split `php/` at core's release tag, push it to `nepdate-php` and tag it (signed with your git signing key):
 
 ```bash
-git tag -s v0.1.1 -m "nepdatejs/nepdate 0.1.1" "@nepdatejs/core@0.1.1"
+pnpm split:php 0.1.2 --dry-run
 ```
 
 ```bash
-git push origin v0.1.1
+pnpm split:php 0.1.2
 ```
 
-Then check that [the package page](https://packagist.org/packages/nepdatejs/nepdate) shows the new version.
+Then check that [the package page](https://packagist.org/packages/nepdatejs/nepdate) shows the new version. If Packagist isn't auto-updated yet (the package page says so), press **Update** there.
+
+### Setup (done once)
+
+- [x] Create `nepdate/nepdate-php` on GitHub, public, with issues, wiki and projects turned off; its description points to this repository.
+- [x] Push the first split and tag `v0.1.1`: `pnpm split:php 0.1.1 --from origin/main` (the `@nepdatejs/core@0.1.1` commit predates `php/`).
+- [x] On Packagist, sign in with GitHub (two-factor authentication on) and set the package's repository URL to `https://github.com/nepdate/nepdate-php`.
+- [ ] Turn on auto-update: on your Packagist profile, **Retry hook sync**, or add the webhook described on [packagist.org/about](https://packagist.org/about#how-to-update-packages) to `nepdate-php`.

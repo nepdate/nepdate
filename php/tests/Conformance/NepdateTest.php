@@ -48,7 +48,7 @@ it('has fixtures matching their checksums', function (): void {
             continue;
         }
         [$hash, $file] = preg_split('/\s+/', $line, 2) ?: ['', ''];
-        expect(hash_file('sha256', __DIR__.'/../../../'.$file))->toBe($hash, $file);
+        expect(hash_file('sha256', __DIR__.'/../../'.$file))->toBe($hash, $file);
         $checked++;
     }
 
