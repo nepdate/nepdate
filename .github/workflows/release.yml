@@ -58,6 +58,9 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - uses: changesets/action/version@ae32849d5ba541f9ae29e40e22a623bc13562f51 # v2.1.2
         with:
+          # Also rebuilds core and regenerates php/data and the PHP fixtures,
+          # which record core's version (scripts/gen-php.ts).
+          script: pnpm version-packages
           commit-message: 'chore: version packages'
           pr-title: 'chore: version packages'
 
