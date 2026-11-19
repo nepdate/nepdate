@@ -43,6 +43,21 @@ The month lengths live in `data/bikram-sambat.json`. To fix a year:
 3. Run `pnpm gen:data`, which validates the table and regenerates `packages/core/src/bs/data/years.ts`.
 4. Add the year's 1 Baisakh AD date to `packages/core/test/fixtures/known-conversions.ts`.
 
+## The PHP port
+
+`php/` is the Composer package `nepdatejs/nepdate`, a port of `@nepdatejs/core` that must give the same answers.
+
+- `php/data/bs-table.json` and `php/data/locales.json` are generated from `packages/core` by `scripts/gen-php.ts`, so the table and the names cannot drift. After changing `data/bikram-sambat.json`, run `pnpm gen:data && pnpm build && pnpm gen:php`.
+- The same script writes `php/tests/Conformance/fixtures`: core's answers for every BS day 1970–2099 and for the arithmetic, format, parse and fiscal-year cases. The PHP conformance tests must match them exactly, and `pnpm verify` fails if the fixtures are stale.
+- The PHP package has the same version as `@nepdatejs/core` (see [RELEASING.md](RELEASING.md#php-package)).
+- `php/` is published as its own repository, [nepdate/nepdate-php](https://github.com/nepdate/nepdate-php), so it must work on its own: its `composer.json`, `README.md` (what Packagist shows), `LICENSE` (copied by `pnpm gen:php`) and tests use no paths outside `php/`. See [RELEASING.md](RELEASING.md#php-package).
+
+```bash
+cd php
+composer install
+composer verify    # Pint, PHPStan (max), Pest
+```
+
 ## Translations
 
 Locales live in `packages/core/src/locale/`. Copy `en.ts`, translate every string, and register the new locale in `registry.ts`.

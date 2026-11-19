@@ -144,6 +144,7 @@ export default defineConfig({
           text: 'Back end',
           items: [
             { text: 'Laravel and Blade', link: '/integrations/laravel' },
+            { text: 'PHP (Composer)', link: '/integrations/php' },
             { text: 'Node.js', link: '/integrations/node' },
           ],
         },

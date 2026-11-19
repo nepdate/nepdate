@@ -160,8 +160,14 @@ for (const element of document.querySelectorAll('[data-bs]')) {
 }
 ```
 
-nepdate is a JavaScript library, so converting on the server inside PHP, for example for a PDF,
-needs a PHP package or a small Node service.
+To convert on the server, for example for a PDF, an email or an export, use the PHP package
+[`nepdatejs/nepdate`](./php). It gives the same answers as the browser:
+
+```php
+use NepDate\AdDate;
+
+AdDate::fromIso($visit->date->toDateString())->toBs()->format('long'); // "29 Kartik 2083"
+```
 
 ## Several dates
 

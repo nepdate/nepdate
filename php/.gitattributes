@@ -1,0 +1,9 @@
+# Composer downloads an archive of github.com/nepdate/nepdate-php (this folder,
+# split from the nepdate monorepo). Only src/, data/, composer.json, README.md
+# and LICENSE go into it.
+/.gitattributes  export-ignore
+/.gitignore      export-ignore
+/tests           export-ignore
+/phpunit.xml     export-ignore
+/phpstan.neon    export-ignore
+/pint.json       export-ignore

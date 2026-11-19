@@ -115,7 +115,7 @@ pnpm install
 pnpm verify    # format, lint, package rules, typecheck, tests, build, package checks, size, docs samples
 pnpm dev       # playground at http://localhost:5180
 pnpm --filter @nepdatejs/docs dev   # docs at http://localhost:5181
-composer install && composer verify # the PHP port: Pint, PHPStan, Pest
+(cd php && composer install && composer verify) # the PHP port: Pint, PHPStan, Pest
 ```
 
 ## Licence

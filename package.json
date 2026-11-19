@@ -34,7 +34,8 @@
     "check:docs": "node scripts/check-docs.ts",
     "npm:bootstrap": "node scripts/npm-bootstrap.ts",
     "gen:php": "node scripts/gen-php.ts",
-    "check:php": "node scripts/gen-php.ts --check"
+    "check:php": "node scripts/gen-php.ts --check",
+    "split:php": "node scripts/split-php.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",

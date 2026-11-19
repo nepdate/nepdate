@@ -18,8 +18,3 @@ docs/plan/
 apps/docs/.vitepress/dist
 apps/docs/.vitepress/cache
 apps/docs/.check/
-
-# PHP package (php/)
-/vendor/
-/composer.lock
-/php/.phpunit.cache/
