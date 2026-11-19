@@ -1,0 +1,6 @@
+# Strictest level, same as PawSathi's gate when this package lived there.
+parameters:
+    level: max
+    paths:
+        - src/
+    treatPhpDocTypesAsCertain: false

@@ -117,3 +117,26 @@ Exports, type names, `ndp-*` class names, custom element names, attributes and e
 | No version pull request appears                           | `NPM_PUBLISH_ENABLED` isn't `true`, or **Settings → Actions → General → Allow GitHub Actions to create and approve pull requests** is off.                              |
 | The version pull request has no CI checks                 | Normal. GitHub doesn't run workflows for pull requests opened by Actions. Merge it as an admin; the Release workflow runs `pnpm verify` before publishing.              |
 | One package published but the rest failed                 | Re-run the workflow. It skips versions that are already on npm.                                                                                                         |
+
+## PHP package
+
+`nepdatejs/nepdate` is published on [Packagist](https://packagist.org/) from this repository's root `composer.json`. Packagist reads versions from git tags, and the changesets tags (`@nepdatejs/core@0.1.1`) aren't valid Composer versions, so each release also gets a plain tag with the same version as `@nepdatejs/core`. `.gitattributes` keeps everything except the PHP package out of the archive Composer downloads.
+
+### First release
+
+- [ ] Sign in at [packagist.org](https://packagist.org/) with GitHub and turn on two-factor authentication.
+- [ ] **Submit** `https://github.com/nepdate/nepdate`. Packagist installs the GitHub hook itself; check that the package page says it is auto-updated.
+
+### Each release
+
+After the **Release** workflow has published `@nepdatejs/core`, tag the same commit with core's version and push the tag:
+
+```bash
+git tag -s v0.1.1 -m "nepdatejs/nepdate 0.1.1" "@nepdatejs/core@0.1.1"
+```
+
+```bash
+git push origin v0.1.1
+```
+
+Then check that [the package page](https://packagist.org/packages/nepdatejs/nepdate) shows the new version.
