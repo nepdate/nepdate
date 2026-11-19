@@ -52,3 +52,24 @@ jobs:
           node-version: 18
       - run: node --version && node check.mjs && node check.cjs
         working-directory: consumer
+
+  php:
+    # The PHP port (php/): its data and fixtures must match packages/core
+    # (scripts/gen-php.ts --check, run by `pnpm verify` above), and its tests
+    # must pass on every supported PHP version.
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.3', '8.4', '8.5']
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, json
+          coverage: none
+          tools: composer:v2
+      - run: composer update --no-interaction --no-progress --prefer-dist
+      - run: composer verify

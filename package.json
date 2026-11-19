@@ -21,7 +21,7 @@
     "check:packages": "pnpm -r --workspace-concurrency=1 --filter \"./packages/*\" check:package",
     "gen:data": "node scripts/gen-data.ts",
     "dev": "pnpm --filter @nepdatejs/playground dev",
-    "verify": "pnpm format:check && pnpm lint && pnpm check:boundaries && pnpm check:data && pnpm typecheck && pnpm test:coverage && pnpm build && pnpm check:packages && pnpm smoke && pnpm check:holidays && pnpm check:size && pnpm check:docs",
+    "verify": "pnpm format:check && pnpm lint && pnpm check:boundaries && pnpm check:data && pnpm typecheck && pnpm test:coverage && pnpm build && pnpm check:php && pnpm check:packages && pnpm smoke && pnpm check:holidays && pnpm check:size && pnpm check:docs",
     "changeset": "changeset",
     "release": "pnpm verify && changeset publish",
     "check:size": "node scripts/check-size.ts",
@@ -32,7 +32,9 @@
     "check:holidays": "node scripts/check-holidays.ts",
     "check:consumer": "node scripts/consumer.ts all",
     "check:docs": "node scripts/check-docs.ts",
-    "npm:bootstrap": "node scripts/npm-bootstrap.ts"
+    "npm:bootstrap": "node scripts/npm-bootstrap.ts",
+    "gen:php": "node scripts/gen-php.ts",
+    "check:php": "node scripts/gen-php.ts --check"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",
