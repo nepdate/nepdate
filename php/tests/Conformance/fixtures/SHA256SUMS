@@ -1,6 +1,6 @@
-# @nepdatejs/core@0.1.1
-87b691c7575fa557314267189e91490d046e110e30e7920317bf6cb87527b62c  data/bs-table.json
-eda812f3143246d537079f253b9425d21479afb24feec59a9b8d938fae704dce  data/locales.json
+# @nepdatejs/core@0.1.2
+132f3651e650ef2b827825ed73f3734f95fc01df2295f2df386e5334fd7bed99  data/bs-table.json
+aff5e1ef61b9efa4285dd52b74c67dd1f4a46e2454446336f806b1f58881b89d  data/locales.json
 56e00e068960a92107dc9a861c8da9a10db6d1d0372e90848b8f40576cb43877  tests/Conformance/fixtures/days.json
 280a7ecc6e3a9531f71939725f261f1e9a018750342eff35368892a686191de3  tests/Conformance/fixtures/edges.json
 6809d77be084b4d42a386862b20dac979b8d453c5720f3d21e1380d3a649dfc9  tests/Conformance/fixtures/arithmetic.json
