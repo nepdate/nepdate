@@ -136,11 +136,11 @@ pnpm split:php 0.1.2 --dry-run
 pnpm split:php 0.1.2
 ```
 
-Then check that [the package page](https://packagist.org/packages/nepdatejs/nepdate) shows the new version. If Packagist isn't auto-updated yet (the package page says so), press **Update** there.
+Packagist picks up the new tag from the GitHub webhook within a minute; check that [the package page](https://packagist.org/packages/nepdatejs/nepdate) shows it.
 
 ### Setup (done once)
 
 - [x] Create `nepdate/nepdate-php` on GitHub, public, with issues, wiki and projects turned off; its description points to this repository.
 - [x] Push the first split and tag `v0.1.1`: `pnpm split:php 0.1.1 --from origin/main` (the `@nepdatejs/core@0.1.1` commit predates `php/`).
 - [x] On Packagist, sign in with GitHub (two-factor authentication on) and set the package's repository URL to `https://github.com/nepdate/nepdate-php`.
-- [ ] Turn on auto-update: on your Packagist profile, **Retry hook sync**, or add the webhook described on [packagist.org/about](https://packagist.org/about#how-to-update-packages) to `nepdate-php`.
+- [x] Turn on auto-update: the Packagist.org GitHub app has access to the `nepdate` organisation, and [triggering a hook sync](https://packagist.org/trigger-github-sync/) added a push webhook to `nepdate-php`. If the package page ever says it is not auto-updated, trigger the sync again.
