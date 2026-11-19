@@ -126,6 +126,7 @@ Exports, type names, `ndp-*` class names, custom element names, attributes and e
 
 - [ ] Sign in at [packagist.org](https://packagist.org/) with GitHub and turn on two-factor authentication.
 - [ ] **Submit** `https://github.com/nepdate/nepdate`. Packagist installs the GitHub hook itself; check that the package page says it is auto-updated.
+- [ ] Tag the first version on the commit that added `composer.json` (the `@nepdatejs/core@0.1.1` commit has none): `git tag -s v0.1.1 -m "nepdatejs/nepdate 0.1.1" origin/main`, then `git push origin v0.1.1`. From the next release on, follow the steps below.
 
 ### Each release
 
