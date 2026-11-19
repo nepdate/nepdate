@@ -92,9 +92,7 @@ describe('typing (TEST-026)', () => {
 
     const ne = make({ locale: 'ne' });
     ne.actions.type('abc');
-    expect(ne.getState().error?.message).toBe(
-      'वि.सं. मिति YYYY-MM-DD ढाँचामा लेख्नुहोस्।',
-    );
+    expect(ne.getState().error?.message).toBe('वि.सं. मिति YYYY-MM-DD ढाँचामा लेख्नुहोस्।');
     expect(ne.getState().placeholder).toBe('YYYY-MM-DD (वि.सं.)');
   });
 
