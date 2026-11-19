@@ -19,3 +19,10 @@ updates:
       # typescript-eslint doesn't support TypeScript 7 yet (it needs < 6.1).
       - dependency-name: typescript
         update-types: ['version-update:semver-major']
+  - package-ecosystem: composer
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      development:
+        dependency-type: development

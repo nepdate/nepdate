@@ -31,6 +31,8 @@ formatDate(adToBs(adDate(2026, 10, 18)), 'long'); // "1 Kartik 2083"
 | [`@nepdatejs/holidays`](packages/holidays)     | Nepal's national days and a loader for each year's official list.                                                      |
 | [`@nepdatejs/dom`](packages/dom)               | Small browser helpers the adapters share (popover placement, outside click, Escape).                                   |
 
+For PHP, [`nepdatejs/nepdate`](php) on Composer is a port of `core` that gives the same answers: CI checks every BS day 1970–2099 and every format, parse and fiscal-year case against it.
+
 Each package does one job, and lower packages never import higher ones. `core` ← `calendar` ← `datepicker` ← `react` / `vanilla`. CI checks these rules.
 
 ## Quick start
@@ -113,6 +115,7 @@ pnpm install
 pnpm verify    # format, lint, package rules, typecheck, tests, build, package checks, size, docs samples
 pnpm dev       # playground at http://localhost:5180
 pnpm --filter @nepdatejs/docs dev   # docs at http://localhost:5181
+composer install && composer verify # the PHP port: Pint, PHPStan, Pest
 ```
 
 ## Licence

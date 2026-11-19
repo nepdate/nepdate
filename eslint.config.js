@@ -62,6 +62,7 @@ export default tseslint.config(
     ignores: [
       '**/dist/**',
       '**/coverage/**',
+      'vendor/**',
       'docs/**',
       'apps/docs/**',
       'scripts/test/fixtures/**',
