@@ -35,7 +35,8 @@
     "npm:bootstrap": "node scripts/npm-bootstrap.ts",
     "gen:php": "node scripts/gen-php.ts",
     "check:php": "node scripts/gen-php.ts --check",
-    "split:php": "node scripts/split-php.ts"
+    "split:php": "node scripts/split-php.ts",
+    "version-packages": "changeset version && pnpm --filter @nepdatejs/core build && node scripts/gen-php.ts"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.18.5",

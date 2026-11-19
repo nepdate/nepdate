@@ -88,8 +88,9 @@ For each package on npm, open **Settings → Publishing access** and choose **Re
 ## Every later release
 
 1. Add a changeset to each pull request that changes a package: `pnpm changeset`.
-2. After merging, the workflow opens or updates the version pull request.
+2. After merging, the workflow opens or updates the version pull request. It runs `pnpm version-packages`, which also regenerates the PHP package's data (`php/data` records core's version).
 3. Merge it when you're ready. The workflow publishes everything that changed.
+4. Publish the PHP package with the same version: `pnpm split:php <version>` (see [PHP package](#php-package)).
 
 `main` is protected, and GitHub doesn't run CI on the version pull request, so it can't meet the required checks by itself. Merge it as an admin:
 
